@@ -1004,3 +1004,15 @@ html.calm .ring-stage{transition:none}
   .dev-facts b{font-size:clamp(22px,1.9vw,30px);margin-bottom:6px}
 }
 @media (min-width:900px){ .dev-row > .dev-copy .dev-lead{font-size:clamp(17px,1.25vw,20px);max-width:32em} }
+
+/* 19/11 noite: the developer's logo sits on the film, above the title, like on the share cards; shade behind so it reads */
+.dev-brand{position:absolute;z-index:2;left:var(--pad);right:var(--pad);bottom:34px}
+.dev-brand .dev-h{position:static;left:auto;right:auto;bottom:auto}
+.dev-brand .dev-logo{display:block;width:118px;height:auto;margin:0 0 18px;filter:drop-shadow(0 4px 18px rgba(0,0,0,.55))}
+.dev-brand .dev-h{text-shadow:0 6px 30px rgba(0,0,0,.45)}
+.dev-film::before{content:"";position:absolute;z-index:1;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 0% 100%,rgba(6,16,32,.72) 0,rgba(6,16,32,.35) 40%,rgba(6,16,32,0) 70%)}
+@media (min-width:900px){
+  .dev-brand{left:max(var(--pad),calc((100vw - var(--max)) / 2));right:auto;bottom:60px}
+  .dev-brand .dev-logo{width:clamp(150px,11vw,200px);margin-bottom:26px}
+  .dev-row > .dev-copy{justify-content:flex-start}
+}
