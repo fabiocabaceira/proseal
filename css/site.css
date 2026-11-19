@@ -929,3 +929,39 @@ html.calm .ring-stage{transition:none}
   .reels-list button{font-size:19px}
 }
 @media (min-width:1500px){ .reels-p,.reels-list span{font-size:15.5px} .reels-list button{font-size:21px} }
+
+
+/* 19/11 noite: on arrival only the hero is on screen (the tape and the figures start below the fold) */
+.hero{height:100svh;max-height:none}
+
+/* The Villas Beacon Point: the developer's own logo above the text */
+.dev-logo{display:block;width:150px;height:auto;margin:0 0 26px}
+@media (min-width:900px){ .dev-logo{width:190px;margin-bottom:30px} }
+/* phones: a square frame so the renders are not cropped to a sliver and blown up */
+@media (max-width:899px){ .dev-pic{aspect-ratio:1/1} }
+
+/* where to find us, rethought: the photograph is a framed print beside the details, no longer the ground */
+.contact{display:grid !important;grid-template-columns:minmax(0,1fr);gap:26px;padding:var(--gap) var(--pad) !important}
+.contact-h{grid-area:auto;order:-1;align-self:auto;margin:0;color:var(--ink);font-size:clamp(44px,12vw,64px)}
+.contact-img{grid-area:auto;position:relative;margin:0;min-height:0;border-radius:18px;overflow:hidden;box-shadow:0 40px 70px -40px rgba(11,33,64,.55);-webkit-mask-image:none;mask-image:none}
+.contact-img img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:0}
+.contact-img::after{background:linear-gradient(0deg,rgba(7,20,40,.55) 0,rgba(7,20,40,0) 45%)}
+.contact-img figcaption{position:absolute;z-index:1;left:16px;bottom:16px;display:flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;border-radius:999px;font-size:13px;color:#fff;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%)}
+.contact-img figcaption span{padding:4px 10px;border-radius:999px;background:#f2b705;color:#101c2e;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.contact-copy{grid-area:auto;margin:0;padding:20px 20px 6px;background:#fff;border-radius:18px;box-shadow:0 24px 50px -34px rgba(11,33,64,.4)}
+@media (min-width:900px){
+  .contact{grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:auto auto;column-gap:clamp(40px,5vw,88px);row-gap:28px;align-items:end;
+    padding:var(--gap) max(var(--pad),calc((100vw - var(--max)) / 2)) !important}
+  .contact-img{grid-column:1/7;grid-row:1/3;align-self:stretch;border-radius:24px}
+  .contact-img img{height:100%;min-height:520px;aspect-ratio:auto}
+  .contact-img figcaption{left:24px;bottom:24px}
+  .contact-h{grid-column:7/13;grid-row:1;align-self:end;font-size:clamp(52px,5vw,84px)}
+  .contact-copy{grid-column:7/13;grid-row:2;align-self:start;padding:28px 32px 10px}
+}
+.contact-img img{object-position:50% 28%}
+@media (min-width:900px){
+  .contact{align-items:center}
+  .contact-img{align-self:center}
+  .contact-img img{height:min(66vh,640px);min-height:440px}
+}
