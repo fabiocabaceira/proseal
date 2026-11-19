@@ -461,8 +461,10 @@
       btn(li);
     });
     num.textContent = `${String(cur % R + 1).padStart(2, '0')} / ${String(R).padStart(2, '0')}`;
+    document.querySelectorAll('[data-reel-go]').forEach(b => b.toggleAttribute('aria-current', +b.dataset.reelGo === cur % R));
   };
   const go = i => { cur = (i + N) % N; paint(); };
+  document.querySelectorAll('[data-reel-go]').forEach(b => b.addEventListener('click', () => go(+b.dataset.reelGo)));
   root.querySelector('[data-reels-ant]').addEventListener('click', () => go(cur - 1));
   root.querySelector('[data-reels-seg]').addEventListener('click', () => go(cur + 1));
   root.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') go(cur - 1); if (e.key === 'ArrowRight') go(cur + 1); });

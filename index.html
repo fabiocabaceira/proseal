@@ -19,7 +19,7 @@
 <script>(function(){var c=navigator.connection||{},l=c.saveData||/(^|-)2g|^3g/.test(c.effectiveType||"");try{l=l||matchMedia("(prefers-reduced-data: reduce)").matches}catch(e){}if(l)document.documentElement.classList.add("lite")})()</script>
 <link rel="preload" href="fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="img/hero-obra-poster-m.webp" imagesrcset="img/hero-obra-poster-m.webp 780w, img/hero-obra-poster-1600.webp 1920w" imagesizes="(min-width:900px) 100vw, 780px" fetchpriority="high">
-<link rel="stylesheet" href="css/site.css?v=1911b">
+<link rel="stylesheet" href="css/site.css?v=1911c">
 </head>
 <body class="home">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -80,11 +80,23 @@
     <div><dt>50</dt><dd>people on staff, approximately</dd></div>
     <div><dt>3</dt><dd>countries we buy direct from</dd></div>
   </dl>
-  <!-- reels: the same carousel as Pantiera (front reel plays, neighbours tilted behind, glass panel) -->
+  <!-- reels: the carousel on the left, a short text and the list of the four films on the right -->
+  <div class="reels-row">
+  <div class="reels-copy">
+    <h2 class="h">Short films, <em>from the site.</em></h2>
+    <p class="reels-p">Under a minute each. What we build, where water gets in, and what to ask before you hire a builder in Gibraltar.</p>
+    <ol class="reels-list">
+      <li><button type="button" data-reel-go="0" aria-current="true"><span>01</span>We do both</button></li>
+      <li><button type="button" data-reel-go="1"><span>02</span>Water always finds the gap</button></li>
+      <li><button type="button" data-reel-go="2"><span>03</span>Ask three questions</button></li>
+      <li><button type="button" data-reel-go="3"><span>04</span>Site news: Europa Point</button></li>
+    </ol>
+  </div>
   <div class="reels" data-reels tabindex="0" aria-roledescription="carousel" aria-label="ProSeal reels">
     <ul class="reels-palco" data-reels-palco></ul>
     <div class="reels-painel"><button type="button" class="reels-seta" data-reels-ant aria-label="Previous reel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="reels-num" data-reels-num aria-live="polite">01 / 04</span><button type="button" class="reels-seta" data-reels-seg aria-label="Next reel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
     <script type="application/json" id="reels-dados">[{"id":"r1-we-do-both","t":"We do both."},{"id":"r2-water","t":"Water always finds the gap."},{"id":"r3-three-questions","t":"Hiring a builder in Gibraltar? Ask three questions."},{"id":"r4-europa-point","t":"Site news: Europa Point."}]</script>
+  </div>
   </div>
 </section>
 
@@ -254,6 +266,6 @@
   <button type="button" id="lbClose"><span>Close</span></button>
 </dialog>
 
-<script src="js/site.js?v=1911b" defer></script>
+<script src="js/site.js?v=1911c" defer></script>
 </body>
 </html>

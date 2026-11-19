@@ -912,3 +912,20 @@ html.calm .ring-stage{transition:none}
   .facts dd,.what-p{font-size:15.5px}
   .fan{--w:min(19vw,340px)}
 }
+
+/* 19/11: reels on the left, a short text and the four films on the right (on the phone the text comes first) */
+.reels-row{grid-column:1/-1;display:grid;gap:34px;margin-top:64px}
+.reels-row .reels{margin-top:0}
+.reels-p{margin-top:14px;color:var(--mute);max-width:26em}
+.reels-list{margin-top:22px;border-top:1px solid var(--line)}
+.reels-list button{display:flex;align-items:baseline;gap:14px;width:100%;min-height:52px;padding:14px 0;border:0;border-bottom:1px solid var(--line);background:none;font:inherit;font-size:17px;letter-spacing:-.02em;color:var(--mute);text-align:left;cursor:pointer;transition:color .3s var(--ease),padding .3s var(--ease)}
+.reels-list span{font-size:12px;letter-spacing:.14em;font-variant-numeric:tabular-nums}
+.reels-list button:hover,.reels-list button[aria-current]{color:var(--ink)}
+.reels-list button[aria-current]{padding-left:10px;box-shadow:inset 3px 0 0 var(--tape-b)}
+@media (min-width:900px){
+  .reels-row{grid-template-columns:7fr 5fr;column-gap:72px;align-items:center;margin-top:110px}
+  .reels-row .reels{grid-row:1;grid-column:1}
+  .reels-row .reels-copy{grid-column:2}
+  .reels-list button{font-size:19px}
+}
+@media (min-width:1500px){ .reels-p,.reels-list span{font-size:15.5px} .reels-list button{font-size:21px} }
