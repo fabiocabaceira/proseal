@@ -50,7 +50,7 @@
       const beads = $$('.bead', weld), hots = $$('.hot', weld);
       const lens = beads.map(p => p.getTotalLength());
       const heads = beads.map(p => { const h = document.createElementNS(NS, 'circle'); h.setAttribute('class', 'hd'); h.setAttribute('r', 2.6 * k); const p0 = p.getPointAtLength(0); h.setAttribute('cx', p0.x); h.setAttribute('cy', p0.y); p.parentNode.append(h); return h; });
-      const D = 3400, t0 = performance.now() + 500;
+      const D = 1500, t0 = performance.now() + 150;
       await new Promise(done => {
         const f = now => {
           const raw = Math.max(0, Math.min(1, (now - t0) / D)), p = raw < .5 ? 2 * raw * raw : 1 - Math.pow(-2 * raw + 2, 2) / 2;
@@ -68,12 +68,12 @@
       heads.forEach(h => h.remove());
       /* the seams cool from orange to steel, then the plate is simply there */
       seal.classList.add('cool');
-      await wait(1700);
+      await wait(650);
       const a = weld.getBoundingClientRect(), b = logoBox.getBoundingClientRect();
       const s = b.width / a.width;
       const dx = (b.left + b.width / 2) - (a.left + a.width / 2), dy = (b.top + b.height / 2) - (a.top + a.height / 2);
       root.classList.add('seal-out', 'scaf-go', 'titled');
-      await weld.animate([{ transform: 'none' }, { transform: `translate(${dx}px,${dy}px) scale(${s})` }], { duration: 1300, easing: 'cubic-bezier(.6,0,.15,1)', fill: 'forwards' }).finished;
+      await weld.animate([{ transform: 'none' }, { transform: `translate(${dx}px,${dy}px) scale(${s})` }], { duration: 850, easing: 'cubic-bezier(.6,0,.15,1)', fill: 'forwards' }).finished;
     } catch {}
     finish();
   }
