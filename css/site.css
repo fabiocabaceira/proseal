@@ -1016,3 +1016,17 @@ html.calm .ring-stage{transition:none}
   .dev-brand .dev-logo{width:clamp(150px,11vw,200px);margin-bottom:26px}
   .dev-row > .dev-copy{justify-content:flex-start}
 }
+
+/* 19/11 noite: The Villas Beacon Point logo redrawn sharp (mark traced to vector from the developer's PNG, words set in Archivo wide); it replaces the repeated title on the film */
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.bp-logo{--lw:210px;width:var(--lw);display:flex;flex-direction:column;align-items:center;font-size:var(--lw);line-height:1;filter:drop-shadow(0 6px 22px rgba(0,0,0,.5))}
+.bp-mark{width:.44em;height:auto;display:block;margin-bottom:.075em}
+.bp-1,.bp-2{display:block;white-space:nowrap;text-transform:uppercase;font-stretch:118%;text-align:center}
+.bp-1{font-size:.112em;font-weight:300;letter-spacing:.13em;margin-right:-.13em;color:#e3d6b6}
+.bp-rule{display:block;width:100%;height:1px;margin:.05em 0 .055em;background:linear-gradient(90deg,rgba(214,199,163,.2),rgba(214,199,163,.85) 50%,rgba(214,199,163,.2))}
+.bp-2{font-size:.064em;font-weight:500;letter-spacing:.5em;margin-right:-.5em;color:#fff}
+.dev-brand .bp-logo{margin:0}
+@media (min-width:900px){ .bp-logo{--lw:clamp(300px,25vw,420px)} .dev-brand{bottom:56px} }
+.bp-1,.bp-2{line-height:.78}
+.bp-1{letter-spacing:.15em;margin-right:-.15em}
+.bp-rule{margin:.042em 0 .05em}
