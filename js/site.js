@@ -34,11 +34,9 @@
   }
   async function opening() {
     const weld = seal && $('.weld', seal);
-    /* plays on arrival and on every refresh; coming back from another page of the site does not replay it */
-    const nav = performance.getEntriesByType('navigation')[0];
-    const again = session.get('opened') === '1' && !(nav && nav.type === 'reload');
-    if (!seal || !weld || isCalm() || !weld.animate || again || location.hash) return finish();
-    session.set('opened', '1');
+    /* plays every time the home page loads: arrival, every refresh, coming back from another page */
+    if (!seal || !weld || isCalm() || !weld.animate) return finish();
+    const target = location.hash;
     history.scrollRestoration = 'manual';
     root.classList.add('opening');
     window.scrollTo(0, 0);
@@ -76,8 +74,11 @@
       await weld.animate([{ transform: 'none' }, { transform: `translate(${dx}px,${dy}px) scale(${s})` }], { duration: 850, easing: 'cubic-bezier(.6,0,.15,1)', fill: 'forwards' }).finished;
     } catch {}
     finish();
+    if (target) { const el = d.getElementById(target.slice(1)); if (el) el.scrollIntoView(); }
   }
   opening();
+  /* back/forward from the page cache: play it again too */
+  window.addEventListener('pageshow', e => { if (e.persisted && seal) location.reload(); });
   window.addEventListener('load', () => root.classList.add('smooth'));
 
   /* where we are, in the bar */
