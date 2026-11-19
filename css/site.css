@@ -965,3 +965,29 @@ html.calm .ring-stage{transition:none}
   .contact-img{align-self:center}
   .contact-img img{height:min(66vh,640px);min-height:440px}
 }
+
+/* 19/11 noite, v2 of where to find us: title, a wide panorama of the bay and the site (the concrete wall cropped away), the three ways in below, no card */
+.contact{gap:28px;align-items:stretch}
+.contact-img{border-radius:18px;box-shadow:none}
+.contact-img::after{display:none}
+.contact-img img{aspect-ratio:4/3;height:auto;min-height:0;object-position:50% 12%}
+.contact-copy{background:none;box-shadow:none;border-radius:0;padding:0}
+@media (min-width:900px){
+  .contact{grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:auto auto auto;row-gap:44px;align-items:end}
+  .contact-h{grid-column:1/-1;grid-row:1;font-size:clamp(56px,6vw,104px)}
+  .contact-img{grid-column:1/-1;grid-row:2;align-self:auto;border-radius:24px}
+  .contact-img img{height:auto;min-height:0;aspect-ratio:21/8;object-position:50% 14%}
+  .contact-copy{grid-column:1/-1;grid-row:3;padding:0}
+  .contact-copy .rows{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(24px,3vw,48px);margin-top:18px}
+  .contact-copy .rows li a{border-bottom:0;border-top:1px solid var(--line);padding-top:22px}
+  .contact-copy .rows li:last-child a{border-bottom:0}
+}
+@media (min-width:900px){
+  .contact{row-gap:32px}
+  .contact-h{font-size:clamp(52px,5vw,88px)}
+  .contact-img img{aspect-ratio:auto;height:clamp(260px,36vh,420px);object-position:50% 30%}
+}
+@media (min-width:900px){
+  .contact-img img{object-position:50% 22%}
+  .contact-copy .rows li a{border-top:0;padding-top:20px}
+}
