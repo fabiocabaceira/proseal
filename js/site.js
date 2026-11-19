@@ -417,3 +417,83 @@
     if (!home) dock.style.display = 'none';
   }
 })();
+
+/* 19/11: reels carousel (the Pantiera component). The front reel plays muted when the section is in view; one tap on the
+   speaker turns the sound on inside the tap (iOS only allows it there). Arrows, keys, drag, swipe and the trackpad's sideways
+   gesture move one reel at a time. Only the front reel and its two neighbours load. */
+(() => {
+  const root = document.querySelector('[data-reels]'); if (!root) return;
+  const stage = root.querySelector('[data-reels-palco]'), num = root.querySelector('[data-reels-num]');
+  const real = JSON.parse(document.getElementById('reels-dados').textContent), R = real.length;
+  const data = R < 6 ? real.concat(real) : real, N = data.length; // repeated so both sides always have a neighbour
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const snd = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="on" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/><path class="off" d="m16 9.5 5 5m0-5-5 5"/></svg>';
+  let cur = 0, inView = false, soundOn = false;
+  const cards = data.map((r, i) => {
+    const li = document.createElement('li');
+    li.className = 'reels-cartao';
+    li.innerHTML = `<video muted playsinline preload="none" poster="img/reels/${r.id}.webp" data-src="img/reels/${r.id}.mp4" width="540" height="960" aria-label="Reel: ${r.t.replace(/"/g, '&quot;')}"></video><button type="button" class="reels-som" aria-pressed="false" aria-label="Turn sound on">${snd}</button>`;
+    li.addEventListener('click', e => { if (cur !== i && !e.target.closest('.reels-som')) go(i); });
+    li.querySelector('video').addEventListener('ended', () => { if (cur === i) go(i + 1); });
+    stage.append(li);
+    return li;
+  });
+  const btn = li => { const v = li.querySelector('video'), b = li.querySelector('.reels-som'), on = !v.muted && !v.paused; b.setAttribute('aria-pressed', String(on)); b.setAttribute('aria-label', on ? 'Mute' : 'Turn sound on'); };
+  cards.forEach(li => { const v = li.querySelector('video'); ['volumechange', 'play', 'pause'].forEach(t => v.addEventListener(t, () => btn(li))); });
+  const paint = () => {
+    const wide = innerWidth >= 900;
+    cards.forEach((li, i) => {
+      let d = i - cur; if (d > N / 2) d -= N; if (d < -N / 2) d += N; const a = Math.abs(d);
+      const x = d * (wide ? 74 : 60), rot = a === 0 ? 1.5 : (d < 0 ? -2 : 2.5) * (a === 1 ? 1 : .6);
+      li.style.transform = `translate3d(${x}%,0,0) scale(${Math.max(.7, 1 - a * .13)}) rotate(${rot}deg)`;
+      li.style.zIndex = String(50 - a);
+      li.style.opacity = a > 1 ? '0' : '1';
+      li.style.pointerEvents = a > 1 ? 'none' : 'auto';
+      li.classList.toggle('frente', a === 0);
+      li.setAttribute('aria-hidden', a ? 'true' : 'false');
+      li.querySelectorAll('button').forEach(el => el.tabIndex = a ? -1 : 0);
+      const v = li.querySelector('video');
+      if (a <= 1 && !v.getAttribute('src')) v.src = v.dataset.src;
+      if (a <= 1 && inView) v.preload = a === 0 ? 'auto' : 'metadata';
+      if (a === 0 && inView && !calm) { v.muted = !soundOn; v.play().catch(() => { soundOn = false; v.muted = true; v.play().catch(() => {}); }); }
+      else if (a === 0 && inView && calm && soundOn) { v.muted = false; v.play().catch(() => {}); }
+      else { v.pause(); v.muted = true; }
+      btn(li);
+    });
+    num.textContent = `${String(cur % R + 1).padStart(2, '0')} / ${String(R).padStart(2, '0')}`;
+  };
+  const go = i => { cur = (i + N) % N; paint(); };
+  root.querySelector('[data-reels-ant]').addEventListener('click', () => go(cur - 1));
+  root.querySelector('[data-reels-seg]').addEventListener('click', () => go(cur + 1));
+  root.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') go(cur - 1); if (e.key === 'ArrowRight') go(cur + 1); });
+  stage.addEventListener('click', e => {
+    const b = e.target.closest('.reels-som'); if (!b) return;
+    const v = b.closest('li').querySelector('video');
+    soundOn = v.muted || v.paused;
+    if (!v.getAttribute('src')) v.src = v.dataset.src;
+    v.muted = !soundOn;
+    if (soundOn) v.play().catch(() => { soundOn = false; v.muted = true; });
+    paint();
+  });
+  let x0 = null;
+  stage.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') x0 = e.clientX; }, { passive: true });
+  addEventListener('pointerup', e => { if (x0 === null) return; const dx = e.clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1)); }, { passive: true });
+  let locked = false, acc = 0, tAcc = 0;
+  root.addEventListener('wheel', e => {
+    if (e.ctrlKey) return;
+    const k = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? innerWidth : 1, dx = e.deltaX * k, dy = e.deltaY * k;
+    if (Math.abs(dx) <= Math.abs(dy) * 1.1) return;
+    e.preventDefault();
+    acc += dx;
+    if (locked) acc = 0; else if (Math.abs(acc) > 28) { go(cur + (acc > 0 ? 1 : -1)); acc = 0; locked = true; }
+    clearTimeout(tAcc); tAcc = setTimeout(() => { acc = 0; locked = false; }, 200);
+  }, { passive: false });
+  let t0 = null;
+  root.addEventListener('touchstart', e => { const t = e.touches[0]; t0 = { x: t.clientX, y: t.clientY }; }, { passive: true });
+  root.addEventListener('touchend', e => { if (!t0) return; const t = e.changedTouches[0], dx = t.clientX - t0.x, dy = t.clientY - t0.y; t0 = null; if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) go(cur + (dx < 0 ? 1 : -1)); }, { passive: true });
+  addEventListener('touchend', () => { if (!inView) return; const v = cards[cur].querySelector('video'); if (v.paused && !calm) { if (!v.getAttribute('src')) v.src = v.dataset.src; v.play().catch(() => {}); } }, { capture: true, passive: true });
+  new IntersectionObserver(([e]) => { inView = e.isIntersecting; paint(); }, { threshold: .3 }).observe(root);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) cards[cur].querySelector('video').pause(); else paint(); });
+  addEventListener('resize', paint);
+  paint();
+})();
