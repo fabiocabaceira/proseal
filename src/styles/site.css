@@ -1023,21 +1023,24 @@ html.calm .ring-stage{transition:none}
 .bar.dark .logo-box{box-shadow:0 0 0 1px rgba(255,255,255,.3)}
 .dev-cta{text-wrap:balance}
 
-/* 20/11 · mobile: centre the hero title inside the window, and the quote/call capsule */
+/* 20/11 · mobile: the video window sits under the bar and above the dock, with equal side gaps.
+   clip-path with 66vw plus the opening scale() painted the window off-centre on iOS Safari. */
 @media (max-width:899px){
-  .xh-copy{
-    padding-left:max(16px,calc((100% - var(--w0)) / 2 + 14px));
-    padding-right:max(16px,calc((100% - var(--w0)) / 2 + 14px));
+  main > .xh{
+    --win-top:calc(var(--bar) + 12px);
+    --win-side:40px;
+    --win-bot:calc(76px + env(safe-area-inset-bottom, 0px));
   }
-  .xh-title{
-    max-width:100%;
-    font-size:clamp(22px,calc((var(--w0) - 28px) / 8.5),40px);
+  .xh-win{
+    -webkit-clip-path:inset(calc(var(--win-top) * (1 - var(--e))) calc(var(--win-side) * (1 - var(--e))) calc(var(--win-bot) * (1 - var(--e))) calc(var(--win-side) * (1 - var(--e))) round calc(var(--r0) * (1 - var(--e))));
+    clip-path:inset(calc(var(--win-top) * (1 - var(--e))) calc(var(--win-side) * (1 - var(--e))) calc(var(--win-bot) * (1 - var(--e))) calc(var(--win-side) * (1 - var(--e))) round calc(var(--r0) * (1 - var(--e))));
+    transform:none;
   }
+  html.opening:not(.titled) .xh-win{transform:none}
+  .xh-copy{padding:calc(var(--win-top) + 16px) calc(var(--win-side) + 14px) calc(var(--win-bot) + 16px)}
+  .xh-title{max-width:100%;font-size:clamp(24px,8.2vw,36px)}
   .xh-title > *{max-width:100%}
-  .xh-meta{
-    width:var(--w0);
-    max-width:calc(100% - 32px);
-  }
+  .xh-meta,.xh-go{display:none}
   .dock{
     left:12px;
     right:12px;
