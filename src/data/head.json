@@ -1,0 +1,569 @@
+{
+  "index": {
+    "bodyClass": "home",
+    "title": "ProSeal Construction | Builders in Gibraltar since 2002",
+    "head": [
+      {
+        "tag": "meta",
+        "attrs": {
+          "charset": "utf-8"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1, viewport-fit=cover"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "description",
+          "content": "ProSeal Construction builds new homes and restores existing buildings in Gibraltar. Founded in 2002. Call +350 200 47974 for a quote."
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "robots",
+          "content": "noindex"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:type",
+          "content": "website"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:site_name",
+          "content": "ProSeal Construction"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:title",
+          "content": "ProSeal Construction | Builders in Gibraltar since 2002"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:description",
+          "content": "ProSeal Construction builds new homes and restores existing buildings in Gibraltar. Founded in 2002. Call +350 200 47974 for a quote."
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:url",
+          "content": "https://tomas476.github.io/proseal/"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image",
+          "content": "https://tomas476.github.io/proseal/img/og-proseal-v3.jpg"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:width",
+          "content": "1200"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:height",
+          "content": "630"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:type",
+          "content": "image/jpeg"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:alt",
+          "content": "ProSeal Construction, Gibraltar builder since 2002: building the future, restoring the past."
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "twitter:card",
+          "content": "summary_large_image"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "theme-color",
+          "content": "#0c2444"
+        }
+      },
+      {
+        "tag": "link",
+        "attrs": {
+          "rel": "preload",
+          "href": "fonts/archivo.woff2",
+          "as": "font",
+          "type": "font/woff2",
+          "crossorigin": ""
+        }
+      },
+      {
+        "tag": "link",
+        "attrs": {
+          "rel": "preload",
+          "as": "image",
+          "href": "img/hero-bg-poster-m.webp",
+          "media": "(max-width:899px) and (orientation:portrait)",
+          "fetchpriority": "high"
+        }
+      },
+      {
+        "tag": "link",
+        "attrs": {
+          "rel": "preload",
+          "as": "image",
+          "href": "img/hero-bg-poster-1920.webp",
+          "media": "(min-width:900px), (orientation:landscape)",
+          "fetchpriority": "high"
+        }
+      },
+      {
+        "tag": "link",
+        "attrs": {
+          "rel": "preload",
+          "as": "image",
+          "href": "img/gunwharf-arch-900.webp",
+          "imagesrcset": "img/gunwharf-arch-480.webp 480w, img/gunwharf-arch-900.webp 900w, img/gunwharf-arch-1600.webp 1600w",
+          "imagesizes": "100vw",
+          "fetchpriority": "high"
+        }
+      },
+      {
+        "tag": "link",
+        "attrs": {
+          "rel": "stylesheet",
+          "href": "css/site.css?v=1911k"
+        }
+      }
+    ]
+  },
+  "works": {
+    "bodyClass": "sub",
+    "title": "Works | ProSeal Construction, Gibraltar",
+    "head": [
+      {
+        "tag": "meta",
+        "attrs": {
+          "charset": "utf-8"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1, viewport-fit=cover"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "description",
+          "content": "Photographs from ProSeal Construction sites in Gibraltar: Gun Wharf, new houses and waterproofing."
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "robots",
+          "content": "noindex"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:type",
+          "content": "website"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:site_name",
+          "content": "ProSeal Construction"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:title",
+          "content": "Works | ProSeal Construction, Gibraltar"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:description",
+          "content": "Photographs from ProSeal Construction sites in Gibraltar: Gun Wharf, new houses and waterproofing."
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:url",
+          "content": "https://tomas476.github.io/proseal/works.html"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image",
+          "content": "https://tomas476.github.io/proseal/img/og-proseal-v3.jpg"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:width",
+          "content": "1200"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:height",
+          "content": "630"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:type",
+          "content": "image/jpeg"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:alt",
+          "content": "ProSeal Construction, Gibraltar builder since 2002: building the future, restoring the past."
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "twitter:card",
+          "content": "summary_large_image"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "theme-color",
+          "content": "#0c2444"
+        }
+      },
+      {
+        "tag": "link",
+        "attrs": {
+          "rel": "preload",
+          "href": "fonts/archivo.woff2",
+          "as": "font",
+          "type": "font/woff2",
+          "crossorigin": ""
+        }
+      },
+      {
+        "tag": "link",
+        "attrs": {
+          "rel": "stylesheet",
+          "href": "css/site.css?v=1911k"
+        }
+      }
+    ]
+  },
+  "how": {
+    "bodyClass": "sub",
+    "title": "How we work | ProSeal Construction, Gibraltar",
+    "head": [
+      {
+        "tag": "meta",
+        "attrs": {
+          "charset": "utf-8"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1, viewport-fit=cover"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "description",
+          "content": "Survey and quote, build, handover. How ProSeal Construction works and where in Gibraltar."
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "robots",
+          "content": "noindex"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:type",
+          "content": "website"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:site_name",
+          "content": "ProSeal Construction"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:title",
+          "content": "How we work | ProSeal Construction, Gibraltar"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:description",
+          "content": "Survey and quote, build, handover. How ProSeal Construction works and where in Gibraltar."
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:url",
+          "content": "https://tomas476.github.io/proseal/how.html"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image",
+          "content": "https://tomas476.github.io/proseal/img/og-proseal-v3.jpg"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:width",
+          "content": "1200"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:height",
+          "content": "630"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:type",
+          "content": "image/jpeg"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:alt",
+          "content": "ProSeal Construction, Gibraltar builder since 2002: building the future, restoring the past."
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "twitter:card",
+          "content": "summary_large_image"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "theme-color",
+          "content": "#0c2444"
+        }
+      },
+      {
+        "tag": "link",
+        "attrs": {
+          "rel": "preload",
+          "href": "fonts/archivo.woff2",
+          "as": "font",
+          "type": "font/woff2",
+          "crossorigin": ""
+        }
+      },
+      {
+        "tag": "link",
+        "attrs": {
+          "rel": "stylesheet",
+          "href": "css/site.css?v=1911k"
+        }
+      }
+    ]
+  },
+  "quote": {
+    "bodyClass": "sub",
+    "title": "Request a quote | ProSeal Construction, Gibraltar",
+    "head": [
+      {
+        "tag": "meta",
+        "attrs": {
+          "charset": "utf-8"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1, viewport-fit=cover"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "description",
+          "content": "Tell ProSeal Construction what you are building in Gibraltar. Three short steps, or call +350 200 47974."
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "robots",
+          "content": "noindex"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:type",
+          "content": "website"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:site_name",
+          "content": "ProSeal Construction"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:title",
+          "content": "Request a quote | ProSeal Construction, Gibraltar"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:description",
+          "content": "Tell ProSeal Construction what you are building in Gibraltar. Three short steps, or call +350 200 47974."
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:url",
+          "content": "https://tomas476.github.io/proseal/quote.html"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image",
+          "content": "https://tomas476.github.io/proseal/img/og-proseal-v3.jpg"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:width",
+          "content": "1200"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:height",
+          "content": "630"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:type",
+          "content": "image/jpeg"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "property": "og:image:alt",
+          "content": "ProSeal Construction, Gibraltar builder since 2002: building the future, restoring the past."
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "twitter:card",
+          "content": "summary_large_image"
+        }
+      },
+      {
+        "tag": "meta",
+        "attrs": {
+          "name": "theme-color",
+          "content": "#0c2444"
+        }
+      },
+      {
+        "tag": "link",
+        "attrs": {
+          "rel": "preload",
+          "href": "fonts/archivo.woff2",
+          "as": "font",
+          "type": "font/woff2",
+          "crossorigin": ""
+        }
+      },
+      {
+        "tag": "link",
+        "attrs": {
+          "rel": "stylesheet",
+          "href": "css/site.css?v=1911k"
+        }
+      }
+    ]
+  }
+}

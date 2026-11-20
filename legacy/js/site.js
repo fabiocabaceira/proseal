@@ -1,5 +1,5 @@
 /* ProSeal Construction, all four pages. No dependencies.
-   Scroll work is kept small on purpose: bar state and the site tape (only while it is on screen).
+   Scroll work is kept small on purpose: bar state, the hero window and the site tape (only while it is on screen).
    The transition between pages is CSS (view transitions, end of site.css). */
 (() => {
   const d = document, root = d.documentElement;
@@ -105,13 +105,28 @@
     new IntersectionObserver(es => es.forEach(e => { tape.seen = e.isIntersecting; works.classList.toggle('seen', tape.seen); }), { threshold: 0 }).observe(works);
   }
 
-  /* scroll: bar and tape. Nothing else listens to the scroll. */
+  /* hero (Scroll Expansion Hero, 21st.dev): progress through the tall section, written to CSS as --p and --e */
+  const xh = home && $('#top.xh');
+  let xhP = -1;
+  const xhPaint = vh => {
+    const r = xh.getBoundingClientRect(), run = r.height - vh;
+    const p = run > 0 && !isCalm() ? clamp(-r.top / run) : 0;
+    if (Math.abs(p - xhP) < 0.0005) return;
+    xhP = p;
+    xh.style.setProperty('--p', p.toFixed(4));
+    xh.style.setProperty('--e', (p * p * (3 - 2 * p)).toFixed(4));
+    xh.classList.toggle('run', p > 0.12);
+    xh.classList.toggle('done', p > 0.94);
+  };
+
+  /* scroll: bar, hero and tape. Nothing else listens to the scroll. */
   const bar = $('#bar');
   let ticking = false;
   const onScroll = () => {
     ticking = false;
     const y = window.scrollY, vh = window.innerHeight;
-    if (home) bar.classList.toggle('solid', y > Math.min(vh * .92, 900) - 90);
+    if (xh) xhPaint(vh);
+    if (home) bar.classList.toggle('solid', y > (xh ? xh.offsetHeight : Math.min(vh * .92, 900)) - 90);
     if (tape && (tape.seen || isCalm())) {
       const r = works.getBoundingClientRect();
       tape.aim(clamp((vh * 0.9 - r.top) / (r.height * 0.7 + vh * 0.15)));
