@@ -1022,3 +1022,27 @@ html.calm .ring-stage{transition:none}
 .bar.solid.dark,.sub .bar.dark{background:rgba(11,33,64,.58);color:#fff;box-shadow:0 1px 0 var(--line-n)}
 .bar.dark .logo-box{box-shadow:0 0 0 1px rgba(255,255,255,.3)}
 .dev-cta{text-wrap:balance}
+
+/* 20/11 · mobile: centre the hero title inside the window, and the quote/call capsule */
+@media (max-width:899px){
+  .xh-copy{
+    padding-left:max(16px,calc((100% - var(--w0)) / 2 + 14px));
+    padding-right:max(16px,calc((100% - var(--w0)) / 2 + 14px));
+  }
+  .xh-title{
+    max-width:100%;
+    font-size:clamp(22px,calc((var(--w0) - 28px) / 8.5),40px);
+  }
+  .xh-title > *{max-width:100%}
+  .xh-meta{
+    width:var(--w0);
+    max-width:calc(100% - 32px);
+  }
+  .dock{
+    left:12px;
+    right:12px;
+    width:max-content;
+    max-width:calc(100% - 24px);
+    margin-inline:auto;
+  }
+}
