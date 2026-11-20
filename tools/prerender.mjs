@@ -16,6 +16,10 @@ if (!existsSync(SSR)) die(2, 'dist-ssr/entry-server.js is missing: run vite buil
 
 const { render, PAGE_FILES, PAGE_HEAD } = await import(pathToFileURL(SSR).href);
 const template = readFileSync(join(DIST, 'index.html'), 'utf8');
+/* SITE_URL moves the absolute links (og:url, og:image) to the address a copy of the site is published at */
+const HOME = PAGE_HEAD.index.head.find((t) => t.attrs.property === 'og:url')?.attrs.content;
+const SITE = process.env.SITE_URL;
+const moveSite = (s) => (SITE && HOME ? s.split(HOME).join(SITE) : s);
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const attrs = (o) => Object.entries(o).map(([k, v]) => (v === '' ? k : `${k}="${esc(v)}"`)).join(' ');
 const keep = (t) => !(t.tag === 'meta' && (t.attrs.charset !== undefined || t.attrs.name === 'viewport')) && !(t.tag === 'link' && t.attrs.rel === 'stylesheet');
@@ -24,7 +28,7 @@ for (const [page, file] of Object.entries(PAGE_FILES)) {
   const head = PAGE_HEAD[page];
   const app = render(page);
   if (!app || app.length < 500) die(1, `${file} rendered empty`);
-  const tags = head.head.filter(keep).map((t) => `<${t.tag} ${attrs(t.attrs)}>`).join('\n');
+  const tags = moveSite(head.head.filter(keep).map((t) => `<${t.tag} ${attrs(t.attrs)}>`).join('\n'));
   const html = template
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(head.title)}</title>`)
     .replace('<!--page-head-->', tags)
