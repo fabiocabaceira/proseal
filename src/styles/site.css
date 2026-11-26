@@ -658,9 +658,6 @@ html.lite .tile.rise{opacity:1;transform:none;transition:none}
 .legal{max-width:52em;line-height:1.5}
 @media (min-width:900px){ .legal{text-align:right} }
 
-/* 26/11 · intro: where the company comes from, where it stands and what comes next */
-.intro-p{margin-top:18px;max-width:34em;font-size:16px;line-height:1.55;color:var(--mute)}
-
 
 /* 26/11 · works page, project by project: the facts on one side, the photographs (or the panel that waits for them) on the other */
 .wk-head .h{font-size:clamp(48px,12vw,112px)}
@@ -1120,7 +1117,6 @@ html.calm .os-row,html.calm .os-bar i{transition:none}
 
   .intro{padding-top:26px;padding-bottom:calc(24px + var(--dock-h) + env(safe-area-inset-bottom,0px))}
   .lead{font-size:17px;line-height:1.38;letter-spacing:-.015em}
-  .intro-p{margin-top:12px;font-size:14.5px;line-height:1.5}
   .facts{margin-top:22px;gap:10px}
   .facts > div{padding-top:12px}
   .facts dt{font-size:30px}

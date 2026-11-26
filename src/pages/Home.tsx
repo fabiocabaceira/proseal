@@ -15,28 +15,25 @@ export default function HomePage() {
       <Hero />
       {/* selected commissions and institutional clients, set in type on a dark band under the hero */}
       <Trust />
-      {/* 2. who we are: where the company comes from, where it stands today and what comes next, and three figures for the same */}
+      {/* 2. who we are: one sentence and three figures */}
       <section className="intro" id="about">
         <div className="intro-copy">
           <p className="lead">
-            ProSeal has been building in Gibraltar since 2002. We deliver luxury private residences, residential developments, the refurbishment of existing and historic buildings, and commercial and healthcare projects, from planning through to handover.
-          </p>
-          <p className="intro-p">
-            Today a team of around 100 people is delivering projects that range from Healy House in the South District to Turicum Private Bank and the GibMed Clinic. In 2027 we will launch an independent property maintenance service.
+            Luxury residences, restorations and commercial builds across Gibraltar since 2002.
           </p>
         </div>
         <dl className="facts" aria-label="ProSeal in figures">
           <div>
             <dt>2002</dt>
-            <dd>founded in Gibraltar</dd>
+            <dd>Founded in Gibraltar</dd>
           </div>
           <div>
             <dt><span className="sr-only">around </span><span aria-hidden="true">~</span>100</dt>
-            <dd>people on staff</dd>
+            <dd>People on staff</dd>
           </div>
           <div>
             <dt>2027</dt>
-            <dd>our property maintenance service begins</dd>
+            <dd>Property maintenance</dd>
           </div>
         </dl>
         {/* reels: the carousel on the left, a short text and the list of the four films on the right */}
@@ -53,7 +50,7 @@ export default function HomePage() {
             Tell us what{" "}
             <em>you are building.</em>
           </h2>
-          <p className="ask-lead">It takes three short steps. We then visit the site, take measurements and send you a written quote.</p>
+          <p className="ask-lead">Three short steps, then a site visit and a written quote.</p>
           <p className="ask-call">
             <a href="tel:+35020047974" data-cta="ask-call">
               Prefer to talk?{" "}

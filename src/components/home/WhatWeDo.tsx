@@ -183,7 +183,7 @@ export default function WhatWeDo() {
           What{" "}
           <em>we do.</em>
         </h2>
-        <p className="what-p">ProSeal plans, builds and manages projects of every scale across Gibraltar, with its own team on site and trusted specialist subcontractors where the work requires them.</p>
+        <p className="what-p">Our own team on site, and specialists where the work requires them.</p>
       </div>
       <div className="wwd-grid">
         <div className="wwd-col">

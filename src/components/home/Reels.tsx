@@ -199,7 +199,7 @@ export default function Reels() {
           <em>shot on site.</em>
         </h2>
         <p className="reels-p">
-          Each runs under a minute: what we build, how water finds its way into a building, and what to ask before you hire a builder in Gibraltar.
+          Under a minute each: what we build and how we work.
         </p>
         <ol className="reels-list">
           {REELS.map((r, i) => (
