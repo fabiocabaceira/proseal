@@ -156,11 +156,6 @@ html:not(.opening) .seal{display:none}
 .ask-band{background:var(--navy);color:#fff;text-align:center;padding:60px var(--pad) 130px}
 .sub .ask-band{padding-top:calc(var(--bar) + 56px)}
 .steps{position:relative;width:calc(100% - var(--pad) * 2);max-width:560px;margin:-92px auto 0;padding:22px 20px 20px;background:var(--card);border-radius:18px;box-shadow:0 24px 60px rgba(11,33,64,.14),0 0 0 1px rgba(16,28,46,.05)}
-.level{position:relative;height:2px;background:var(--line);overflow:hidden}
-.level i{position:absolute;inset:0;background:var(--navy);transform-origin:0 50%;transform:scaleX(.3333);transition:transform .8s var(--ease)}
-.steps[data-step="1"] .level i{transform:scaleX(.6667)}.steps[data-step="2"] .level i{transform:scaleX(1)}
-.steps-count{margin-top:14px;font-size:12.5px;color:var(--mute);font-variant-numeric:tabular-nums}
-.step{display:none}.step.is-on{display:block}
 legend{font-size:21px;letter-spacing:-.03em;padding:6px 0 16px}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .opts label{position:relative;display:block}
@@ -958,22 +953,45 @@ html.calm .wwp-c{transition:none}
   .os-nav{margin-top:40px}
 }
 
-/* 26/11 v2 · the quote form: the ProSeal plate heads the card, the steps slide in the direction of travel with the bar,
-   and every choice answers the hand */
-.qf-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
-.qf-mark{flex:0 0 auto;width:78px;padding:4px 7px}
-.qf-title{flex:1;min-width:0;overflow:hidden;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;text-overflow:ellipsis;color:var(--mute)}
-.qf .steps-count{margin:0;font-size:12px;letter-spacing:.14em;color:var(--mute)}
-.qf .steps-count b{display:inline-block;font-weight:500;color:var(--ink);animation:qf-up .5s var(--ease)}
-.qf .level{border-radius:2px}
-.qf .level i{transition:transform .9s cubic-bezier(.65,0,.35,1)}
-.qf-stage{display:grid;margin:8px -10px 0;padding:0 10px;overflow-x:clip}
-.qf .step{display:block;grid-area:1/1;min-width:0;transition:opacity .4s var(--ease),transform .7s cubic-bezier(.16,1,.3,1),visibility 0s linear .7s}
-.qf .step.is-past{opacity:0;visibility:hidden;transform:translateX(-40px)}
-.qf .step.is-next{opacity:0;visibility:hidden;transform:translateX(40px)}
-.qf .step.is-on{opacity:1;visibility:visible;transform:none;transition:opacity .5s var(--ease) .06s,transform .8s cubic-bezier(.16,1,.3,1) .04s,visibility 0s}
-.qf .opts label,.qf .field{opacity:0;transform:translateY(8px);transition:opacity .4s var(--ease),transform .6s var(--ease)}
-.qf .is-on .opts label,.qf .is-on .field{opacity:1;transform:none;transition-delay:calc(.12s + var(--i,0) * .035s)}
+/* 26/11 v3 · the quote form: the ProSeal plate draws itself once at the head of the card, then settles into navy with
+   white letters; three steps slide in the direction of travel under a segmented bar; a sent enquiry ends on the ProSeal
+   seal with a tick and the whole message */
+.qf-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.qf-head[hidden]{display:none}
+.qf-head-r{flex:1 1 auto;min-width:0;display:grid;justify-items:end;gap:8px;text-align:right}
+.qf-title{max-width:100%;overflow:hidden;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;text-overflow:ellipsis;color:var(--mute)}
+.qf-conta{font-size:12px;line-height:1;letter-spacing:.14em;color:var(--mute);font-variant-numeric:tabular-nums}
+.qf-conta b{display:inline-block;font-weight:500;color:var(--ink);animation:qf-up .5s var(--ease)}
+
+.pm{flex:0 1 auto;width:clamp(184px,58%,272px)}
+.pm svg{width:100%;height:auto;overflow:visible}
+.pm-traco{fill:none;stroke:var(--navy);stroke-width:64;stroke-linejoin:round;stroke-dasharray:var(--len,100000);stroke-dashoffset:var(--len,100000)}
+.pm.is-in .pm-traco{animation:pm-draw 1.15s cubic-bezier(.22,1,.36,1) forwards}
+.pm.is-in .pm-traco--l{animation-delay:.18s}
+.pm-placa{opacity:0;transform:scaleX(0);transform-box:fill-box;transform-origin:0 50%}
+.pm.is-in .pm-placa{opacity:1;transform:none;animation:pm-placa .62s cubic-bezier(.22,1,.36,1) 1.15s backwards}
+.pm-letras{fill:#fff;opacity:0}
+.pm.is-in .pm-letras{opacity:1;animation:pm-letras .42s cubic-bezier(.22,1,.36,1) 1.42s backwards}
+@keyframes pm-draw{to{stroke-dashoffset:0}}
+@keyframes pm-placa{from{opacity:0;transform:scaleX(0)}}
+@keyframes pm-letras{from{opacity:0}}
+
+.qf-barra{display:flex;gap:.375rem;align-items:center;margin-top:20px}
+.qf-barra-s{flex:1;height:3px;border-radius:3px;background:var(--navy);opacity:.28;transition:opacity 420ms cubic-bezier(.22,1,.36,1),background-color 420ms cubic-bezier(.22,1,.36,1)}
+.qf-barra-s[data-feito="true"]{opacity:1}
+
+.qf-palco{margin:14px -10px 0;padding:0 10px;overflow-x:clip}
+.qf-passo{animation:qf-frente 420ms cubic-bezier(.22,1,.36,1) backwards}
+.qf-palco[data-dir="back"] .qf-passo{animation-name:qf-tras}
+.qf-passo .qf-campo{animation:qf-campo 420ms cubic-bezier(.22,1,.36,1) backwards}
+.qf-passo .qf-campo:nth-child(1){animation-delay:90ms}
+.qf-passo .qf-campo:nth-child(2){animation-delay:150ms}
+.qf-passo .qf-campo:nth-child(3){animation-delay:210ms}
+.qf-passo .qf-campo:nth-child(n+4){animation-delay:270ms}
+@keyframes qf-frente{from{opacity:0;transform:translate3d(1.75rem,0,0)}}
+@keyframes qf-tras{from{opacity:0;transform:translate3d(-1.75rem,0,0)}}
+@keyframes qf-campo{from{opacity:0;transform:translate3d(0,.75rem,0)}}
+
 .qf .opts span{position:relative;justify-content:space-between;gap:10px;padding:8px 12px 8px 14px;background:#fff;
   transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease),transform .5s cubic-bezier(.34,1.56,.64,1)}
 .qf .opts label:hover span{border-color:var(--navy);box-shadow:0 12px 24px -18px rgba(11,33,64,.55);transform:translateY(-1px)}
@@ -984,31 +1002,51 @@ html.calm .wwp-c{transition:none}
 .qf .opts label:hover .opt-dot{border-color:var(--navy)}
 .qf .opts input:checked + span .opt-dot{border-color:#fff;background:#fff}
 .qf .opts input:checked + span .opt-dot::after{transform:scale(1)}
-.qf .opts:has(.bad) span{border-color:rgba(200,68,47,.55)}
-.qf .opts:has(.bad){animation:qf-nudge .42s var(--ease)}
+.qf .opts[aria-invalid="true"] span{border-color:rgba(200,68,47,.55)}
 .qf .field span{transition:color .3s var(--ease)}
 .qf .field:focus-within span{color:var(--navy)}
 .qf .field input,.qf .field textarea{background:linear-gradient(var(--navy),var(--navy)) 0 100%/0 1px no-repeat;transition:border-color .3s var(--ease),background-size .5s var(--ease)}
 .qf .field input:focus,.qf .field textarea:focus{background-size:100% 1px}
 .qf-err{font-size:13px;line-height:1.4;color:#b23a26}
-.qf-err:not(:empty){margin-top:14px;animation:qf-up .35s var(--ease)}
-.qf .arw{display:inline-block;transition:transform .35s var(--ease)}
-.qf #stepNext:hover .arw{transform:translateX(4px)}
-.qf .back{display:inline-flex;align-items:center;gap:6px;transition:color .3s var(--ease)}
+.qf-err:not(:empty){margin-top:8px;animation:qf-up .35s var(--ease)}
+
+.qf-nav{margin-top:18px}
+.qf .pill{min-height:3.5rem;padding:0 26px}
+.qf-nav .pill{flex:1 1 auto}
+.qf .back{min-height:2.75rem;display:inline-flex;align-items:center;gap:6px;padding:0 4px;transition:color .3s var(--ease)}
 .qf .back[hidden]{display:none}
 .qf .back:hover{color:var(--ink)}
+.qf .arw{display:inline-block;transition:transform .35s var(--ease)}
+.qf #stepNext:hover .arw,.qf #stepSend:hover .arw{transform:translateX(4px)}
 .qf .back:hover .arw{transform:translateX(-4px)}
 .qf .pill.dark:active{transform:scale(.96)}
-.qf .done:not([hidden]){display:flex;align-items:flex-start;gap:12px;margin-top:16px;padding:14px 16px;border-radius:12px;background:#eef2f7;color:var(--ink);line-height:1.45;animation:qf-up .5s var(--ease)}
-.done-tick{flex:0 0 auto;width:26px;height:26px;fill:none;stroke:var(--navy);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
-.done-tick circle,.done-tick path{stroke-dasharray:1;stroke-dashoffset:1;animation:qf-draw .7s var(--ease) forwards}
-.done-tick path{animation-delay:.35s}
+
+.qf-ok{display:grid;justify-items:center;text-align:center;padding-top:6px}
+.qf-ok-selo{position:relative;width:7rem;height:7rem;display:grid;place-items:center;animation:qf-selo 620ms cubic-bezier(.22,1,.36,1) backwards}
+.qf-ok-selo > svg{width:100%;height:100%;border-radius:24px;box-shadow:0 24px 40px -24px rgba(11,33,64,.75)}
+.qf-ok-visto{position:absolute;right:-.25rem;bottom:-.25rem;width:2.75rem;height:2.75rem;border-radius:999px;display:grid;place-items:center;
+  background:#fff;border:1.5px solid var(--navy);box-shadow:0 0 0 3px #fff,0 10px 22px -10px rgba(11,33,64,.6);animation:qf-visto-caixa 420ms cubic-bezier(.22,1,.36,1) 380ms backwards}
+.qf-ok-visto svg{width:1.5rem;height:1.5rem}
+.qf-ok-visto path{fill:none;stroke:var(--navy);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:24;stroke-dashoffset:24;
+  animation:qf-visto-traco 420ms cubic-bezier(.22,1,.36,1) 560ms forwards}
+.qf-ok-t{margin-top:22px;font-size:24px;line-height:1.15;letter-spacing:-.03em}
+.qf-ok-t:focus{outline:none}
+.qf-ok-p{max-width:30em;margin-top:10px;font-size:14.5px;line-height:1.5;color:var(--mute)}
+.qf-ok-t,.qf-ok-p,.qf-ok-msg,.qf-ok-acts{animation:qf-up .5s var(--ease) .2s backwards}
+.qf-ok-msg{width:100%;margin:18px 0 0;padding:14px 16px;text-align:left;font:inherit;font-size:13.5px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;
+  color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:12px}
+.qf-ok-acts{display:flex;flex-wrap:wrap;gap:10px;width:100%;margin-top:18px}
+.qf-ok-acts .pill{flex:1 1 11rem}
+.qf .qf-ok-copy{border-color:rgba(16,28,46,.24)}
+.qf-ok-copied{min-height:1.4em;margin-top:8px;font-size:13px;color:var(--mute)}
+.qf-ok-again{min-height:2.75rem;padding:0 6px;font:inherit;font-size:14.5px;color:var(--navy);background:none;border:0;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.qf-ok-again:hover{color:var(--ink)}
+@keyframes qf-selo{from{opacity:0;transform:scale(.72)}}
+@keyframes qf-visto-caixa{from{opacity:0;transform:scale(.4)}}
+@keyframes qf-visto-traco{to{stroke-dashoffset:0}}
 @keyframes qf-up{from{opacity:0;transform:translateY(6px)}}
-@keyframes qf-draw{to{stroke-dashoffset:0}}
-@keyframes qf-nudge{20%{transform:translateX(-5px)}45%{transform:translateX(4px)}70%{transform:translateX(-2px)}}
 @media (min-width:900px){
-  .qf-head{margin-bottom:22px}
-  .qf-mark{width:92px;padding:5px 8px}
+  .qf-nav .pill{flex:0 0 auto;min-width:12.5rem}
 }
 
 /* 26/11 v2 · where to find us: warm stone; the office card on the left, every line of it a direct way in; a view of
@@ -1050,12 +1088,12 @@ main > .find{display:grid;gap:30px;padding-top:var(--gap);padding-bottom:calc(va
   .find-ico{width:16px;height:16px}
 }
 
-/* reduced motion: the carousel jumps, the steps swap, nothing springs */
-html.calm .os-row,html.calm .os-bar i,html.calm .qf .step,html.calm .qf .opts label,html.calm .qf .field,html.calm .qf .opts span,html.calm .opt-dot::after{transition:none}
-html.calm .qf *{animation:none !important}
-html.calm .done-tick *{stroke-dashoffset:0}
+/* reduced motion: the carousel jumps, the steps swap, nothing springs. The plate and the tick stay drawn: with the
+   animation off they would keep their starting state, which is no mark at all. */
+html.calm .os-row,html.calm .os-bar i{transition:none}
 @media (prefers-reduced-motion:reduce){
-  .os-row,.os-bar i,.qf .step,.qf .opts label,.qf .field,.qf .opts span,.opt-dot::after{transition:none}
+  .os-row,.os-bar i,.qf .opts span,.opt-dot::after,.qf-barra-s{transition:none}
   .qf *{animation:none !important}
-  .done-tick *{stroke-dashoffset:0}
+  .pm-traco,.qf-ok-visto path{stroke-dashoffset:0}
+  .pm-placa,.pm-letras{opacity:1;transform:none}
 }

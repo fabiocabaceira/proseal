@@ -1,226 +1,339 @@
-import { Fragment, useEffect, useRef, useState, type CSSProperties, type FormEvent, type KeyboardEvent } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent, type KeyboardEvent } from 'react';
 import { flushSync } from 'react-dom';
 import { readLeadSource } from '../../lib/lead';
 import { track } from '../../lib/site';
+import { LETTERS } from '../../lib/wordmark';
 import { pad2 } from '../home/ring';
+import ProSealMark from './ProSealMark';
 
-type Required = 'job' | 'name' | 'phone';
-
-interface QuoteRequest {
+interface Values {
   readonly job: string;
   readonly place: string;
   readonly details: string;
   readonly name: string;
   readonly phone: string;
   readonly email: string;
-  readonly source: string;
 }
+type Field = keyof Values;
+type Errors = Partial<Record<Field, string>>;
+type Dir = 'forward' | 'back';
 
 const JOBS = ['New build', 'Refurbishment or restoration', 'Commercial or healthcare', 'Electrical installation', 'Swimming pool', 'Roofing or waterproofing', 'Project management', 'Something else'] as const;
-const REQUIRED: readonly (readonly Required[])[] = [['job'], [], ['name', 'phone']];
-const LAST = REQUIRED.length - 1;
-const NONE: ReadonlySet<Required> = new Set();
+const STEPS: readonly (readonly Field[])[] = [['job'], ['place', 'details'], ['name', 'phone', 'email']];
+const LAST = STEPS.length - 1;
+const REQUIRED: Errors = {
+  job: 'Please choose the kind of project.',
+  name: 'Please add your name.',
+  phone: 'Please add a phone number so that we can reach you.',
+};
+const EMPTY: Values = { job: '', place: '', details: '', name: '', phone: '', email: '' };
 
-function readRequest(form: HTMLFormElement): QuoteRequest {
-  const data = new FormData(form);
-  const text = (key: keyof QuoteRequest): string => {
-    const value = data.get(key);
-    return typeof value === 'string' ? value : '';
-  };
-  return {
-    job: text('job'),
-    place: text('place'),
-    details: text('details'),
-    name: text('name'),
-    phone: text('phone'),
-    email: text('email'),
-    source: text('source'),
-  };
+/* the one check, for the Continue of a step and for the send */
+function check(v: Values, step: number): Errors {
+  const errors: Errors = {};
+  for (const f of STEPS[step]) {
+    const message = REQUIRED[f];
+    if (message && v[f].trim().length < 2) errors[f] = message;
+  }
+  return errors;
 }
 
-function mailto(q: QuoteRequest): string {
-  const body = `Project: ${q.job}\nLocation: ${q.place}\nDetails: ${q.details}\n\nName: ${q.name}\nPhone: ${q.phone}\nEmail: ${q.email}\n\nSource: ${q.source}`;
-  return `mailto:info@prosealconstruction.com?subject=${encodeURIComponent(`Quote request: ${q.job}`)}&body=${encodeURIComponent(body)}`;
+/* an empty field leaves no line in the email */
+function enquiry(v: Values, source: string): string {
+  const details = v.details.split('\n').map((l) => l.trim()).filter(Boolean).join('\n');
+  const lines: readonly (readonly [string, string])[] = [
+    ['Project', v.job], ['Location', v.place], ['Details', details], ['Name', v.name], ['Phone', v.phone], ['Email', v.email], ['Source', source],
+  ];
+  return lines.map(([label, value]) => [label, value.trim()]).filter(([, value]) => value).map(([label, value]) => `${label}: ${value}`).join('\n');
 }
 
-/* the quote form in three steps; the request leaves as an email from the visitor's own mail app */
+const mailto = (job: string, body: string) =>
+  `mailto:info@prosealconstruction.com?subject=${encodeURIComponent(`Quote request: ${job}`)}&body=${encodeURIComponent(body)}`;
+
+interface FieldProps {
+  readonly name: Field;
+  readonly label: string;
+  readonly hint?: string;
+  readonly type?: string;
+  readonly autoComplete?: string;
+  readonly placeholder: string;
+  readonly rows?: number;
+  readonly value: string;
+  readonly error?: string;
+  readonly onChange: (name: Field, value: string) => void;
+}
+
+function TextField({ name, label, hint, type = 'text', autoComplete, placeholder, rows, value, error, onChange }: FieldProps) {
+  const required = name in REQUIRED;
+  const id = `qf-${name}`;
+  const errorId = `qf-e-${name}`;
+  const common = {
+    id,
+    name,
+    value,
+    placeholder,
+    autoComplete,
+    'aria-required': required || undefined,
+    'aria-invalid': error ? true : undefined,
+    'aria-describedby': error ? errorId : undefined,
+    className: error ? 'bad' : undefined,
+  };
+  return (
+    <div className="field qf-campo">
+      <label htmlFor={id}>
+        <span>
+          {label}
+          {hint && <> <small>{hint}</small></>}
+        </span>
+      </label>
+      {rows
+        ? <textarea {...common} rows={rows} onChange={(e) => onChange(name, e.target.value)} />
+        : <input {...common} type={type} onChange={(e) => onChange(name, e.target.value)} />}
+      {required && <p className="qf-err" id={errorId} role="alert">{error}</p>}
+    </div>
+  );
+}
+
+/* the quote form in three steps; the enquiry leaves as an email from the visitor's own mail app */
 export default function QuoteForm() {
   const form = useRef<HTMLFormElement>(null);
-  const fieldsets = useRef<(HTMLFieldSetElement | null)[]>([]);
-  const done = useRef<HTMLParagraphElement>(null);
-  const current = useRef(0);
+  const okTitle = useRef<HTMLParagraphElement>(null);
+  const latest = useRef(EMPTY);
+  const at = useRef(0);
   const autoNext = useRef(0);
+  const focusOn = useRef<Field | null>(null);
+  const [values, setValues] = useState(EMPTY);
+  const [errors, setErrors] = useState<Errors>({});
   const [step, setStep] = useState(0);
-  const [bad, setBad] = useState(NONE);
-  const [sent, setSent] = useState(false);
+  const [dir, setDir] = useState<Dir>('forward');
+  const [sent, setSent] = useState<string | null>(null);
+  const [copied, setCopied] = useState('');
   const [source, setSource] = useState('direct');
 
-  const show = (i: number) => {
-    current.current = i;
-    setStep(i);
+  const go = (to: number, focus: Field | null) => {
+    if (to !== at.current) setDir(to < at.current ? 'back' : 'forward');
+    at.current = to;
+    focusOn.current = focus;
+    setStep(to);
   };
 
-  const filled = (name: Required): boolean => {
-    const f = form.current;
-    if (!f) return false;
-    if (name === 'job') return f.querySelector('input[name="job"]:checked') !== null;
-    const input = f.elements.namedItem(name);
-    return input instanceof HTMLInputElement && input.value.trim().length > 1;
-  };
-
-  const valid = (i: number): boolean => {
-    const missing = REQUIRED[i].filter((name) => !filled(name));
-    setBad((was) => {
-      const now = new Set(was);
-      for (const name of REQUIRED[i]) {
-        if (missing.includes(name)) now.add(name);
-        else now.delete(name);
-      }
+  const update = (name: Field, value: string) => {
+    latest.current = { ...latest.current, [name]: value };
+    setValues(latest.current);
+    setErrors((was) => {
+      if (!was[name]) return was;
+      const now = { ...was };
+      delete now[name];
       return now;
     });
-    const first = missing[0];
-    const input = first && first !== 'job' ? form.current?.elements.namedItem(first) : null;
-    if (input instanceof HTMLInputElement) input.focus();
-    return missing.length === 0;
   };
 
   const next = () => {
-    const i = current.current;
-    if (!valid(i)) return;
-    flushSync(() => show(i + 1));
-    fieldsets.current[i + 1]?.querySelector<HTMLElement>('input,textarea')?.focus({ preventScroll: true });
+    const i = at.current;
+    const found = check(latest.current, i);
+    const first = STEPS[i].find((f) => found[f]);
+    setErrors(found);
+    if (first) {
+      focusOn.current = first;
+      return;
+    }
+    go(i + 1, STEPS[i + 1][0]);
   };
 
-  const back = () => show(current.current - 1);
+  const back = () => {
+    setErrors({});
+    go(at.current - 1, STEPS[at.current - 1][0]);
+  };
 
-  const onJob = () => {
+  const onJob = (e: ChangeEvent<HTMLInputElement>) => {
+    update('job', e.target.value);
     if (autoNext.current) return;
     autoNext.current = window.setTimeout(() => {
       autoNext.current = 0;
-      if (current.current === 0) next();
+      if (at.current === 0) next();
     }, 280);
   };
 
-  /* Enter in a field of an earlier step moves on: left to the browser, it presses the hidden send button and sends half a request */
+  /* Enter in a field of an earlier step moves on: left to the browser, it presses the hidden send button and sends half an enquiry */
   const onKeyDown = (e: KeyboardEvent<HTMLFormElement>) => {
-    if (e.key !== 'Enter' || e.nativeEvent.isComposing || current.current === LAST || !(e.target instanceof HTMLInputElement)) return;
+    if (e.key !== 'Enter' || e.nativeEvent.isComposing || at.current === LAST || !(e.target instanceof HTMLInputElement)) return;
     e.preventDefault();
     next();
   };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!valid(current.current)) return;
-    const request = readRequest(e.currentTarget);
-    track('lead', { source: request.source, job: request.job });
-    flushSync(() => setSent(true));
-    done.current?.focus();
-    window.location.href = mailto(request);
+    const v = latest.current;
+    for (let i = 0; i <= LAST; i++) {
+      const found = check(v, i);
+      const first = STEPS[i].find((f) => found[f]);
+      if (first) {
+        go(i, first);
+        setErrors(found);
+        return;
+      }
+    }
+    const body = enquiry(v, source);
+    track('lead', { source, job: v.job });
+    flushSync(() => setSent(body));
+    okTitle.current?.focus();
+    window.location.href = mailto(v.job, body);
+  };
+
+  const copy = () => {
+    if (sent === null) return;
+    const fail = () => setCopied('Copying did not work. Please select the message and copy it.');
+    if (!navigator.clipboard) return fail();
+    navigator.clipboard.writeText(sent).then(() => setCopied('Copied.'), fail);
+  };
+
+  const again = () => {
+    latest.current = EMPTY;
+    setValues(EMPTY);
+    setErrors({});
+    setCopied('');
+    setSent(null);
+    setDir('forward');
+    at.current = 0;
+    focusOn.current = 'job';
+    setStep(0);
   };
 
   useEffect(() => {
     setSource(readLeadSource());
     const job = new URLSearchParams(location.search).get('job');
-    const radios = form.current?.querySelectorAll<HTMLInputElement>('input[name="job"]') ?? [];
-    const chosen = [...radios].find((r) => r.value === job);
-    if (chosen) {
-      chosen.checked = true;
-      show(1);
+    if (job && (JOBS as readonly string[]).includes(job)) {
+      latest.current = { ...latest.current, job };
+      setValues(latest.current);
+      at.current = 1;
+      setStep(1);
     }
     return () => clearTimeout(autoNext.current);
   }, []);
 
-  const stepClass = (k: number) => (k === step ? 'step is-on' : k < step ? 'step is-past' : 'step is-next');
-  const problem = step === 0 && bad.has('job')
-    ? 'Please choose the kind of project to continue.'
-    : step === LAST && (bad.has('name') || bad.has('phone'))
-      ? 'Please add your name and a phone number so that we can reach you.'
-      : '';
+  useEffect(() => {
+    const name = focusOn.current;
+    if (!name) return;
+    focusOn.current = null;
+    const f = form.current;
+    const el = name === 'job'
+      ? f?.querySelector('input[name="job"]:checked') ?? f?.querySelector('input[name="job"]')
+      : f?.elements.namedItem(name);
+    if (el instanceof HTMLElement) el.focus({ preventScroll: true });
+  });
+
+  const field = (name: Field) => ({ name, value: values[name], error: errors[name], onChange: update });
 
   return (
-    <form className="steps qf" id="quoteForm" noValidate data-step={step} ref={form} onKeyDown={onKeyDown} onSubmit={onSubmit}>
-      <input type="hidden" name="source" id="leadSource" value={source} />
-      <div className="qf-head">
-        <span className="logo-box qf-mark"><svg viewBox="0 0 8808 1700" role="img" aria-label="ProSeal"><use href="#wm" /></svg></span>
-        <span className="qf-title">Quote request</span>
-        <p className="steps-count" id="stepCount" aria-live="polite">
-          <span className="sr-only">{`Step ${step + 1} of ${REQUIRED.length}`}</span>
-          <span aria-hidden="true"><b key={step}>{pad2(step + 1)}</b>{` / ${pad2(REQUIRED.length)}`}</span>
-        </p>
+    <form className="steps qf" id="quoteForm" noValidate ref={form} onKeyDown={onKeyDown} onSubmit={onSubmit}>
+      <div className="qf-head" hidden={sent !== null}>
+        <ProSealMark />
+        <div className="qf-head-r">
+          <span className="qf-title">Quote request</span>
+          <p className="qf-conta" id="stepCount" role="status">
+            <span className="sr-only">{`Step ${step + 1} of ${STEPS.length}`}</span>
+            <span aria-hidden="true"><b key={step}>{pad2(step + 1)}</b>{` / ${pad2(STEPS.length)}`}</span>
+          </p>
+        </div>
       </div>
-      <p className="level" aria-hidden="true"><i /></p>
-      <div className="qf-stage">
-        <fieldset className={stepClass(0)} inert={step !== 0} ref={(el) => { fieldsets.current[0] = el; }}>
-          <legend>What kind of project is it?</legend>
-          <div className="opts">
-            {JOBS.map((job, k) => (
-              <Fragment key={job}>
-                {k > 0 && ' '}
-                <label style={{ '--i': k } as CSSProperties}>
-                  <input type="radio" name="job" value={job} required={k === 0} className={k === 0 && bad.has('job') ? 'bad' : undefined} onChange={onJob} />
-                  <span>
-                    {job}
-                    <i className="opt-dot" aria-hidden="true" />
-                  </span>
-                </label>
-              </Fragment>
-            ))}
+      {sent === null ? (
+        <>
+          <div className="qf-barra" aria-hidden="true">
+            {STEPS.map((_, i) => <span key={i} className="qf-barra-s" data-feito={i <= step || undefined} />)}
           </div>
-        </fieldset>
-        <fieldset className={stepClass(1)} inert={step !== 1} ref={(el) => { fieldsets.current[1] = el; }}>
-          <legend>Tell us about the project</legend>
-          <label className="field" style={{ '--i': 0 } as CSSProperties}>
-            <span>Location in Gibraltar</span>
-            <input type="text" name="place" autoComplete="street-address" placeholder="Street or area" />
-          </label>
-          {" "}
-          <label className="field" style={{ '--i': 1 } as CSSProperties}>
-            <span>What does the work involve?</span>
-            <textarea name="details" rows={3} placeholder="A few lines are plenty" />
-          </label>
-        </fieldset>
-        <fieldset className={stepClass(2)} inert={step !== 2} ref={(el) => { fieldsets.current[2] = el; }}>
-          <legend>How can we reach you?</legend>
-          <label className="field" style={{ '--i': 0 } as CSSProperties}>
-            <span>Name</span>
-            <input type="text" name="name" autoComplete="name" required placeholder="Your name" className={bad.has('name') ? 'bad' : undefined} />
-          </label>
-          {" "}
-          <label className="field" style={{ '--i': 1 } as CSSProperties}>
-            <span>Phone</span>
-            <input type="tel" name="phone" autoComplete="tel" required placeholder="Your phone number" className={bad.has('phone') ? 'bad' : undefined} />
-          </label>
-          {" "}
-          <label className="field" style={{ '--i': 2 } as CSSProperties}>
-            <span>
-              Email{" "}
-              <small>(optional)</small>
+          <div className="qf-palco" data-dir={dir}>
+            <div className="qf-passo" key={step}>
+              {step === 0 && (
+                <fieldset>
+                  <legend id="qf-l-job">What kind of project is it?</legend>
+                  <div
+                    className="opts"
+                    role="radiogroup"
+                    aria-labelledby="qf-l-job"
+                    aria-required="true"
+                    aria-invalid={errors.job ? true : undefined}
+                    aria-describedby={errors.job ? 'qf-e-job' : undefined}
+                  >
+                    {JOBS.map((job) => (
+                      <label key={job} className="qf-campo">
+                        <input type="radio" name="job" value={job} checked={values.job === job} onChange={onJob} />
+                        <span>
+                          {job}
+                          <i className="opt-dot" aria-hidden="true" />
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                  <p className="qf-err" id="qf-e-job" role="alert">{errors.job}</p>
+                </fieldset>
+              )}
+              {step === 1 && (
+                <fieldset>
+                  <legend>Tell us about the project</legend>
+                  <div className="qf-campos">
+                    <TextField {...field('place')} label="Location in Gibraltar" autoComplete="street-address" placeholder="Street or area" />
+                    <TextField {...field('details')} label="What does the work involve?" placeholder="A few lines are plenty" rows={3} />
+                  </div>
+                </fieldset>
+              )}
+              {step === 2 && (
+                <fieldset>
+                  <legend>How can we reach you?</legend>
+                  <div className="qf-campos">
+                    <TextField {...field('name')} label="Name" autoComplete="name" placeholder="Your name" />
+                    <TextField {...field('phone')} label="Phone" type="tel" autoComplete="tel" placeholder="Your phone number" />
+                    <TextField {...field('email')} label="Email" hint="(optional)" type="email" autoComplete="email" placeholder="If you would rather we emailed you" />
+                  </div>
+                </fieldset>
+              )}
+            </div>
+          </div>
+          <div className="steps-nav qf-nav">
+            <button type="button" className="back" id="stepBack" hidden={step === 0} onClick={back}>
+              <span className="arw" aria-hidden="true">←</span>{" "}
+              Back
+            </button>
+            <button type="button" className="pill dark" id="stepNext" hidden={step === LAST} onClick={next}>
+              Continue{" "}
+              <span className="arw" aria-hidden="true">→</span>
+            </button>
+            <button type="submit" className="pill dark" id="stepSend" hidden={step !== LAST} data-cta="form-send">
+              Send enquiry{" "}
+              <span className="arw" aria-hidden="true">→</span>
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className="qf-ok" id="formDone" role="status">
+          <div className="qf-ok-selo">
+            <svg viewBox="0 0 64 64" role="img" aria-label="ProSeal">
+              <defs>
+                <linearGradient id="qf-ok-g" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#143a69" />
+                  <stop offset="1" stopColor="#0b2140" />
+                </linearGradient>
+              </defs>
+              <rect width="64" height="64" rx="14" fill="url(#qf-ok-g)" />
+              <path fill="#fff" transform="translate(11.25 51.2) scale(0.02579)" d={LETTERS[0]} />
+            </svg>
+            <span className="qf-ok-visto" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.5 3.5 7.5-8" /></svg>
             </span>
-            <input type="email" name="email" autoComplete="email" placeholder="If you would rather we emailed you" />
-          </label>
-        </fieldset>
-      </div>
-      <p className="qf-err" role="alert">{problem}</p>
-      <div className="steps-nav">
-        <button type="button" className="back" id="stepBack" hidden={step === 0} onClick={back}>
-          <span className="arw" aria-hidden="true">←</span>{" "}
-          Back
-        </button>
-        {" "}
-        <button type="button" className="pill dark" id="stepNext" hidden={step === LAST} onClick={next}>
-          Continue{" "}
-          <span className="arw" aria-hidden="true">→</span>
-        </button>
-        {" "}
-        <button type="submit" className="pill dark" id="stepSend" hidden={step !== LAST} data-cta="form-send">
-          Send request{" "}
-          <span className="arw" aria-hidden="true">→</span>
-        </button>
-      </div>
-      <p className="done" id="formDone" hidden={!sent} tabIndex={-1} ref={done}>
-        <svg className="done-tick" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" pathLength="1" /><path d="m7.5 12.4 3 3 6-6.6" pathLength="1" /></svg>
-        <span>Your email app should now open with the request ready to send. If it does not, please call us on +350 200 47974.</span>
-      </p>
+          </div>
+          <p className="qf-ok-t" tabIndex={-1} ref={okTitle}>Thank you. Your enquiry is ready.</p>
+          <p className="qf-ok-p">Your email app should now open with the message below, addressed to info@prosealconstruction.com. If it does not, open it again or copy the message. You can also call us on +350 200 47974.</p>
+          <pre className="qf-ok-msg">{sent}</pre>
+          <div className="qf-ok-acts">
+            <a className="pill dark" href={mailto(values.job, sent)} data-cta="form-open-email">
+              Open email{" "}
+              <span className="arw" aria-hidden="true">→</span>
+            </a>
+            <button type="button" className="pill qf-ok-copy" onClick={copy}>Copy message</button>
+          </div>
+          <p className="qf-ok-copied" aria-live="polite">{copied}</p>
+          <button type="button" className="qf-ok-again" onClick={again}>Send another enquiry</button>
+        </div>
+      )}
     </form>
   );
 }
