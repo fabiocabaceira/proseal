@@ -25,7 +25,7 @@ const PAGES: Record<PageKey, () => React.JSX.Element> = {
 };
 
 /* the pages that show the developer's renders of The Villas Beacon Point credit them in the footer */
-const SHOWS_RENDERS: ReadonlySet<PageKey> = new Set(['index', 'works']);
+const SHOWS_RENDERS: ReadonlySet<PageKey> = new Set(['works']);
 
 export default function App({ page }: { page: PageKey }) {
   const Page = PAGES[page];

@@ -1,7 +1,8 @@
-import { Fragment, useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
+import { Fragment, useEffect, useRef, useState, type CSSProperties, type FormEvent, type KeyboardEvent } from 'react';
 import { flushSync } from 'react-dom';
 import { readLeadSource } from '../../lib/lead';
 import { track } from '../../lib/site';
+import { pad2 } from '../home/ring';
 
 type Required = 'job' | 'name' | 'phone';
 
@@ -129,70 +130,97 @@ export default function QuoteForm() {
     return () => clearTimeout(autoNext.current);
   }, []);
 
-  const stepClass = (k: number) => (k === step ? 'step is-on' : 'step');
+  const stepClass = (k: number) => (k === step ? 'step is-on' : k < step ? 'step is-past' : 'step is-next');
+  const problem = step === 0 && bad.has('job')
+    ? 'Please choose the kind of project to continue.'
+    : step === LAST && (bad.has('name') || bad.has('phone'))
+      ? 'Please add your name and a phone number so that we can reach you.'
+      : '';
 
   return (
-    <form className="steps" id="quoteForm" noValidate data-step={step} ref={form} onKeyDown={onKeyDown} onSubmit={onSubmit}>
+    <form className="steps qf" id="quoteForm" noValidate data-step={step} ref={form} onKeyDown={onKeyDown} onSubmit={onSubmit}>
       <input type="hidden" name="source" id="leadSource" value={source} />
+      <div className="qf-head">
+        <span className="logo-box qf-mark"><svg viewBox="0 0 8808 1700" role="img" aria-label="ProSeal"><use href="#wm" /></svg></span>
+        <span className="qf-title">Quote request</span>
+        <p className="steps-count" id="stepCount" aria-live="polite">
+          <span className="sr-only">{`Step ${step + 1} of ${REQUIRED.length}`}</span>
+          <span aria-hidden="true"><b key={step}>{pad2(step + 1)}</b>{` / ${pad2(REQUIRED.length)}`}</span>
+        </p>
+      </div>
       <p className="level" aria-hidden="true"><i /></p>
-      <p className="steps-count" id="stepCount" aria-live="polite">{`${step + 1} / ${REQUIRED.length}`}</p>
-      <fieldset className={stepClass(0)} ref={(el) => { fieldsets.current[0] = el; }}>
-        <legend>What kind of project is it?</legend>
-        <div className="opts">
-          {JOBS.map((job, k) => (
-            <Fragment key={job}>
-              {k > 0 && ' '}
-              <label>
-                <input type="radio" name="job" value={job} required={k === 0} className={k === 0 && bad.has('job') ? 'bad' : undefined} onChange={onJob} />
-                <span>{job}</span>
-              </label>
-            </Fragment>
-          ))}
-        </div>
-      </fieldset>
-      <fieldset className={stepClass(1)} ref={(el) => { fieldsets.current[1] = el; }}>
-        <legend>Tell us about the project</legend>
-        <label className="field">
-          <span>Location in Gibraltar</span>
-          <input type="text" name="place" autoComplete="street-address" placeholder="Street or area" />
-        </label>
-        {" "}
-        <label className="field">
-          <span>What does the work involve?</span>
-          <textarea name="details" rows={2} placeholder="A few lines are plenty" />
-        </label>
-      </fieldset>
-      <fieldset className={stepClass(2)} ref={(el) => { fieldsets.current[2] = el; }}>
-        <legend>How can we reach you?</legend>
-        <label className="field">
-          <span>Name</span>
-          <input type="text" name="name" autoComplete="name" required placeholder="Your name" className={bad.has('name') ? 'bad' : undefined} />
-        </label>
-        {" "}
-        <label className="field">
-          <span>Phone</span>
-          <input type="tel" name="phone" autoComplete="tel" required placeholder="Your phone number" className={bad.has('phone') ? 'bad' : undefined} />
-        </label>
-        {" "}
-        <label className="field">
-          <span>
-            Email{" "}
-            <small>(optional)</small>
-          </span>
-          <input type="email" name="email" autoComplete="email" placeholder="If you prefer us to email you" />
-        </label>
-      </fieldset>
+      <div className="qf-stage">
+        <fieldset className={stepClass(0)} inert={step !== 0} ref={(el) => { fieldsets.current[0] = el; }}>
+          <legend>What kind of project is it?</legend>
+          <div className="opts">
+            {JOBS.map((job, k) => (
+              <Fragment key={job}>
+                {k > 0 && ' '}
+                <label style={{ '--i': k } as CSSProperties}>
+                  <input type="radio" name="job" value={job} required={k === 0} className={k === 0 && bad.has('job') ? 'bad' : undefined} onChange={onJob} />
+                  <span>
+                    {job}
+                    <i className="opt-dot" aria-hidden="true" />
+                  </span>
+                </label>
+              </Fragment>
+            ))}
+          </div>
+        </fieldset>
+        <fieldset className={stepClass(1)} inert={step !== 1} ref={(el) => { fieldsets.current[1] = el; }}>
+          <legend>Tell us about the project</legend>
+          <label className="field" style={{ '--i': 0 } as CSSProperties}>
+            <span>Location in Gibraltar</span>
+            <input type="text" name="place" autoComplete="street-address" placeholder="Street or area" />
+          </label>
+          {" "}
+          <label className="field" style={{ '--i': 1 } as CSSProperties}>
+            <span>What does the work involve?</span>
+            <textarea name="details" rows={3} placeholder="A few lines are plenty" />
+          </label>
+        </fieldset>
+        <fieldset className={stepClass(2)} inert={step !== 2} ref={(el) => { fieldsets.current[2] = el; }}>
+          <legend>How can we reach you?</legend>
+          <label className="field" style={{ '--i': 0 } as CSSProperties}>
+            <span>Name</span>
+            <input type="text" name="name" autoComplete="name" required placeholder="Your name" className={bad.has('name') ? 'bad' : undefined} />
+          </label>
+          {" "}
+          <label className="field" style={{ '--i': 1 } as CSSProperties}>
+            <span>Phone</span>
+            <input type="tel" name="phone" autoComplete="tel" required placeholder="Your phone number" className={bad.has('phone') ? 'bad' : undefined} />
+          </label>
+          {" "}
+          <label className="field" style={{ '--i': 2 } as CSSProperties}>
+            <span>
+              Email{" "}
+              <small>(optional)</small>
+            </span>
+            <input type="email" name="email" autoComplete="email" placeholder="If you would rather we emailed you" />
+          </label>
+        </fieldset>
+      </div>
+      <p className="qf-err" role="alert">{problem}</p>
       <div className="steps-nav">
-        <button type="button" className="back" id="stepBack" hidden={step === 0} onClick={back}>Back</button>
+        <button type="button" className="back" id="stepBack" hidden={step === 0} onClick={back}>
+          <span className="arw" aria-hidden="true">←</span>{" "}
+          Back
+        </button>
         {" "}
-        <button type="button" className="pill dark" id="stepNext" hidden={step === LAST} onClick={next}>Continue</button>
+        <button type="button" className="pill dark" id="stepNext" hidden={step === LAST} onClick={next}>
+          Continue{" "}
+          <span className="arw" aria-hidden="true">→</span>
+        </button>
         {" "}
         <button type="submit" className="pill dark" id="stepSend" hidden={step !== LAST} data-cta="form-send">
           Send request{" "}
           <span className="arw" aria-hidden="true">→</span>
         </button>
       </div>
-      <p className="done" id="formDone" hidden={!sent} tabIndex={-1} ref={done}>Your email app should now open with the request ready to send. If it does not, please call +350 200 47974.</p>
+      <p className="done" id="formDone" hidden={!sent} tabIndex={-1} ref={done}>
+        <svg className="done-tick" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" pathLength="1" /><path d="m7.5 12.4 3 3 6-6.6" pathLength="1" /></svg>
+        <span>Your email app should now open with the request ready to send. If it does not, please call us on +350 200 47974.</span>
+      </p>
     </form>
   );
 }

@@ -30,7 +30,7 @@ export default function Bar({ home, current, menuOpen, onMenu }: Props) {
     };
   }, [home]);
 
-  /* over a dark section (the development, the quote, the footer) the solid bar turns to dark glass */
+  /* over a dark section (the commissions band, the quote, the footer) the solid bar turns to dark glass */
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
