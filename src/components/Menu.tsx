@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { isCalm } from '../lib/site';
 
 interface Props {
   open: boolean;
@@ -6,20 +7,31 @@ interface Props {
   onClose: () => void;
 }
 
-/* full-screen menu for phones: shown, then faded in on the next frame; faded out, then hidden after the fade */
+const LINKS = [
+  ['index.html', 'Home'],
+  ['works.html', 'Works'],
+  ['how.html', 'How we work'],
+  ['careers.html', 'Careers'],
+  ['quote.html', 'Request a quote'],
+] as const;
+
+/* matches the close transition of .menu in site.css */
+const CLOSE_MS = 480;
+
+/* full-screen menu for phones: unhidden, then drawn open on the next frame; drawn shut, then hidden once the curtain is up */
 export default function Menu({ open, current, onClose }: Props) {
   const [shown, setShown] = useState(open);
-  const [faded, setFaded] = useState(false);
+  const [drawn, setDrawn] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     if (open) {
       setShown(true);
-      const r = requestAnimationFrame(() => setFaded(true));
+      let r = requestAnimationFrame(() => { r = requestAnimationFrame(() => setDrawn(true)); });
       return () => cancelAnimationFrame(r);
     }
-    setFaded(false);
-    const t = setTimeout(() => setShown(false), 360);
+    setDrawn(false);
+    const t = setTimeout(() => setShown(false), isCalm() ? 0 : CLOSE_MS);
     return () => clearTimeout(t);
   }, [open]);
 
@@ -34,23 +46,20 @@ export default function Menu({ open, current, onClose }: Props) {
     return () => document.removeEventListener('keydown', key);
   }, [open, onClose]);
 
-  const here = (href: string) => (href === current ? 'page' : undefined);
-
   return (
-    <div className={`menu${faded ? ' open' : ''}`} id="menu" hidden={!shown}>
+    <div className={`menu${drawn ? ' open' : ''}`} id="menu" hidden={!shown}>
       <nav aria-label="Menu">
-        <a href="index.html" aria-current={here('index.html')}>Home</a>{' '}
-        <a href="index.html#what" onClick={onClose}>What we do</a>{' '}
-        <a href="works.html" aria-current={here('works.html')}>Works</a>{' '}
-        <a href="how.html" aria-current={here('how.html')}>How we work</a>{' '}
-        <a href="careers.html" aria-current={here('careers.html')}>Careers</a>{' '}
-        <a href="index.html#contact" onClick={onClose}>Contact</a>{' '}
-        <a href="quote.html" data-cta="menu-quote" aria-current={here('quote.html')}><em>Request a quote</em></a>
+        {LINKS.map(([href, label]) => (
+          <a
+            key={href}
+            href={href}
+            aria-current={href === current ? 'page' : undefined}
+            data-cta={href === 'quote.html' ? 'menu-quote' : undefined}
+          >
+            {label}
+          </a>
+        ))}
       </nav>
-      <p className="menu-foot">
-        <a href="tel:+35020047974" data-cta="menu-call" aria-label="Call +350 200 47974"><svg aria-hidden="true"><use href="#i-call" /></svg></a>{' '}
-        <a href="mailto:info@prosealconstruction.com" data-cta="menu-mail" aria-label="Email ProSeal Construction"><svg aria-hidden="true"><use href="#i-mail" /></svg></a>
-      </p>
     </div>
   );
 }

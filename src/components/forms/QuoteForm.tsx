@@ -3,8 +3,6 @@ import { flushSync } from 'react-dom';
 import { readLeadSource } from '../../lib/lead';
 import { track } from '../../lib/site';
 import { LETTERS } from '../../lib/wordmark';
-import { pad2 } from '../home/ring';
-import ProSealMark from './ProSealMark';
 
 interface Values {
   readonly job: string;
@@ -225,19 +223,14 @@ export default function QuoteForm() {
   const field = (name: Field) => ({ name, value: values[name], error: errors[name], onChange: update });
 
   return (
-    <form className="steps qf" id="quoteForm" noValidate ref={form} onKeyDown={onKeyDown} onSubmit={onSubmit}>
-      <div className="qf-head" hidden={sent !== null}>
-        <ProSealMark />
-        <div className="qf-head-r">
-          <span className="qf-title">Quote request</span>
-          <p className="qf-conta" id="stepCount" role="status">
-            <span className="sr-only">{`Step ${step + 1} of ${STEPS.length}`}</span>
-            <span aria-hidden="true"><b key={step}>{pad2(step + 1)}</b>{` / ${pad2(STEPS.length)}`}</span>
-          </p>
-        </div>
-      </div>
+    <form className="qf" id="quoteForm" noValidate ref={form} onKeyDown={onKeyDown} onSubmit={onSubmit}>
       {sent === null ? (
         <>
+          <p className="qf-conta" id="stepCount" role="status">
+            {"Step "}
+            <b key={step}>{step + 1}</b>
+            {` of ${STEPS.length}`}
+          </p>
           <div className="qf-barra" aria-hidden="true">
             {STEPS.map((_, i) => <span key={i} className="qf-barra-s" data-feito={i <= step || undefined} />)}
           </div>
@@ -288,16 +281,16 @@ export default function QuoteForm() {
               )}
             </div>
           </div>
-          <div className="steps-nav qf-nav">
+          <div className="qf-nav">
             <button type="button" className="back" id="stepBack" hidden={step === 0} onClick={back}>
               <span className="arw" aria-hidden="true">←</span>{" "}
               Back
             </button>
-            <button type="button" className="pill dark" id="stepNext" hidden={step === LAST} onClick={next}>
+            <button type="button" className="pill qf-go" id="stepNext" hidden={step === LAST} onClick={next}>
               Continue{" "}
               <span className="arw" aria-hidden="true">→</span>
             </button>
-            <button type="submit" className="pill dark" id="stepSend" hidden={step !== LAST} data-cta="form-send">
+            <button type="submit" className="pill qf-go" id="stepSend" hidden={step !== LAST} data-cta="form-send">
               Send enquiry{" "}
               <span className="arw" aria-hidden="true">→</span>
             </button>
@@ -307,14 +300,8 @@ export default function QuoteForm() {
         <div className="qf-ok" id="formDone" role="status">
           <div className="qf-ok-selo">
             <svg viewBox="0 0 64 64" role="img" aria-label="ProSeal">
-              <defs>
-                <linearGradient id="qf-ok-g" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stopColor="#143a69" />
-                  <stop offset="1" stopColor="#0b2140" />
-                </linearGradient>
-              </defs>
-              <rect width="64" height="64" rx="14" fill="url(#qf-ok-g)" />
-              <path fill="#fff" transform="translate(11.25 51.2) scale(0.02579)" d={LETTERS[0]} />
+              <rect className="qf-ok-aro" x=".75" y=".75" width="62.5" height="62.5" rx="14" />
+              <path className="qf-ok-p-l" transform="translate(11.25 51.2) scale(0.02579)" d={LETTERS[0]} />
             </svg>
             <span className="qf-ok-visto" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.5 3.5 7.5-8" /></svg>
@@ -324,7 +311,7 @@ export default function QuoteForm() {
           <p className="qf-ok-p">Your email app should now open with the message below, addressed to info@prosealconstruction.com. If it does not, open it again or copy the message. You can also call us on +350 200 47974.</p>
           <pre className="qf-ok-msg">{sent}</pre>
           <div className="qf-ok-acts">
-            <a className="pill dark" href={mailto(values.job, sent)} data-cta="form-open-email">
+            <a className="pill qf-go" href={mailto(values.job, sent)} data-cta="form-open-email">
               Open email{" "}
               <span className="arw" aria-hidden="true">→</span>
             </a>

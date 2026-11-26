@@ -3,7 +3,7 @@ import Trust from '../components/home/Trust';
 import Reels from '../components/home/Reels';
 import WhatWeDo from '../components/home/WhatWeDo';
 import OnSite from '../components/home/OnSite';
-import QuoteForm from '../components/forms/QuoteForm';
+import QuoteSection from '../components/forms/QuoteSection';
 import FindUs from '../components/FindUs';
 
 export default function HomePage() {
@@ -43,23 +43,7 @@ export default function HomePage() {
       <WhatWeDo />
       {/* 4. on site: a carousel of prints from our own sites, each with its caption */}
       <OnSite />
-      <section className="ask" id="quote">
-        <div className="ask-band">
-          <p className="ask-k">Request a quote</p>
-          <h2 className="h">
-            Tell us what{" "}
-            <em>you are building.</em>
-          </h2>
-          <p className="ask-lead">Three short steps, then a site visit and a written quote.</p>
-          <p className="ask-call">
-            <a href="tel:+35020047974" data-cta="ask-call">
-              Prefer to talk?{" "}
-              <b>+350 200 47974</b>
-            </a>
-          </p>
-        </div>
-        <QuoteForm />
-      </section>
+      <QuoteSection heading="h2" />
       <FindUs />
     </main>
   );

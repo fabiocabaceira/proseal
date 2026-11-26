@@ -4,7 +4,7 @@
 @font-face{font-family:"Archivo";font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/fonts/archivo.woff2) format("woff2")}
 @font-face{font-family:"Archivo";font-style:italic;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/fonts/archivo-italic.woff2) format("woff2")}
 :root{
-  --navy:#103058; --deep:#0b2140; --ink:#101c2e; --mute:#5f6876;
+  --navy:#103058; --deep:#0b2140; --ink:#101c2e; --mute:#5f6876; --cream:#f3efe7;
   --paper:#f6f3ee; --card:#fff; --line:rgba(16,28,46,.12); --line-n:rgba(255,255,255,.18);
   --sans:"Archivo","Helvetica Neue",system-ui,sans-serif;
   --it:var(--sans);
@@ -55,16 +55,36 @@ h1 em,.h em,.h2 em{font-style:normal;font-weight:300;font-stretch:112%;letter-sp
 .logo-sub{font-size:13.5px;font-weight:500;letter-spacing:-.01em}
 html.opening #logoBox{visibility:hidden}
 .nav,.nav-cta{display:none}
-.menu-btn{font:inherit;font-size:14.5px;font-weight:500;color:inherit;background:none;border:0;min-height:44px;padding:0 0 0 16px;cursor:pointer}
-.bar.over-menu{background:none !important;color:#fff !important;box-shadow:none !important;-webkit-backdrop-filter:none;backdrop-filter:none}
-.menu{position:fixed;inset:0;z-index:55;background:var(--deep);color:#fff;padding:calc(var(--bar) + 36px) var(--pad) 32px;display:flex;flex-direction:column;justify-content:space-between;opacity:0;transition:opacity .35s var(--ease)}
+.menu-btn{font:inherit;font-size:11.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:inherit;background:none;border:0;min-height:44px;padding:0 0 0 16px;cursor:pointer}
+.foot-icons a{width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--line-n);border-radius:50%;transition:background .35s var(--ease),color .35s var(--ease)}
+.foot-icons a:hover{background:#fff;color:var(--deep)}
+.foot-icons svg,.dock svg,.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+
+/* 26/11 v5 · the phone menu: a navy curtain that drops from the bar, which turns to navy with a hairline and a lettered
+   name. Five destinations in light type, a hairline between them, each sliding in after the one above. Closing lifts the
+   curtain a little faster. */
+.logo-txt{display:none}
+.bar.over-menu{background:var(--deep) !important;color:var(--cream) !important;box-shadow:0 1px 0 rgba(243,239,231,.14) !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important}
+.bar.over-menu .logo-box,.bar.over-menu .logo-sub{display:none}
+.bar.over-menu .logo-txt{display:block;font-size:11.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;animation:menu-fade .6s cubic-bezier(.22,1,.36,1) backwards}
+.menu{position:fixed;inset:0;z-index:55;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;padding:calc(var(--bar) + 24px) var(--pad) calc(48px + env(safe-area-inset-bottom));background:var(--deep);color:var(--cream);
+  opacity:0;clip-path:inset(0 0 100% 0);pointer-events:none;transition:opacity .4s cubic-bezier(.22,1,.36,1),clip-path .48s cubic-bezier(.22,1,.36,1)}
+.menu.open{opacity:1;clip-path:inset(0);pointer-events:auto;transition:opacity .52s cubic-bezier(.22,1,.36,1),clip-path .68s cubic-bezier(.22,1,.36,1)}
 .menu[hidden]{display:none}
-.menu.open{opacity:1}
-.menu nav a{display:block;font-size:32px;letter-spacing:-.035em;text-decoration:none;border-bottom:1px solid var(--line-n);padding:14px 0}
-.menu-foot{display:flex;gap:10px}
-.menu-foot a,.foot-icons a{width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--line-n);border-radius:50%;transition:background .35s var(--ease),color .35s var(--ease)}
-.menu-foot a:hover,.foot-icons a:hover{background:#fff;color:var(--deep)}
-.menu-foot svg,.foot-icons svg,.dock svg,.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.menu nav a{display:block;padding:22px 0;font-size:clamp(28px,8vw,36px);font-weight:300;line-height:1.1;letter-spacing:-.03em;text-decoration:none;color:rgba(243,239,231,.72);
+  opacity:0;transform:translate3d(0,14px,0);transition:opacity .26s cubic-bezier(.22,1,.36,1),transform .3s cubic-bezier(.22,1,.36,1),color .35s var(--ease)}
+.menu nav a + a{border-top:1px solid rgba(243,239,231,.12)}
+.menu nav a[data-cta="menu-quote"]{color:rgba(243,239,231,.9)}
+.menu nav a:hover,.menu nav a[aria-current]{color:var(--cream)}
+.menu.open nav a{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1),color .35s var(--ease)}
+.menu.open nav a:nth-child(1){transition-delay:.16s,.16s,0s}
+.menu.open nav a:nth-child(2){transition-delay:.23s,.23s,0s}
+.menu.open nav a:nth-child(3){transition-delay:.3s,.3s,0s}
+.menu.open nav a:nth-child(4){transition-delay:.37s,.37s,0s}
+.menu.open nav a:nth-child(5){transition-delay:.44s,.44s,0s}
+@keyframes menu-fade{from{opacity:0}}
+html.calm .menu,html.calm .menu nav a,html.calm .bar.over-menu .logo-txt{transition:none !important;animation:none !important}
+@media (prefers-reduced-motion:reduce){ .menu,.menu nav a,.bar.over-menu .logo-txt{transition:none !important;animation:none !important} }
 
 /* 1. hero: the Scroll Expansion Hero from 21st.dev (@arunachalam), rebuilt in CSS. site.js writes the scroll progress through
    the section to --p (linear) and --e (eased); the window, the background and the two halves of the title are drawn from them.
@@ -653,8 +673,6 @@ html.lite .tile.rise{opacity:1;transform:none;transition:none}
 
 /* 26/11 · bar and menu with six destinations: tighter spacing where the bar is narrow, a menu that scrolls on short phones */
 @media (min-width:900px) and (max-width:1099px){ .nav{gap:20px} }
-.menu{overflow-y:auto}
-.menu nav a{font-size:28px;padding:12px 0}
 .legal{max-width:52em;line-height:1.5}
 @media (min-width:900px){ .legal{text-align:right} }
 
@@ -949,101 +967,6 @@ html.calm .wwp-c{transition:none}
   .os-nav{margin-top:40px}
 }
 
-/* 26/11 v3 · the quote form: the ProSeal plate draws itself once at the head of the card, then settles into navy with
-   white letters; three steps slide in the direction of travel under a segmented bar; a sent enquiry ends on the ProSeal
-   seal with a tick and the whole message */
-.qf-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
-.qf-head[hidden]{display:none}
-.qf-head-r{flex:1 1 auto;min-width:0;display:grid;justify-items:end;gap:8px;text-align:right}
-.qf-title{max-width:100%;overflow:hidden;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;text-overflow:ellipsis;color:var(--mute)}
-.qf-conta{font-size:12px;line-height:1;letter-spacing:.14em;color:var(--mute);font-variant-numeric:tabular-nums}
-.qf-conta b{display:inline-block;font-weight:500;color:var(--ink);animation:qf-up .5s var(--ease)}
-
-.pm{flex:0 1 auto;width:clamp(184px,58%,272px)}
-.pm svg{width:100%;height:auto;overflow:visible}
-.pm-traco{fill:none;stroke:var(--navy);stroke-width:64;stroke-linejoin:round;stroke-dasharray:var(--len,100000);stroke-dashoffset:var(--len,100000)}
-.pm.is-in .pm-traco{animation:pm-draw 1.15s cubic-bezier(.22,1,.36,1) forwards}
-.pm.is-in .pm-traco--l{animation-delay:.18s}
-.pm-placa{opacity:0;transform:scaleX(0);transform-box:fill-box;transform-origin:0 50%}
-.pm.is-in .pm-placa{opacity:1;transform:none;animation:pm-placa .62s cubic-bezier(.22,1,.36,1) 1.15s backwards}
-.pm-letras{fill:#fff;opacity:0}
-.pm.is-in .pm-letras{opacity:1;animation:pm-letras .42s cubic-bezier(.22,1,.36,1) 1.42s backwards}
-@keyframes pm-draw{to{stroke-dashoffset:0}}
-@keyframes pm-placa{from{opacity:0;transform:scaleX(0)}}
-@keyframes pm-letras{from{opacity:0}}
-
-.qf-barra{display:flex;gap:.375rem;align-items:center;margin-top:20px}
-.qf-barra-s{flex:1;height:3px;border-radius:3px;background:var(--navy);opacity:.28;transition:opacity 420ms cubic-bezier(.22,1,.36,1),background-color 420ms cubic-bezier(.22,1,.36,1)}
-.qf-barra-s[data-feito="true"]{opacity:1}
-
-.qf-palco{margin:14px -10px 0;padding:0 10px;overflow-x:clip}
-.qf-passo{animation:qf-frente 420ms cubic-bezier(.22,1,.36,1) backwards}
-.qf-palco[data-dir="back"] .qf-passo{animation-name:qf-tras}
-.qf-passo .qf-campo{animation:qf-campo 420ms cubic-bezier(.22,1,.36,1) backwards}
-.qf-passo .qf-campo:nth-child(1){animation-delay:90ms}
-.qf-passo .qf-campo:nth-child(2){animation-delay:150ms}
-.qf-passo .qf-campo:nth-child(3){animation-delay:210ms}
-.qf-passo .qf-campo:nth-child(n+4){animation-delay:270ms}
-@keyframes qf-frente{from{opacity:0;transform:translate3d(1.75rem,0,0)}}
-@keyframes qf-tras{from{opacity:0;transform:translate3d(-1.75rem,0,0)}}
-@keyframes qf-campo{from{opacity:0;transform:translate3d(0,.75rem,0)}}
-
-.qf .opts span{position:relative;justify-content:space-between;gap:10px;padding:8px 12px 8px 14px;background:#fff;
-  transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease),transform .5s cubic-bezier(.34,1.56,.64,1)}
-.qf .opts label:hover span{border-color:var(--navy);box-shadow:0 12px 24px -18px rgba(11,33,64,.55);transform:translateY(-1px)}
-.qf .opts label:active span{transform:scale(.97);transition-duration:.15s}
-.qf .opts input:checked + span{background:var(--navy);color:#fff;border-color:var(--navy);box-shadow:0 16px 28px -18px rgba(16,48,88,.85);transform:scale(1.015)}
-.opt-dot{flex:0 0 auto;position:relative;width:18px;height:18px;border-radius:50%;border:1px solid rgba(16,28,46,.25);transition:border-color .3s var(--ease),background .3s var(--ease)}
-.opt-dot::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--navy);transform:scale(0);transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
-.qf .opts label:hover .opt-dot{border-color:var(--navy)}
-.qf .opts input:checked + span .opt-dot{border-color:#fff;background:#fff}
-.qf .opts input:checked + span .opt-dot::after{transform:scale(1)}
-.qf .opts[aria-invalid="true"] span{border-color:rgba(200,68,47,.55)}
-.qf .field span{transition:color .3s var(--ease)}
-.qf .field:focus-within span{color:var(--navy)}
-.qf .field input,.qf .field textarea{background:linear-gradient(var(--navy),var(--navy)) 0 100%/0 1px no-repeat;transition:border-color .3s var(--ease),background-size .5s var(--ease)}
-.qf .field input:focus,.qf .field textarea:focus{background-size:100% 1px}
-.qf-err{font-size:13px;line-height:1.4;color:#b23a26}
-.qf-err:not(:empty){margin-top:8px;animation:qf-up .35s var(--ease)}
-
-.qf-nav{margin-top:18px}
-.qf .pill{min-height:3.5rem;padding:0 26px}
-.qf-nav .pill{flex:1 1 auto}
-.qf .back{min-height:2.75rem;display:inline-flex;align-items:center;gap:6px;padding:0 4px;transition:color .3s var(--ease)}
-.qf .back[hidden]{display:none}
-.qf .back:hover{color:var(--ink)}
-.qf .arw{display:inline-block;transition:transform .35s var(--ease)}
-.qf #stepNext:hover .arw,.qf #stepSend:hover .arw{transform:translateX(4px)}
-.qf .back:hover .arw{transform:translateX(-4px)}
-.qf .pill.dark:active{transform:scale(.96)}
-
-.qf-ok{display:grid;justify-items:center;text-align:center;padding-top:6px}
-.qf-ok-selo{position:relative;width:7rem;height:7rem;display:grid;place-items:center;animation:qf-selo 620ms cubic-bezier(.22,1,.36,1) backwards}
-.qf-ok-selo > svg{width:100%;height:100%;border-radius:24px;box-shadow:0 24px 40px -24px rgba(11,33,64,.75)}
-.qf-ok-visto{position:absolute;right:-.25rem;bottom:-.25rem;width:2.75rem;height:2.75rem;border-radius:999px;display:grid;place-items:center;
-  background:#fff;border:1.5px solid var(--navy);box-shadow:0 0 0 3px #fff,0 10px 22px -10px rgba(11,33,64,.6);animation:qf-visto-caixa 420ms cubic-bezier(.22,1,.36,1) 380ms backwards}
-.qf-ok-visto svg{width:1.5rem;height:1.5rem}
-.qf-ok-visto path{fill:none;stroke:var(--navy);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:24;stroke-dashoffset:24;
-  animation:qf-visto-traco 420ms cubic-bezier(.22,1,.36,1) 560ms forwards}
-.qf-ok-t{margin-top:22px;font-size:24px;line-height:1.15;letter-spacing:-.03em}
-.qf-ok-t:focus{outline:none}
-.qf-ok-p{max-width:30em;margin-top:10px;font-size:14.5px;line-height:1.5;color:var(--mute)}
-.qf-ok-t,.qf-ok-p,.qf-ok-msg,.qf-ok-acts{animation:qf-up .5s var(--ease) .2s backwards}
-.qf-ok-msg{width:100%;margin:18px 0 0;padding:14px 16px;text-align:left;font:inherit;font-size:13.5px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;
-  color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:12px}
-.qf-ok-acts{display:flex;flex-wrap:wrap;gap:10px;width:100%;margin-top:18px}
-.qf-ok-acts .pill{flex:1 1 11rem}
-.qf .qf-ok-copy{border-color:rgba(16,28,46,.24)}
-.qf-ok-copied{min-height:1.4em;margin-top:8px;font-size:13px;color:var(--mute)}
-.qf-ok-again{min-height:2.75rem;padding:0 6px;font:inherit;font-size:14.5px;color:var(--navy);background:none;border:0;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
-.qf-ok-again:hover{color:var(--ink)}
-@keyframes qf-selo{from{opacity:0;transform:scale(.72)}}
-@keyframes qf-visto-caixa{from{opacity:0;transform:scale(.4)}}
-@keyframes qf-visto-traco{to{stroke-dashoffset:0}}
-@keyframes qf-up{from{opacity:0;transform:translateY(6px)}}
-@media (min-width:900px){
-  .qf-nav .pill{flex:0 0 auto;min-width:12.5rem}
-}
 
 /* 26/11 v2 · where to find us: warm stone; the office card on the left, every line of it a direct way in; a view of
    Gibraltar in a true 4:3 frame on the right. On phones the words and the card come first. */
@@ -1088,10 +1011,7 @@ main > .find{display:grid;gap:30px;padding-top:var(--gap);padding-bottom:calc(va
    animation off they would keep their starting state, which is no mark at all. */
 html.calm .os-row,html.calm .os-bar i{transition:none}
 @media (prefers-reduced-motion:reduce){
-  .os-row,.os-bar i,.qf .opts span,.opt-dot::after,.qf-barra-s{transition:none}
-  .qf *{animation:none !important}
-  .pm-traco,.qf-ok-visto path{stroke-dashoffset:0}
-  .pm-placa,.pm-letras{opacity:1;transform:none}
+  .os-row,.os-bar i{transition:none}
 }
 
 /* 26/11 v4 · phones up to 768px: a page about half as long. Tighter bands and type, What we do as an accordion with one
@@ -1176,14 +1096,9 @@ html.calm .os-row,html.calm .os-bar i{transition:none}
   .ask-lead{margin-top:8px;font-size:14.5px;line-height:1.45}
   .ask-call{margin-top:4px}
   .steps{padding:18px 16px 16px}
-  .qf-barra{margin-top:14px}
-  .qf-palco{margin-top:8px}
   legend{font-size:19px;padding:2px 0 12px}
   .opts{gap:6px}
-  .qf .opts span{min-height:46px;padding:6px 10px 6px 12px;font-size:14px}
   .field{margin-bottom:12px}
-  .qf-nav{margin-top:14px}
-  .qf .pill{min-height:3.25rem}
 
   main > .find{gap:16px;padding-top:36px;padding-bottom:40px}
   .find-k{padding-top:10px}
@@ -1244,3 +1159,124 @@ html.calm .os-row,html.calm .os-bar i{transition:none}
   .wwd-x,.wwd-xi,.wwd-bn,.wwd-pm::before,.wwd-pm::after,.dock{transition:none !important}
 }
 html.calm .wwd-x,html.calm .wwd-xi,html.calm .wwd-pm::before,html.calm .wwd-pm::after{transition:none}
+
+/* 26/11 v5 · the quote, Home and the quote page alike (QuoteSection.tsx): no card. One narrow column centred on the navy;
+   the wordmark draws itself in cream straight on it, then the words, then the form on the same ground with hairline fields,
+   one calm list of projects and a cream button. A sent enquiry ends on the seal, a drawn tick and the whole message. */
+main > .ask.aq{display:block;padding:clamp(84px,18vw,128px) var(--pad) clamp(72px,15vw,128px) !important;background:var(--deep) linear-gradient(180deg,var(--navy),var(--deep) 62%);color:var(--cream)}
+.sub main > .ask.aq{padding-top:calc(var(--bar) + clamp(44px,11vw,96px)) !important}
+.aq{--c-line:rgba(243,239,231,.16);--c-soft:rgba(243,239,231,.64)}
+.aq-col{max-width:572px;margin:0 auto}
+.aq-head{display:grid;justify-items:center;text-align:center}
+
+.pm{width:clamp(168px,48vw,224px)}
+.pm svg{width:100%;height:auto;overflow:visible}
+.pm-traco{fill:none;stroke:var(--cream);stroke-width:40;stroke-linejoin:round;stroke-dasharray:var(--len,100000);stroke-dashoffset:var(--len,100000)}
+.pm.is-in .pm-traco{animation:pm-draw 1.5s cubic-bezier(.22,1,.36,1) forwards}
+.pm-letras{fill:var(--cream);opacity:0}
+.pm.is-in .pm-letras{opacity:1;animation:pm-letras .8s cubic-bezier(.22,1,.36,1) 1.15s backwards}
+@keyframes pm-draw{to{stroke-dashoffset:0}}
+@keyframes pm-letras{from{opacity:0}}
+
+.aq-k{margin-top:34px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--c-soft)}
+.aq-h{margin-top:14px;font-size:clamp(28px,7.4vw,44px);line-height:1.1;letter-spacing:-.035em;font-weight:300;font-stretch:108%;text-wrap:balance;color:var(--cream)}
+.aq-h em{font-style:normal;font-weight:300;color:rgba(243,239,231,.58)}
+.aq-lead{margin-top:14px;font-size:15.5px;line-height:1.5;color:var(--c-soft)}
+.aq-links{display:flex;flex-wrap:wrap;justify-content:center;gap:0 24px;margin-top:14px}
+.aq-links a{display:inline-flex;align-items:center;min-height:44px;font-size:14.5px;font-variant-numeric:tabular-nums;color:var(--cream);text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:rgba(243,239,231,.34);text-underline-offset:6px;transition:text-decoration-color .35s var(--ease)}
+.aq-links a:hover{text-decoration-color:var(--cream)}
+
+.qf{margin-top:clamp(36px,8vw,52px);padding-top:clamp(28px,6vw,40px);border-top:1px solid var(--c-line)}
+.qf-conta{font-size:11px;line-height:1;letter-spacing:.26em;text-transform:uppercase;font-variant-numeric:tabular-nums;color:var(--c-soft)}
+.qf-conta b{display:inline-block;font-weight:500;color:var(--cream);animation:qf-up .5s var(--ease)}
+.qf-barra{display:flex;gap:6px;margin-top:14px}
+.qf-barra-s{flex:1;height:1px;background:var(--cream);opacity:.2;transition:opacity 420ms cubic-bezier(.22,1,.36,1)}
+.qf-barra-s[data-feito="true"]{opacity:1}
+
+.qf-palco{margin:0 -10px;padding:0 10px;overflow-x:clip}
+.qf-passo{animation:qf-frente 420ms cubic-bezier(.22,1,.36,1) backwards}
+.qf-palco[data-dir="back"] .qf-passo{animation-name:qf-tras}
+.qf-passo .qf-campo{animation:qf-campo 420ms cubic-bezier(.22,1,.36,1) backwards}
+.qf-passo .qf-campo:nth-child(1){animation-delay:90ms}
+.qf-passo .qf-campo:nth-child(2){animation-delay:150ms}
+.qf-passo .qf-campo:nth-child(3){animation-delay:210ms}
+.qf-passo .qf-campo:nth-child(n+4){animation-delay:270ms}
+@keyframes qf-frente{from{opacity:0;transform:translate3d(1.75rem,0,0)}}
+@keyframes qf-tras{from{opacity:0;transform:translate3d(-1.75rem,0,0)}}
+@keyframes qf-campo{from{opacity:0;transform:translate3d(0,.75rem,0)}}
+@keyframes qf-up{from{opacity:0;transform:translateY(6px)}}
+
+.qf legend{padding:30px 0 18px;font-size:clamp(20px,5.4vw,24px);font-weight:300;line-height:1.2;letter-spacing:-.025em;color:var(--cream)}
+.qf .opts{display:block;background:rgba(243,239,231,.025);border:1px solid var(--c-line);border-radius:4px;overflow:hidden;transition:border-color .35s var(--ease)}
+.qf .opts label + label{border-top:1px solid rgba(243,239,231,.1)}
+.qf .opts span{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:54px;padding:12px 18px;border:0;border-radius:0;background:transparent;font-size:15.5px;font-weight:300;line-height:1.3;color:rgba(243,239,231,.76);transition:background-color .45s var(--ease),color .45s var(--ease)}
+.qf .opts label:hover span{background:rgba(243,239,231,.04);color:var(--cream)}
+.qf .opts input:checked + span{background:rgba(243,239,231,.08);color:var(--cream)}
+.qf .opts input:focus-visible + span{outline:1px solid var(--cream);outline-offset:-5px}
+.qf .opts[aria-invalid="true"]{border-color:rgba(243,167,150,.6)}
+.opt-dot{flex:0 0 auto;position:relative;width:16px;height:16px;border-radius:50%;border:1px solid rgba(243,239,231,.34);transition:border-color .35s var(--ease)}
+.opt-dot::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--cream);transform:scale(0);transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.qf .opts input:checked + span .opt-dot{border-color:var(--cream)}
+.qf .opts input:checked + span .opt-dot::after{transform:scale(1)}
+
+.qf .field{margin-bottom:18px}
+.qf .field span{display:block;margin-bottom:8px;font-size:11px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--c-soft);transition:color .3s var(--ease)}
+.qf .field small{color:rgba(243,239,231,.4)}
+.qf .field:focus-within span{color:var(--cream)}
+.qf .field input,.qf .field textarea{padding:14px 16px;font-size:16px;font-weight:300;color:var(--cream);background:rgba(243,239,231,.04);border:1px solid var(--c-line);border-radius:4px;transition:border-color .35s var(--ease),background-color .35s var(--ease)}
+.qf .field input::placeholder,.qf .field textarea::placeholder{color:rgba(243,239,231,.34)}
+.qf .field input:focus,.qf .field textarea:focus{outline:none;border-color:rgba(243,239,231,.6);background-color:rgba(243,239,231,.06)}
+.qf .field input.bad{border-color:rgba(243,167,150,.8)}
+.qf .field input:-webkit-autofill{-webkit-text-fill-color:var(--cream);caret-color:var(--cream);box-shadow:0 0 0 100px #132b4d inset}
+.qf-err{font-size:13px;line-height:1.4;color:#f3a796}
+.qf-err:not(:empty){margin-top:8px;animation:qf-up .35s var(--ease)}
+
+.qf-nav{display:flex;align-items:center;gap:16px;margin-top:28px}
+.qf .pill{min-height:3.5rem;padding:0 28px}
+.qf .qf-go{background:var(--cream);color:var(--deep);border-color:var(--cream)}
+.qf .qf-go:hover{background:#fff;border-color:#fff}
+.qf-nav .qf-go{flex:1 1 auto}
+.qf .back{flex:0 0 auto;margin:0;min-height:2.75rem;display:inline-flex;align-items:center;gap:6px;padding:0 4px;color:var(--c-soft);transition:color .3s var(--ease)}
+.qf .back[hidden]{display:none}
+.qf .back:hover{color:var(--cream)}
+.qf .arw{display:inline-block;transition:transform .35s var(--ease)}
+.qf #stepNext:hover .arw,.qf #stepSend:hover .arw{transform:translateX(4px)}
+.qf .back:hover .arw{transform:translateX(-4px)}
+
+.qf-ok{display:grid;justify-items:center;text-align:center}
+.qf-ok-selo{position:relative;width:5.5rem;height:5.5rem;animation:qf-selo 620ms cubic-bezier(.22,1,.36,1) backwards}
+.qf-ok-selo > svg{width:100%;height:100%}
+.qf-ok-aro{fill:rgba(243,239,231,.04);stroke:rgba(243,239,231,.42);stroke-width:1.5}
+.qf-ok-p-l{fill:var(--cream)}
+.qf-ok-visto{position:absolute;right:-.5rem;bottom:-.5rem;width:2.5rem;height:2.5rem;border-radius:999px;display:grid;place-items:center;background:var(--cream);box-shadow:0 0 0 4px var(--deep);
+  animation:qf-visto-caixa 420ms cubic-bezier(.22,1,.36,1) 380ms backwards}
+.qf-ok-visto svg{width:1.4rem;height:1.4rem}
+.qf-ok-visto path{fill:none;stroke:var(--deep);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:24;stroke-dashoffset:24;
+  animation:qf-visto-traco 420ms cubic-bezier(.22,1,.36,1) 560ms forwards}
+.qf-ok-t{margin-top:26px;font-size:clamp(22px,6vw,28px);font-weight:300;line-height:1.15;letter-spacing:-.03em;color:var(--cream)}
+.qf-ok-t:focus{outline:none}
+.qf-ok-p{max-width:30em;margin-top:12px;font-size:14.5px;line-height:1.55;color:var(--c-soft)}
+.qf-ok-t,.qf-ok-p,.qf-ok-msg,.qf-ok-acts{animation:qf-up .5s var(--ease) .2s backwards}
+.qf-ok-msg{width:100%;margin:22px 0 0;padding:16px 18px;text-align:left;font:inherit;font-size:13.5px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;
+  color:rgba(243,239,231,.86);background:rgba(243,239,231,.04);border:1px solid var(--c-line);border-radius:4px}
+.qf-ok-acts{display:flex;flex-wrap:wrap;gap:10px;width:100%;margin-top:20px}
+.qf-ok-acts .pill{flex:1 1 11rem}
+.qf .qf-ok-copy{background:transparent;color:var(--cream);border-color:rgba(243,239,231,.32)}
+.qf .qf-ok-copy:hover{background:rgba(243,239,231,.06);border-color:var(--cream)}
+.qf-ok-copied{min-height:1.4em;margin-top:10px;font-size:13px;color:var(--c-soft)}
+.qf-ok-again{min-height:2.75rem;padding:0 6px;font:inherit;font-size:14.5px;color:var(--c-soft);background:none;border:0;cursor:pointer;text-decoration:underline;text-decoration-color:rgba(243,239,231,.3);text-underline-offset:6px;transition:color .3s var(--ease)}
+.qf-ok-again:hover{color:var(--cream)}
+@keyframes qf-selo{from{opacity:0;transform:scale(.72)}}
+@keyframes qf-visto-caixa{from{opacity:0;transform:scale(.4)}}
+@keyframes qf-visto-traco{to{stroke-dashoffset:0}}
+
+@media (min-width:900px){
+  .qf-nav .qf-go{flex:0 0 auto;min-width:12.5rem;margin-left:auto}
+}
+/* with motion off the mark and the tick keep their final state: their starting state is no mark at all */
+@media (prefers-reduced-motion:reduce){
+  .qf .opts span,.opt-dot::after,.qf-barra-s{transition:none}
+  .qf *,.pm *{animation:none !important}
+  .pm-traco,.qf-ok-visto path{stroke-dashoffset:0}
+  .pm-letras{opacity:1}
+}

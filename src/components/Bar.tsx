@@ -62,6 +62,7 @@ export default function Bar({ home, current, menuOpen, onMenu }: Props) {
       <a className="logo" href="index.html" aria-label="ProSeal Construction, home">
         <span className="logo-box" id="logoBox"><svg viewBox="0 0 8808 1700" aria-hidden="true"><use href="#wm" /></svg></span>{' '}
         <span className="logo-sub">Construction</span>
+        <span className="logo-txt" aria-hidden="true">ProSeal Construction</span>
       </a>
       <nav className="nav" aria-label="Main">
         <a href="index.html#what">What we do</a>{' '}
@@ -72,7 +73,7 @@ export default function Bar({ home, current, menuOpen, onMenu }: Props) {
       </nav>
       <a className="pill nav-cta" href="quote.html" data-cta="nav-quote">Request a quote</a>{' '}
       <button className="menu-btn" id="menuBtn" aria-expanded={menuOpen} aria-controls="menu" onClick={onMenu}>
-        <span>{menuOpen ? 'Close' : 'Menu'}</span>
+        <span>{menuOpen ? 'Close menu' : 'Menu'}</span>
       </button>
     </header>
   );
