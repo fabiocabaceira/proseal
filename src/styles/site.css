@@ -1118,7 +1118,7 @@ html.calm .os-row,html.calm .os-bar i{transition:none}
   .tw-kind{font-size:8.5px}
   .tw-go{top:8px;right:8px;width:12px;height:12px}
 
-  .intro{padding-top:26px;padding-bottom:36px}
+  .intro{padding-top:26px;padding-bottom:calc(24px + var(--dock-h) + env(safe-area-inset-bottom,0px))}
   .lead{font-size:17px;line-height:1.38;letter-spacing:-.015em}
   .intro-p{margin-top:12px;font-size:14.5px;line-height:1.5}
   .facts{margin-top:22px;gap:10px}
@@ -1131,7 +1131,7 @@ html.calm .os-row,html.calm .os-bar i{transition:none}
   .reels{--rw:min(40vw,220px);gap:12px}
   .reels-cartao{border-radius:18px}
 
-  .what{padding-top:36px}
+  .what{padding-top:28px;padding-bottom:calc(20px + var(--dock-h) + env(safe-area-inset-bottom,0px))}
   .what-head{gap:8px}
   .what-p{font-size:14px;line-height:1.5}
   .wwd-grid{margin-top:22px}
@@ -1167,7 +1167,7 @@ html.calm .os-row,html.calm .os-bar i{transition:none}
   .works-head{gap:8px}
   .works-p{font-size:14.5px}
   .works-copy p + p{margin-top:8px}
-  .os{margin-top:16px;padding-bottom:36px}
+  .os{margin-top:16px;padding-bottom:calc(20px + var(--dock-h) + env(safe-area-inset-bottom,0px))}
   .os-img{aspect-ratio:3/2}
   .os-t{margin-top:10px;padding-top:10px}
   .os-nav{margin-top:12px}

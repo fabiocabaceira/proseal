@@ -175,7 +175,7 @@ function Card({ s, n, on }: { readonly s: Service; readonly n: number; readonly 
    the button are both in the markup and the stylesheet shows one of them, so the prerendered page needs no width check. */
 export default function WhatWeDo() {
   const [on, setOn] = useState(0);
-  const [open, setOpen] = useState(0);
+  const [open, setOpen] = useState(-1);
   return (
     <section className="what" id="what">
       <div className="what-head">
