@@ -1,4 +1,5 @@
 import Hero from '../components/home/Hero';
+import Trust from '../components/home/Trust';
 import Reels from '../components/home/Reels';
 import WhatWeDo from '../components/home/WhatWeDo';
 import Development from '../components/home/Development';
@@ -12,6 +13,8 @@ export default function HomePage() {
      The restored arch fills the screen; the new build plays in a window that opens to the full screen with the scroll,
      and the two halves of the title part to the sides. */}
       <Hero />
+      {/* selected commissions and institutional clients, set in type on a dark band under the hero */}
+      <Trust />
       {/* 2. who we are: where the company comes from, where it stands today and what comes next, and three figures for the same */}
       <section className="intro" id="about">
         <div className="intro-copy">
@@ -39,7 +42,7 @@ export default function HomePage() {
         {/* reels: the carousel on the left, a short text and the list of the four films on the right */}
         <Reels />
       </section>
-      {/* 3. what we do: a ruled index of the services; each name opens the quote form with that service, one quote request below */}
+      {/* 3. what we do: a ruled index of the services beside a panel that shows the work behind the one pointed at; each name opens the quote form with that service, one quote request below */}
       <WhatWeDo />
       {/* in development: The Villas Beacon Point, Europa Point. Renders and clip are the developer's. */}
       <Development />
