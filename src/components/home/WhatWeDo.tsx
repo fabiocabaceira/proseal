@@ -170,9 +170,12 @@ function Card({ s, n, on }: { readonly s: Service; readonly n: number; readonly 
   );
 }
 
-/* the index of the eight services; on wide screens the panel beside it shows the work behind the service pointed at */
+/* the index of the eight services; on wide screens the panel beside it shows the work behind the service pointed at.
+   On phones (site.css, max-width 768px) each row is an accordion button and only one panel is open; the title link and
+   the button are both in the markup and the stylesheet shows one of them, so the prerendered page needs no width check. */
 export default function WhatWeDo() {
   const [on, setOn] = useState(0);
+  const [open, setOpen] = useState(0);
   return (
     <section className="what" id="what">
       <div className="what-head">
@@ -193,7 +196,7 @@ export default function WhatWeDo() {
             {SERVICES.map((s: Service, i) => (
               <li
                 key={s.id}
-                className={`wwd-i${s.job ? '' : ' soon'}${i === on ? ' is-on' : ''}`}
+                className={`wwd-i${s.job ? '' : ' soon'}${i === on ? ' is-on' : ''}${i === open ? ' is-open' : ''}`}
                 onPointerEnter={() => setOn(i)}
                 onFocus={() => setOn(i)}
               >
@@ -202,17 +205,41 @@ export default function WhatWeDo() {
                   {s.job ? (
                     <a href={`quote.html?job=${encodeURIComponent(s.job)}`} data-cta={`what-${s.id}`} aria-describedby="wwd-hint">{s.title}</a>
                   ) : (
-                    s.title
+                    <span className="wwd-tt">{s.title}</span>
                   )}
                   {s.from && <span className="wwd-soon">{s.from}</span>}
+                  <button
+                    type="button"
+                    className="wwd-b"
+                    id={`wwd-b-${s.id}`}
+                    aria-expanded={i === open}
+                    aria-controls={`wwd-x-${s.id}`}
+                    onClick={() => setOpen(i === open ? -1 : i)}
+                  >
+                    <span className="wwd-bn">{pad2(i + 1)}</span>
+                    <span className="wwd-bt">{s.title}</span>
+                    <span className="wwd-pm" aria-hidden="true" />
+                  </button>
                 </h3>
-                <p className="wwd-p">{s.text}</p>
-                {s.panel.ref && (
-                  <p className="wwd-ref">
-                    {s.panel.refShot && s.panel.shot && <img src={`img/${s.panel.shot.slug}-480.webp`} alt="" loading="lazy" decoding="async" />}
-                    <span>{s.panel.ref}</span>
-                  </p>
-                )}
+                <div className="wwd-x" id={`wwd-x-${s.id}`}>
+                  <div className="wwd-xi">
+                    <p className="wwd-p">{s.text}</p>
+                    {s.panel.ref && (
+                      <p className="wwd-ref">
+                        {s.panel.refShot && s.panel.shot && <img src={`img/${s.panel.shot.slug}-480.webp`} alt="" loading="lazy" decoding="async" />}
+                        <span>{s.panel.ref}</span>
+                      </p>
+                    )}
+                    {s.job ? (
+                      <a className="wwd-q" href={`quote.html?job=${encodeURIComponent(s.job)}`} data-cta={`what-${s.id}`}>
+                        Request a quote
+                        {ARROW}
+                      </a>
+                    ) : (
+                      s.from && <p className="wwd-soon wwd-soon-m">{s.from}</p>
+                    )}
+                  </div>
+                </div>
                 {s.job && ARROW}
               </li>
             ))}

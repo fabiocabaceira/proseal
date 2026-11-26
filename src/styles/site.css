@@ -660,7 +660,6 @@ html.lite .tile.rise{opacity:1;transform:none;transition:none}
 
 /* 26/11 · intro: where the company comes from, where it stands and what comes next */
 .intro-p{margin-top:18px;max-width:34em;font-size:16px;line-height:1.55;color:var(--mute)}
-.facts dt small{margin-right:.3em;font-size:max(11px,.26em);font-weight:400;letter-spacing:.02em;color:var(--mute)}
 
 
 /* 26/11 · works page, project by project: the facts on one side, the photographs (or the panel that waits for them) on the other */
@@ -1097,3 +1096,155 @@ html.calm .os-row,html.calm .os-bar i{transition:none}
   .pm-traco,.qf-ok-visto path{stroke-dashoffset:0}
   .pm-placa,.pm-letras{opacity:1;transform:none}
 }
+
+/* 26/11 v4 · phones up to 768px: a page about half as long. Tighter bands and type, What we do as an accordion with one
+   panel open, On site as one compact frame, and the dock as a bar along the bottom edge that steps aside on the hero, the
+   forms, the closing bands and the footer (Dock.tsx). Wider screens keep everything above. */
+.wwd-b,.wwd-q,.wwd-soon.wwd-soon-m{display:none}
+.wwd-x,.wwd-xi{display:contents}
+@media (max-width:768px){
+  :root{--gap:40px;--dock-h:60px}
+  .h{font-size:clamp(24px,6.6vw,30px)}
+
+  main > .xh{--run:40svh}
+
+  main > .trust{gap:18px;padding-top:28px;padding-bottom:30px}
+  .trust-sig{margin-top:14px;gap:12px;font-size:13.5px}
+  .trust-sig small{font-size:12px}
+  .trust-mark{width:76px}
+  .trust-p{margin-top:12px;padding-top:12px;font-size:13.5px;line-height:1.45}
+  .tw > a,.tw > div{min-height:64px;gap:6px;padding:10px 8px}
+  .tw-name{font-size:14px}
+  .tw-kind{font-size:8.5px}
+  .tw-go{top:8px;right:8px;width:12px;height:12px}
+
+  .intro{padding-top:26px;padding-bottom:36px}
+  .lead{font-size:17px;line-height:1.38;letter-spacing:-.015em}
+  .intro-p{margin-top:12px;font-size:14.5px;line-height:1.5}
+  .facts{margin-top:22px;gap:10px}
+  .facts > div{padding-top:12px}
+  .facts dt{font-size:30px}
+  .facts dd{margin-top:6px;font-size:12px;line-height:1.3}
+  .reels-row{margin-top:30px;gap:14px}
+  .reels-p{margin-top:8px;font-size:14.5px;line-height:1.5}
+  .reels-list{display:none}
+  .reels{--rw:min(40vw,220px);gap:12px}
+  .reels-cartao{border-radius:18px}
+
+  .what{padding-top:36px}
+  .what-head{gap:8px}
+  .what-p{font-size:14px;line-height:1.5}
+  .wwd-grid{margin-top:22px}
+  .wwd-k{padding-bottom:10px}
+  .wwd-i{display:block;padding:0}
+  .wwd-i > .wwd-n,.wwd-i > .wwd-arw,.wwd-t > a,.wwd-tt,.wwd-t > .wwd-soon{display:none}
+  .wwd-t{font-size:inherit;line-height:inherit;letter-spacing:0;font-stretch:100%}
+  .wwd-b{display:grid;grid-template-columns:30px minmax(0,1fr) 16px;align-items:center;column-gap:10px;width:100%;min-height:54px;padding:0;border:0;background:none;
+    color:var(--ink);font:inherit;font-size:15.5px;font-weight:400;line-height:1.2;letter-spacing:-.02em;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .wwd-b:focus-visible{outline:2px solid var(--navy);outline-offset:-2px}
+  .wwd-bn{font-size:11px;letter-spacing:.14em;color:var(--mute);font-variant-numeric:tabular-nums;transition:color .42s cubic-bezier(.22,1,.36,1)}
+  .wwd-bt{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .wwd-pm{position:relative;justify-self:end;width:14px;height:14px}
+  .wwd-pm::before,.wwd-pm::after{content:"";position:absolute;left:0;right:0;top:50%;height:1.4px;margin-top:-.7px;background:currentColor;transition:transform .42s cubic-bezier(.22,1,.36,1)}
+  .wwd-pm::after{transform:rotate(90deg)}
+  .is-open .wwd-pm::after{transform:rotate(0deg)}
+  .is-open .wwd-bn{color:var(--ink)}
+  .wwd-x{display:grid;grid-template-rows:0fr;transition:grid-template-rows .42s cubic-bezier(.22,1,.36,1)}
+  .is-open > .wwd-x{grid-template-rows:1fr}
+  .wwd-xi{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-height:0;overflow:hidden;padding-left:40px;opacity:0;transform:translateY(-6px);visibility:hidden;
+    transition:opacity .42s cubic-bezier(.22,1,.36,1),transform .42s cubic-bezier(.22,1,.36,1),visibility 0s linear .42s}
+  .is-open .wwd-xi{opacity:1;transform:none;visibility:visible;transition-delay:0s}
+  .wwd-xi > :last-child{margin-bottom:18px}
+  .wwd-p{max-width:none;font-size:14px;line-height:1.5}
+  .wwd-ref{margin-top:0}
+  .wwd-q{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 18px;border-radius:999px;background:var(--deep);color:#fff;font-size:14px;font-weight:500;text-decoration:none}
+  .wwd-q .wwd-arw{width:16px;height:16px;stroke:currentColor;opacity:1;transform:none}
+  .wwd-soon.wwd-soon-m{display:block;margin:0}
+  .wwd-go{display:none}
+
+  .works{padding-top:36px}
+  .works-k{margin-bottom:16px;padding-top:10px}
+  .works-head{gap:8px}
+  .works-p{font-size:14.5px}
+  .works-copy p + p{margin-top:8px}
+  .os{margin-top:16px;padding-bottom:36px}
+  .os-img{aspect-ratio:3/2}
+  .os-t{margin-top:10px;padding-top:10px}
+  .os-nav{margin-top:12px}
+  .os-nav button{width:44px;height:44px}
+
+  main > .ask{gap:16px;padding:30px var(--pad) 36px !important}
+  .sub main > .ask{padding-top:calc(var(--bar) + 22px) !important}
+  .sub main > .cr-roles + .ask{padding-top:34px !important}
+  .ask-k{margin-bottom:8px;font-size:11px}
+  .ask-lead{margin-top:8px;font-size:14.5px;line-height:1.45}
+  .ask-call{margin-top:4px}
+  .steps{padding:18px 16px 16px}
+  .qf-barra{margin-top:14px}
+  .qf-palco{margin-top:8px}
+  legend{font-size:19px;padding:2px 0 12px}
+  .opts{gap:6px}
+  .qf .opts span{min-height:46px;padding:6px 10px 6px 12px;font-size:14px}
+  .field{margin-bottom:12px}
+  .qf-nav{margin-top:14px}
+  .qf .pill{min-height:3.25rem}
+
+  main > .find{gap:16px;padding-top:36px;padding-bottom:40px}
+  .find-k{padding-top:10px}
+  .find-h{font-size:clamp(30px,8.4vw,36px)}
+  .find-p{margin-top:8px;font-size:14.5px}
+  .find-card{margin-top:16px;padding:0 14px}
+  .find-row{padding:10px 0;row-gap:2px}
+  .find-v{font-size:15px}
+  .find-view img{aspect-ratio:2/1;object-position:50% 30%}
+  .find-view::after{inset:8px}
+  .find-view figcaption{padding:28px 16px 14px}
+
+  .foot{gap:10px 14px;padding:18px var(--pad) calc(16px + var(--dock-h) + env(safe-area-inset-bottom));font-size:12px}
+  .legal{grid-column:1/-1;line-height:1.45}
+
+  .dock{left:0;right:0;bottom:0;width:auto;max-width:none;margin:0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;
+    padding:8px var(--pad) calc(8px + env(safe-area-inset-bottom));border-radius:0;background:rgba(11,22,38,.94);
+    -webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);box-shadow:0 -1px 0 rgba(243,239,231,.12);
+    transform:translateY(100%);transition:opacity .4s var(--ease),transform .5s var(--ease),visibility 0s}
+  .dock.show{transform:none}
+  .dock.show.is-away{opacity:0;transform:translateY(100%);pointer-events:none;visibility:hidden;transition:opacity .3s var(--ease),transform .45s var(--ease),visibility 0s linear .45s}
+  .dock a{justify-content:center;min-height:44px;font-size:14.5px}
+  .dock .dock-main{background:var(--cr)}
+  .dock a:not(.dock-main){padding:0 18px;border:1px solid rgba(243,239,231,.24)}
+
+  .wk-head{gap:14px;padding:calc(var(--bar) + 28px) var(--pad) 28px}
+  .wk-head .h{font-size:clamp(40px,11vw,56px)}
+  .wk-toc{margin-top:14px}
+  .wk-toc a{padding:9px 0}
+  .wk-toc b{font-size:17px}
+  .wk-toc i{margin-top:-4px}
+  .cr-jump{margin-top:16px}
+  .pj-group{padding-bottom:12px}
+  .pj-k{padding:22px 0 12px}
+  .pj{gap:18px;padding:22px 0 30px}
+  .pj-name{margin-top:10px;font-size:clamp(28px,8vw,38px)}
+  .pj-kind{margin-top:8px;font-size:14.5px}
+  .pj-p{margin-top:10px;font-size:15px;line-height:1.5}
+  .pj-f{margin-top:16px}
+  .pj-f li{padding:9px 0 9px 22px;font-size:14px}
+  .pj-f li::before{top:19px}
+  .pj-go{margin-top:16px}
+  .pj-wait{aspect-ratio:16/10;padding:24px 20px;gap:10px}
+  .gal{gap:10px 8px}
+  .cr-role{padding:20px 0 22px}
+  .cr-role .pj-name{font-size:clamp(26px,7.4vw,34px)}
+  .cr-note{margin-top:20px;font-size:18px}
+  .also{padding-top:34px}
+  .also li{gap:14px;padding:12px 0;font-size:clamp(20px,5.6vw,26px)}
+  .cta{padding-top:40px;padding-bottom:44px}
+  .cta-go{margin-top:18px}
+  .svc{margin-top:20px}
+  .svc-i{padding:16px 0 18px}
+  .svc-t{font-size:20px}
+  .svc-p{font-size:14.5px}
+}
+@media (max-width:768px) and (prefers-reduced-motion:reduce){
+  .wwd-x,.wwd-xi,.wwd-bn,.wwd-pm::before,.wwd-pm::after,.dock{transition:none !important}
+}
+html.calm .wwd-x,html.calm .wwd-xi,html.calm .wwd-pm::before,html.calm .wwd-pm::after{transition:none}

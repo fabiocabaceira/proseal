@@ -31,7 +31,7 @@ export default function HomePage() {
             <dd>founded in Gibraltar</dd>
           </div>
           <div>
-            <dt><small>around</small>100</dt>
+            <dt><span className="sr-only">around </span><span aria-hidden="true">~</span>100</dt>
             <dd>people on staff</dd>
           </div>
           <div>
