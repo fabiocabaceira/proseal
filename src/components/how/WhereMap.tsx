@@ -14,10 +14,10 @@ interface Place {
 }
 
 const PLACES: readonly Place[] = [
-  { id: 'office', name: 'City Mill Lane', note: 'our office', label: 'Office', x: 152.7, y: 159.3, side: 'start' },
+  { id: 'office', name: 'City Mill Lane', note: 'Our office', label: 'Office', x: 152.7, y: 159.3, side: 'start' },
   { id: 'quay', name: 'Queensway Quay', note: 'The Island, The Sails', label: 'Queensway Quay', x: 118.5, y: 180, side: 'end' },
   { id: 'rosia', name: 'Rosia', note: '1 Rosia Parade', label: 'Rosia', x: 151.2, y: 290.7, side: 'end' },
-  { id: 'south', name: 'South District', note: 'Buena Vista Villas', label: 'South District', x: 189.7, y: 362.7, side: 'start' },
+  { id: 'south', name: 'South District', note: 'Healy House, Buena Vista Villa', label: 'South District', x: 189.7, y: 362.7, side: 'start' },
   { id: 'europa', name: 'Europa Point', note: 'The Villas Beacon Point, in development', label: 'Europa Point', x: 211.5, y: 425.7, side: 'start' },
 ];
 
@@ -93,7 +93,7 @@ export default function WhereMap() {
               </li>
             ))}
           </ul>
-          <p className="map-note">Coastline from OpenStreetMap. Places shown approximately.</p>
+          <p className="map-note">Coastline © OpenStreetMap contributors. Locations are approximate.</p>
         </div>
         <svg className={drawn ? 'map draw in' : 'map draw'} id="map" ref={map} viewBox="-40 -8 364 484" role="img" aria-label="Map of Gibraltar with the places where ProSeal has worked">
           <defs>

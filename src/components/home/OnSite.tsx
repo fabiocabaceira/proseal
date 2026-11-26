@@ -12,11 +12,11 @@ interface Print {
 
 const PRINTS = [
   { slug: 'gunwharf-arch', alt: 'Stone arch and repainted iron roof trusses at Gun Wharf', place: 'Gun Wharf', caption: 'The iron roof, restored' },
-  { slug: 'lgfs-a', alt: 'New light steel framing standing inside the Gun Wharf building', place: 'Gun Wharf', caption: 'A new steel frame inside' },
-  { slug: 'rock', alt: 'Timber frame house under scaffolding with the Rock of Gibraltar behind', place: 'New houses', caption: 'Under the Rock' },
-  { slug: 'slates', alt: 'Roofer laying slate with roof windows already set, the bay behind', place: 'New houses', caption: 'Slate, laid by hand' },
-  { slug: 'site-view', alt: 'The whole site seen from above, with the bay of Gibraltar behind', place: 'New houses', caption: 'The site from above' },
-  { slug: 'frame-1', alt: 'Two timber frame houses going up inside scaffolding, a worker on the roof', place: 'New houses', caption: 'Frames up' },
+  { slug: 'lgfs-a', alt: 'New light-gauge steel framing standing inside the Gun Wharf building', place: 'Gun Wharf', caption: 'New light-gauge steel framing' },
+  { slug: 'rock', alt: 'A timber-frame house under scaffolding, with the Rock of Gibraltar behind', place: 'New-build housing', caption: 'Beneath the Rock' },
+  { slug: 'slates', alt: 'A roofer laying slate around roof windows already in place, with the bay behind', place: 'New-build housing', caption: 'Slate laid by hand' },
+  { slug: 'site-view', alt: 'A ProSeal housing site seen from above, with the Bay of Gibraltar behind', place: 'New-build housing', caption: 'The site from above' },
+  { slug: 'frame-1', alt: 'Two timber-frame houses rising inside scaffolding, with a worker on the roof', place: 'New-build housing', caption: 'Timber frames going up' },
 ] as const satisfies readonly Print[];
 
 const COUNT = PRINTS.length;
@@ -79,13 +79,13 @@ export default function OnSite() {
           On{" "}
           <em>site.</em>
         </h2>
-        <p className="works-p">Photographs taken on our own sites in Gibraltar.</p>
+        <p className="works-p">Every photograph here was taken on one of our own sites in Gibraltar.</p>
         <p className="fan-nav">
           <button type="button" className="fan-prev" aria-label="Previous photograph" onClick={() => go(cur - 1)}>{ARROW}</button>
           <span className="fan-count" aria-live="polite">{`${cur + 1} / ${COUNT}`}</span>
           <button type="button" className="fan-next" aria-label="Next photograph" onClick={() => go(cur + 1)}>{ARROW}</button>
         </p>
-        <p><a className="line" href="works.html" data-cta="home-works">See all the works</a></p>
+        <p><a className="line" href="works.html" data-cta="home-works">See all our projects</a></p>
       </div>
       <div
         className="fan"

@@ -1,4 +1,4 @@
-export default function Footer() {
+export default function Footer({ renders }: { readonly renders: boolean }) {
   return (
     <>
       <footer className="foot" id="foot">
@@ -8,9 +8,14 @@ export default function Footer() {
           {" "}
           <a href="mailto:info@prosealconstruction.com" data-cta="foot-mail" aria-label="Email ProSeal Construction"><svg aria-hidden="true"><use href="#i-mail" /></svg></a>
           {" "}
-          <a href={"https://www.google.com/maps/search/?api=1&query=3%2F1+City+Mill+Lane+Gibraltar"} target="_blank" rel="noopener" aria-label="Open the office on the map"><svg aria-hidden="true"><use href="#i-pin" /></svg></a>
+          <a href={"https://www.google.com/maps/search/?api=1&query=3%2F1+City+Mill+Lane+Gibraltar"} target="_blank" rel="noopener" aria-label="Show our office on the map"><svg aria-hidden="true"><use href="#i-pin" /></svg></a>
         </p>
-        <p className="legal">© 2026 ProSeal Construction Ltd. Photographs taken on our own sites.</p>
+        <p className="legal">
+          © 2026 Proseal Construction Ltd, 3/1 City Mill Lane, Gibraltar GX11 1AA.{" "}
+          {renders
+            ? 'Photographs are from our own sites; renders of The Villas Beacon Point are courtesy of the developer.'
+            : 'Photographs are from our own sites.'}
+        </p>
       </footer>
     </>
   );

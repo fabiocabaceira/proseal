@@ -11,9 +11,9 @@ interface Render {
 }
 
 const RENDERS = [
-  { slug: 'beacon-villa', name: 'The villas', alt: 'Render of a villa at Beacon Point, glass balconies and timber screens', widths: [900, 1600] },
-  { slug: 'beacon-group', name: 'The terraces', alt: 'Render of the homes at Beacon Point, glass balconies and garden terraces', widths: [900, 1600, 1900] },
-  { slug: 'beacon-poolday', name: 'The communal pool', alt: 'Render of the communal pool at Beacon Point, palms and townhouses around it', widths: [900, 1600, 1900] },
+  { slug: 'beacon-villa', name: 'The villas', alt: 'Developer’s render of a villa at Beacon Point, with glass balconies and timber screens', widths: [900, 1600] },
+  { slug: 'beacon-group', name: 'The terraces', alt: 'Developer’s render of the homes at Beacon Point, with glass balconies and garden terraces', widths: [900, 1600, 1900] },
+  { slug: 'beacon-poolday', name: 'The communal pool', alt: 'Developer’s render of the communal pool at Beacon Point, with palms and townhouses around it', widths: [900, 1600, 1900] },
 ] as const satisfies readonly Render[];
 
 const AUTO_MS = 6000;
@@ -138,7 +138,7 @@ export default function Development() {
         <span>Europa Point, Gibraltar</span>
       </p>
       <figure className="dev-film">
-        <video ref={film} id="devFilm" data-src="img/beacon-loop-720.mp4" data-src-wide="img/beacon-loop.mp4" poster="img/beacon-poster-900.webp" data-poster-wide="img/beacon-poster-1600.webp" muted loop playsInline preload="none" aria-label="Aerial render of The Villas Beacon Point with the Rock of Gibraltar behind" />
+        <video ref={film} id="devFilm" data-src="img/beacon-loop-720.mp4" data-src-wide="img/beacon-loop.mp4" poster="img/beacon-poster-900.webp" data-poster-wide="img/beacon-poster-1600.webp" muted loop playsInline preload="none" aria-label="Developer’s aerial render of The Villas Beacon Point, with the Rock of Gibraltar behind" />
         {" "}
         <i className="cm tl" />
         <i className="cm tr" />
@@ -146,7 +146,7 @@ export default function Development() {
         <i className="cm br" />
         <figcaption>
           <span>36°06′ N 5°20′ W</span>
-          <span>Developer's render</span>
+          <span>Developer’s render</span>
         </figcaption>
         <div className="dev-brand">
           <div className="bp-logo" role="img" aria-label="The Villas Beacon Point">
@@ -168,10 +168,10 @@ export default function Development() {
       <div className="dev-row">
         <div className="dev-copy">
           <p className="dev-lead">
-            An exclusive range of townhouses, villas and luxury apartments at the southern tip of Gibraltar, with the Rock behind and Morocco across the water. Under construction by ProSeal.
+            The Villas Beacon Point is an exclusive collection of townhouses, villas and luxury apartments at the southern tip of Gibraltar, with the Rock behind and Morocco across the Strait. The development is under construction by ProSeal.
           </p>
           <p className="dev-go">
-            <a className="pill" href="https://thevillasbeaconpoint.gi/" target="_blank" rel="noopener" data-cta="dev-visit">Visit the development</a>
+            <a className="pill" href="https://thevillasbeaconpoint.gi/" target="_blank" rel="noopener" data-cta="dev-visit">Visit the development’s website</a>
             <a className="line" href="quote.html?job=New+build" data-cta="dev-quote">Build with us</a>
           </p>
         </div>
@@ -179,12 +179,12 @@ export default function Development() {
           <li>
             <span>01</span>
             <b>Townhouses</b>
-            villas and apartments
+            alongside villas and apartments
           </li>
           <li>
             <span>02</span>
             <b>Communal pool</b>
-            in the Mediterranean sun
+            surrounded by the townhouses
           </li>
           <li>
             <span>03</span>
@@ -194,14 +194,14 @@ export default function Development() {
           <li>
             <span>04</span>
             <b>Under construction</b>
-            status of the development
+            built by ProSeal
           </li>
         </ul>
       </div>
       <DevShow />
       <div className="dev-more">
         <a className="pill dev-cta" href="https://thevillasbeaconpoint.gi/" target="_blank" rel="noopener" data-cta="dev-renders">
-          See every render on the development's site{" "}
+          View every render on the development’s website{" "}
           <span aria-hidden="true">↗</span>
         </a>
         <p className="dev-note">Renders courtesy of the developer.</p>

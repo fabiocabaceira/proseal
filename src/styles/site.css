@@ -1,4 +1,4 @@
-/* ProSeal Construction. Mobile first (390px), desktop from 900px. Four pages built by build.py.
+/* ProSeal Construction. Mobile first (390px), desktop from 900px. Five pages, prerendered at build time.
    Mould: our calm real estate sites (Blue Sky). One photograph in the hero, small titles, photographs that are simply there,
    a white form card over a navy band, a floating capsule for contact. Only the hero window and the site tape move with the scroll. */
 @font-face{font-family:"Archivo";font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/fonts/archivo.woff2) format("woff2")}
@@ -490,38 +490,14 @@ main > .ask{display:grid;gap:36px;padding:64px var(--pad) 72px !important;backgr
 
 
 /* 19/11 v14 ---------------------------------------------------------------- */
-/* what we do: three photographs side by side; the chosen one opens wide */
+/* what we do: the heading and its short text */
 .what{display:block !important}
 .what-head{display:grid;gap:12px}
 .what-p{max-width:26em;color:var(--mute);font-size:16px}
-.panes{display:flex;flex-direction:column;gap:8px;margin-top:28px}
-.pane{position:relative;height:84px;border-radius:14px;overflow:hidden;background:var(--deep);color:#fff;transition:height .8s cubic-bezier(.22,1,.36,1)}
-.pane.is-on{height:min(118vw,500px)}
-.pane img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.4s cubic-bezier(.22,1,.36,1)}
-.pane.is-on img{transform:scale(1)}
-.pane::after{content:"";position:absolute;inset:0;background:rgba(9,26,51,.62);transition:background .8s cubic-bezier(.22,1,.36,1);pointer-events:none}
-.pane.is-on::after{background:linear-gradient(0deg,rgba(7,20,40,.82) 0,rgba(7,20,40,.35) 42%,rgba(7,20,40,0) 70%)}
-.pane-tab{position:absolute;z-index:2;inset:0 0 auto 0;height:84px;display:flex;align-items:center;gap:16px;padding:0 22px;border:0;background:none;color:#fff;font:inherit;text-align:left;cursor:pointer}
-.pane-n{font-size:11px;letter-spacing:.16em;font-variant-numeric:tabular-nums;opacity:.7}
-.pane-t{font-size:22px;letter-spacing:-.03em}
-.pane.is-on .pane-tab{cursor:default}
-.pane-body{position:absolute;z-index:2;left:22px;right:22px;bottom:22px;display:grid;gap:18px;justify-items:start;opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .7s cubic-bezier(.22,1,.36,1);pointer-events:none}
-.pane.is-on .pane-body{opacity:1;transform:none;transition-delay:.28s;pointer-events:auto}
-.pane-body p{max-width:24em;font-size:16px;line-height:1.5;color:rgba(255,255,255,.86)}
 @media (min-width:900px){
   .what-head{grid-template-columns:7fr 5fr;column-gap:72px;align-items:end}
   .what-p{justify-self:start}
-  .panes{flex-direction:row;height:clamp(520px,62vh,640px);gap:10px;margin-top:48px}
-  .pane,.pane.is-on{height:auto;flex:1 1 0;min-width:0;transition:flex-grow .9s cubic-bezier(.22,1,.36,1)}
-  .pane.is-on{flex-grow:3.6}
-  .pane-tab{inset:0;height:auto;align-items:flex-end;padding:26px}
-  .pane-t{writing-mode:vertical-rl;rotate:180deg;font-size:26px;transition:opacity .4s ease}
-  .pane-n{position:absolute;top:26px;left:26px}
-  .pane.is-on .pane-tab{pointer-events:none}
-  .pane.is-on .pane-t{writing-mode:horizontal-tb;rotate:0deg;position:absolute;left:30px;bottom:150px;font-size:clamp(34px,3.4vw,50px);white-space:nowrap}
-  .pane-body{left:30px;right:30px;bottom:30px;grid-template-columns:minmax(0,1fr) auto;align-items:end;column-gap:30px}
 }
-html.calm .pane,html.calm .pane img{transition:none}
 
 /* in development: a wide screen with the title on the film, then the copy and the four facts in one line */
 .dev{display:block !important}
@@ -828,40 +804,9 @@ html.lite .dev-pic img{animation:none!important}
 
 /* 19/11 v19 · works by kind of work, each a ring of photographs in depth */
 .wk-toc i{font-style:normal;font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
-.kind{padding:40px 0 64px;overflow:hidden;overflow:clip;scroll-margin-top:var(--bar)}
-.kind + .kind{border-top:1px solid var(--line)}
-.kind-head{padding:0 var(--pad);display:grid;gap:10px}
-.kind-n{display:flex;gap:14px;align-items:baseline;font-size:11px;letter-spacing:.16em;color:var(--mute);font-variant-numeric:tabular-nums}
-.kind-n span{text-transform:uppercase}
-.kind-head .h{font-size:clamp(34px,8.6vw,72px);line-height:1.02}
-.kind-p{color:var(--mute);max-width:30em;font-size:15.5px;line-height:1.5}
-.ring{position:relative;height:calc(62vw * 1.3 + 40px);max-height:560px;margin-top:26px;perspective:1100px;perspective-origin:50% 40%;touch-action:pan-y;cursor:grab;-webkit-user-select:none;user-select:none;outline:none}
-.ring:active{cursor:grabbing}
-.ring-stage{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
-.rc{position:absolute;left:50%;top:20px;width:62vw;max-width:340px;aspect-ratio:4/5;margin-left:calc(min(62vw,340px) / -2);border-radius:14px;overflow:hidden;background:#e6e2da;color:#fff;text-decoration:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;box-shadow:0 30px 60px -30px rgba(7,20,40,.45);transition:opacity .3s ease}
-.rc img{width:100%;height:100%;object-fit:cover;pointer-events:none}
-.rc::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,20,40,.7) 0,rgba(7,20,40,0) 42%);opacity:0;transition:opacity .5s ease}
-.rc-t{position:absolute;z-index:1;left:16px;right:16px;bottom:14px;font-size:14.5px;line-height:1.3;opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .6s cubic-bezier(.22,1,.36,1)}
-.rc.front::after,.rc.front .rc-t{opacity:1;transform:none}
-.ring-ui{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:6px;padding:0 var(--pad)}
-.ring-b{width:52px;height:52px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;color:var(--ink);transition:transform .4s cubic-bezier(.22,1,.36,1),background .3s ease}
-.ring-b:hover{transform:scale(1.06)}
-.ring-b:active{transform:scale(.96)}
-.ring-b svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.ring-c{font-size:12px;letter-spacing:.14em;color:var(--mute);font-variant-numeric:tabular-nums;min-width:64px;text-align:center}
-.ring-c b{font-weight:500;color:var(--ink)}
-@media (min-width:900px){
-  .kind{padding:80px 0 110px}
-  .kind-head{padding:0 max(var(--pad),calc((100vw - var(--max)) / 2));grid-template-columns:auto 1fr;column-gap:56px;align-items:end}
-  .kind-n{grid-column:1/-1}
-  .kind-p{justify-self:end;max-width:26em;padding-bottom:10px}
-  .ring{height:520px;margin-top:40px;perspective:1600px}
-  .rc{width:340px;margin-left:-170px}
-}
-html.calm .ring-stage{transition:none}
 
 /* 19/11 v20 · clip sideways overflow at the section, phones grow the layout viewport otherwise */
-.works,.dev,.kind{overflow-x:clip}
+.works,.dev{overflow-x:clip}
 .dev-cta{max-width:100%;white-space:normal;line-height:1.3;text-align:left}
 @media (max-width:380px){.dev-cta{font-size:14px;padding-left:18px;padding-right:14px}}
 
@@ -1049,3 +994,97 @@ html.calm .ring-stage{transition:none}
     margin-inline:auto;
   }
 }
+
+/* 26/11 · bar and menu with six destinations: tighter spacing where the bar is narrow, a menu that scrolls on short phones */
+@media (min-width:900px) and (max-width:1099px){ .nav{gap:20px} }
+.menu{overflow-y:auto}
+.menu nav a{font-size:28px;padding:12px 0}
+.legal{max-width:52em;line-height:1.5}
+@media (min-width:900px){ .legal{text-align:right} }
+
+/* 26/11 · intro: where the company comes from, where it stands and what comes next */
+.intro-p{margin-top:18px;max-width:34em;font-size:16px;line-height:1.55;color:var(--mute)}
+.facts dt small{margin-right:.3em;font-size:max(11px,.26em);font-weight:400;letter-spacing:.02em;color:var(--mute)}
+
+/* 26/11 · what we do (and the approach on the how page): a ruled index of services, four across on wide screens */
+.svc{display:grid;margin-top:32px;border-top:1px solid var(--line)}
+.svc-i{display:flex;flex-direction:column;gap:10px;padding:22px 0 24px;border-bottom:1px solid var(--line)}
+.svc-n{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.16em;color:var(--mute);font-variant-numeric:tabular-nums}
+.svc-from{padding:3px 10px;border-radius:999px;background:var(--tape-b);color:var(--ink);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase}
+.svc-t{font-size:22px;line-height:1.15;letter-spacing:-.03em;font-weight:400;text-wrap:balance}
+.svc-p{max-width:30em;font-size:15px;line-height:1.5;color:var(--mute)}
+.svc-a{align-self:flex-start;margin-top:auto;font-size:14px;font-weight:500;color:var(--navy);text-decoration:none;border-bottom:1px solid currentColor;padding:6px 0 2px}
+.svc-a span[aria-hidden]{display:inline-block;transition:transform .35s var(--ease)}
+.svc-a:hover span[aria-hidden]{transform:translateX(4px)}
+@media (min-width:900px){
+  .svc{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:56px}
+  .svc-i{min-height:280px;padding:30px 28px 32px;border-right:1px solid var(--line)}
+  .svc-i:nth-child(4n){border-right:0;padding-right:0}
+  .svc-i:nth-child(4n+1){padding-left:0}
+  .svc.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .svc.three .svc-i{min-height:220px;padding:30px 28px 32px;border-right:1px solid var(--line)}
+  .svc.three .svc-i:nth-child(3n){border-right:0;padding-right:0}
+  .svc.three .svc-i:nth-child(3n+1){padding-left:0}
+  .svc-t{font-size:clamp(22px,1.8vw,27px)}
+}
+
+/* 26/11 · works page, project by project: the facts on one side, the photographs (or the panel that waits for them) on the other */
+.wk-head .h{font-size:clamp(48px,12vw,112px)}
+.pj-group{padding-bottom:24px}
+.pj-k{padding:28px 0 16px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:400;color:var(--mute)}
+.pj{display:grid;gap:26px;padding:32px 0 44px;border-bottom:1px solid var(--line);scroll-margin-top:var(--bar)}
+.pj:last-child{border-bottom:0}
+.pj-n{display:flex;gap:14px;align-items:baseline;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);font-variant-numeric:tabular-nums}
+.pj-name{margin-top:14px;font-size:clamp(34px,9vw,60px);line-height:1.02;letter-spacing:-.045em;font-weight:300;font-stretch:112%;text-wrap:balance}
+.pj-kind{display:flex;flex-wrap:wrap;gap:2px 14px;margin-top:12px;font-size:15px;font-weight:500;letter-spacing:-.01em}
+.pj-kind span{font-weight:400;color:var(--mute)}
+.pj-p{margin-top:14px;max-width:32em;font-size:16px;line-height:1.55;color:var(--mute)}
+.pj-kind + .pj-p,.cr-role .pj-name + .pj-p{color:var(--ink)}
+.pj-f{margin-top:22px;border-top:1px solid var(--line)}
+.pj-f li{position:relative;padding:11px 0 11px 22px;border-bottom:1px solid var(--line);font-size:15px;line-height:1.4}
+.pj-f li::before{content:"";position:absolute;left:2px;top:21px;width:10px;height:1px;background:var(--navy)}
+.pj-go{margin-top:22px}
+.pj-credit{margin-top:12px;font-size:12.5px;color:var(--mute)}
+.pj-wait{position:relative;display:grid;align-content:center;justify-items:center;gap:14px;aspect-ratio:4/3;padding:40px 28px;border-radius:14px;overflow:hidden;background:var(--deep);color:#f3efe7;text-align:center}
+.pj-wait::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(243,239,231,.045) 0 1px,transparent 1px 56px),repeating-linear-gradient(0deg,rgba(243,239,231,.045) 0 1px,transparent 1px 56px)}
+.pj-wait > p{position:relative}
+.pj-wait .cm{border-color:rgba(243,239,231,.5)}
+.pj-wait-k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,239,231,.62)}
+.pj-wait-n{font-size:clamp(30px,7.6vw,52px);line-height:1.05;letter-spacing:-.04em;font-weight:400;font-stretch:112%;-webkit-text-fill-color:transparent;-webkit-text-stroke:1px rgba(243,239,231,.85);text-wrap:balance}
+@supports not (-webkit-text-stroke:1px black){.pj-wait-n{color:inherit;font-weight:200}}
+.pj-wait-p{max-width:24em;font-size:14px;color:rgba(243,239,231,.62)}
+.gal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 10px}
+.gal li:first-child,.gal li:nth-child(even):last-child{grid-column:1/-1}
+.gal li:nth-child(even):last-child .shot-img{aspect-ratio:16/9}
+.shot{display:block;color:var(--ink);text-decoration:none}
+.shot-img{display:block;overflow:hidden;aspect-ratio:4/3;border-radius:10px;background:#e6e2da}
+.shot-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.22,1,.36,1)}
+.shot:hover .shot-img img{transform:scale(1.035)}
+.shot-t{display:block;margin-top:8px;font-size:13px;line-height:1.35;color:var(--mute)}
+@media (min-width:900px){
+  .wk-head.pj-head{align-items:start}
+  .pj-group{padding-bottom:40px}
+  .pj-k{padding:48px 0 18px}
+  .pj{grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:clamp(48px,6vw,96px);align-items:start;padding:72px 0 88px}
+  .pj-copy{position:sticky;top:calc(var(--bar) + 32px)}
+  .pj-wait{aspect-ratio:7/5;border-radius:18px}
+  .gal{gap:22px 16px}
+  .shot-img{border-radius:12px}
+}
+
+/* 26/11 · careers: the two roles side by side, then the application on the navy band of the quote page */
+.cr-jump{margin-top:24px}
+.cr-roles{padding-bottom:var(--gap)}
+.cr-role{padding:28px 0 32px;border-bottom:1px solid var(--line)}
+.cr-role .pj-name{margin-top:0;font-size:clamp(30px,8vw,48px)}
+.cr-note{margin-top:32px;max-width:36em;font-size:clamp(19px,4.8vw,26px);line-height:1.38;letter-spacing:-.02em}
+.sub main > .cr-roles + .ask{padding-top:64px !important}
+.apply fieldset + fieldset{margin-top:20px}
+.opts.bad span{border-color:#c8442f}
+@media (min-width:900px){
+  .cr-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:72px}
+  .cr-role{padding:48px 0 56px}
+  .cr-note{margin-top:56px}
+  .sub main > .cr-roles + .ask{padding-top:112px !important}
+}
+@media (max-width:899px){ .wk-toc a{grid-template-columns:34px minmax(0,1fr)} .wk-toc i{grid-column:2;margin-top:-6px} }

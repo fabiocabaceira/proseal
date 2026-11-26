@@ -40,8 +40,11 @@ export default function Menu({ open, current, onClose }: Props) {
     <div className={`menu${faded ? ' open' : ''}`} id="menu" hidden={!shown}>
       <nav aria-label="Menu">
         <a href="index.html" aria-current={here('index.html')}>Home</a>{' '}
+        <a href="index.html#what" onClick={onClose}>What we do</a>{' '}
         <a href="works.html" aria-current={here('works.html')}>Works</a>{' '}
         <a href="how.html" aria-current={here('how.html')}>How we work</a>{' '}
+        <a href="careers.html" aria-current={here('careers.html')}>Careers</a>{' '}
+        <a href="index.html#contact" onClick={onClose}>Contact</a>{' '}
         <a href="quote.html" data-cta="menu-quote" aria-current={here('quote.html')}><em>Request a quote</em></a>
       </nav>
       <p className="menu-foot">

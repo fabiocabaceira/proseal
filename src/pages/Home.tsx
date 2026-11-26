@@ -12,29 +12,34 @@ export default function HomePage() {
      The restored arch fills the screen; the new build plays in a window that opens to the full screen with the scroll,
      and the two halves of the title part to the sides. */}
       <Hero />
-      {/* 2. who we are, in one sentence, and three figures */}
+      {/* 2. who we are: where the company comes from, where it stands today and what comes next, and three figures for the same */}
       <section className="intro" id="about">
-        <p className="lead">
-          A Gibraltar builder since 2002. We build new property and we refurbish what already stands, from apartments and starter homes to five and six bedroom family houses.
-        </p>
-        <dl className="facts" aria-label="ProSeal in numbers">
+        <div className="intro-copy">
+          <p className="lead">
+            ProSeal has been building in Gibraltar since 2002. We deliver luxury private residences, residential developments, the refurbishment of existing and historic buildings, and commercial and healthcare projects, from planning through to handover.
+          </p>
+          <p className="intro-p">
+            Today a team of around 100 people is delivering projects that range from Healy House in the South District to Turicum Private Bank and the GibMed Clinic. In 2027 we will launch an independent property maintenance service.
+          </p>
+        </div>
+        <dl className="facts" aria-label="ProSeal in figures">
           <div>
             <dt>2002</dt>
             <dd>founded in Gibraltar</dd>
           </div>
           <div>
-            <dt>50</dt>
-            <dd>people on staff, approximately</dd>
+            <dt><small>around</small>100</dt>
+            <dd>people on staff</dd>
           </div>
           <div>
-            <dt>3</dt>
-            <dd>countries we buy direct from</dd>
+            <dt>2027</dt>
+            <dd>our property maintenance service begins</dd>
           </div>
         </dl>
         {/* reels: the carousel on the left, a short text and the list of the four films on the right */}
         <Reels />
       </section>
-      {/* 3. what we do: three photographs side by side, the one chosen opens wide and tells its trade */}
+      {/* 3. what we do: the services, each with its own way into the quote form */}
       <WhatWeDo />
       {/* in development: The Villas Beacon Point, Europa Point. Renders and clip are the developer's. */}
       <Development />
@@ -47,7 +52,7 @@ export default function HomePage() {
             Tell us what{" "}
             <em>you are building.</em>
           </h2>
-          <p className="ask-lead">Three short steps. We visit, measure and send a written quote.</p>
+          <p className="ask-lead">It takes three short steps. We then visit the site, take measurements and send you a written quote.</p>
           <p className="ask-call">
             <a href="tel:+35020047974" data-cta="ask-call">
               Prefer to talk?{" "}
@@ -59,7 +64,7 @@ export default function HomePage() {
       </section>
       <section className="contact" id="contact">
         <figure className="contact-img">
-          <img src="img/site-view-900.webp" srcSet="img/site-view-900.webp 900w, img/site-view-1600.webp 1600w" sizes="100vw" alt="A ProSeal site seen from above, with the bay of Gibraltar behind" loading="lazy" decoding="async" />
+          <img src="img/site-view-900.webp" srcSet="img/site-view-900.webp 900w, img/site-view-1600.webp 1600w" sizes="100vw" alt="A ProSeal site seen from above, with the Bay of Gibraltar behind" loading="lazy" decoding="async" />
         </figure>
         <h2 className="h contact-h">
           Where to{" "}
@@ -67,7 +72,7 @@ export default function HomePage() {
         </h2>
         <div className="contact-copy">
           <p className="contact-k">
-            ProSeal Construction Ltd
+            Proseal Construction Ltd
             <span>Gibraltar</span>
           </p>
           <ul className="rows">
@@ -96,7 +101,7 @@ export default function HomePage() {
                 <svg className="ico" aria-hidden="true"><use href="#i-pin" /></svg>
                 <span>
                   <b>3/1 City Mill Lane</b>
-                  GX11 1AA Gibraltar
+                  Gibraltar GX11 1AA
                 </span>
                 <svg className="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6 6 6-6 6" /></svg>
               </a>

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode, type TouchEvent as ReactTouchEvent } from 'react';
 import { createPortal } from 'react-dom';
-import { pad2 } from './kinds';
+import { pad2 } from '../home/ring';
 
 interface Shot {
   readonly href: string;
@@ -9,9 +9,7 @@ interface Shot {
   readonly thumb: string;
 }
 
-/* the same links the first site opened full screen; a ring's duplicate faces open their original */
-const SHOTS = 'a.tile, a.rc:not([data-dup])';
-const OPENERS = 'a.tile, a.rc';
+const SHOTS = 'a.shot';
 
 function readShot(a: HTMLAnchorElement): Shot {
   const img = a.querySelector('img');
@@ -46,17 +44,13 @@ export default function PhotoViewer(): ReactNode {
     const links = [...document.querySelectorAll<HTMLAnchorElement>(SHOTS)];
     if (!links.length) return;
     setShots(links.map(readShot));
-    /* bubbling, so a ring that stops a drag's click or turns a face behind to the front has already had its say */
     const onClick = (e: MouseEvent) => {
-      const a = e.target instanceof Element ? e.target.closest<HTMLAnchorElement>(OPENERS) : null;
+      const a = e.target instanceof Element ? e.target.closest<HTMLAnchorElement>(SHOTS) : null;
       if (!a) return;
       e.preventDefault();
-      const dup = a.hasAttribute('data-dup');
-      if ((dup || a.closest('.ring')) && !a.classList.contains('front')) return;
-      const i = dup ? links.findIndex((s) => s.getAttribute('href') === a.getAttribute('href')) : links.indexOf(a);
+      const i = links.indexOf(a);
       if (i < 0) return;
-      /* a duplicate face is hidden from assistive technology, so focus comes back to its ring instead */
-      back.current = dup ? a.closest<HTMLElement>('.ring') ?? a : a;
+      back.current = a;
       setAt(i);
       setOpen(true);
     };
@@ -126,7 +120,7 @@ export default function PhotoViewer(): ReactNode {
           <button
             key={i}
             type="button"
-            aria-label={`Photograph ${i + 1}`}
+            aria-label={`Show photograph ${i + 1}`}
             className={i === at ? 'on' : undefined}
             ref={(el) => {
               thumbs.current[i] = el;

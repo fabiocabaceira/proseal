@@ -2,9 +2,9 @@ import { Fragment, useEffect, useRef, useState, type AnimationEvent } from 'reac
 import { track } from '../../lib/site';
 
 const STEPS = [
-  { title: 'Survey and quote', body: 'We visit, measure and price the work in writing.' },
-  { title: 'Build', body: 'Our own staff on site, materials bought direct by our buying department.' },
-  { title: 'Handover', body: 'Keys, and an after build service once you have moved in.' },
+  { title: 'Survey and quote', body: 'We visit the site, take measurements and send you a written quote.' },
+  { title: 'Build', body: 'Our own staff run the site, with trusted specialist subcontractors where the work calls for them. Our buying department purchases materials directly, and we keep you informed on programme and cost throughout.' },
+  { title: 'Handover', body: 'We hand over the keys, and our aftercare continues once you have moved in.' },
 ] as const;
 
 const FIGS = [

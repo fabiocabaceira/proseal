@@ -64,7 +64,7 @@ export default function Hero() {
             preload="none"
             poster="img/hero-bg-poster-m.webp"
             data-poster-wide="img/hero-bg-poster-1920.webp"
-            aria-label="Aerial view of a large house with a red tiled roof"
+            aria-label="Aerial view of a large house with a red-tiled roof"
           />
         </div>
         <div className="xh-copy">
@@ -78,12 +78,12 @@ export default function Hero() {
           <span className="xh-b">Scroll</span>
         </p>
         <p className="xh-go">
-          <a className="pill" href="works.html" data-cta="hero-works">See the works</a>
+          <a className="pill" href="works.html" data-cta="hero-works">See our projects</a>
           <a className="pill ghost" href="quote.html" data-cta="hero-quote">Request a quote</a>
         </p>
         <p className="xh-end">
-          <span>From the empty plot to the finished homes.</span>
-          <a className="pill" href="works.html" data-cta="hero-works-end">See the works</a>
+          <span>We take every project from planning through to handover.</span>
+          <a className="pill" href="works.html" data-cta="hero-works-end">See our projects</a>
         </p>
       </div>
     </motion.section>

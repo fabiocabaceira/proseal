@@ -15,7 +15,7 @@ interface QuoteRequest {
   readonly source: string;
 }
 
-const JOBS = ['New build', 'Renovation', 'Heritage restoration', 'Waterproofing', 'Consulting'] as const;
+const JOBS = ['New build', 'Refurbishment or restoration', 'Commercial or healthcare', 'Electrical installation', 'Swimming pool', 'Roofing or waterproofing', 'Project management', 'Something else'] as const;
 const REQUIRED: readonly (readonly Required[])[] = [['job'], [], ['name', 'phone']];
 const LAST = REQUIRED.length - 1;
 const NONE: ReadonlySet<Required> = new Set();
@@ -38,7 +38,7 @@ function readRequest(form: HTMLFormElement): QuoteRequest {
 }
 
 function mailto(q: QuoteRequest): string {
-  const body = `Job: ${q.job}\nLocation: ${q.place}\nDetails: ${q.details}\n\nName: ${q.name}\nPhone: ${q.phone}\nEmail: ${q.email}\n\nSource: ${q.source}`;
+  const body = `Project: ${q.job}\nLocation: ${q.place}\nDetails: ${q.details}\n\nName: ${q.name}\nPhone: ${q.phone}\nEmail: ${q.email}\n\nSource: ${q.source}`;
   return `mailto:info@prosealconstruction.com?subject=${encodeURIComponent(`Quote request: ${q.job}`)}&body=${encodeURIComponent(body)}`;
 }
 
@@ -137,7 +137,7 @@ export default function QuoteForm() {
       <p className="level" aria-hidden="true"><i /></p>
       <p className="steps-count" id="stepCount" aria-live="polite">{`${step + 1} / ${REQUIRED.length}`}</p>
       <fieldset className={stepClass(0)} ref={(el) => { fieldsets.current[0] = el; }}>
-        <legend>What is the job?</legend>
+        <legend>What kind of project is it?</legend>
         <div className="opts">
           {JOBS.map((job, k) => (
             <Fragment key={job}>
@@ -151,19 +151,19 @@ export default function QuoteForm() {
         </div>
       </fieldset>
       <fieldset className={stepClass(1)} ref={(el) => { fieldsets.current[1] = el; }}>
-        <legend>Where and what?</legend>
+        <legend>Tell us about the project</legend>
         <label className="field">
           <span>Location in Gibraltar</span>
           <input type="text" name="place" autoComplete="street-address" placeholder="Street or area" />
         </label>
         {" "}
         <label className="field">
-          <span>Describe the work</span>
-          <textarea name="details" rows={2} placeholder="A few lines are enough" />
+          <span>What does the work involve?</span>
+          <textarea name="details" rows={2} placeholder="A few lines are plenty" />
         </label>
       </fieldset>
       <fieldset className={stepClass(2)} ref={(el) => { fieldsets.current[2] = el; }}>
-        <legend>Where do we reach you?</legend>
+        <legend>How can we reach you?</legend>
         <label className="field">
           <span>Name</span>
           <input type="text" name="name" autoComplete="name" required placeholder="Your name" className={bad.has('name') ? 'bad' : undefined} />
@@ -171,7 +171,7 @@ export default function QuoteForm() {
         {" "}
         <label className="field">
           <span>Phone</span>
-          <input type="tel" name="phone" autoComplete="tel" required placeholder="Your number" className={bad.has('phone') ? 'bad' : undefined} />
+          <input type="tel" name="phone" autoComplete="tel" required placeholder="Your phone number" className={bad.has('phone') ? 'bad' : undefined} />
         </label>
         {" "}
         <label className="field">
@@ -179,7 +179,7 @@ export default function QuoteForm() {
             Email{" "}
             <small>(optional)</small>
           </span>
-          <input type="email" name="email" autoComplete="email" placeholder="If you prefer email" />
+          <input type="email" name="email" autoComplete="email" placeholder="If you prefer us to email you" />
         </label>
       </fieldset>
       <div className="steps-nav">
@@ -192,7 +192,7 @@ export default function QuoteForm() {
           <span className="arw" aria-hidden="true">→</span>
         </button>
       </div>
-      <p className="done" id="formDone" hidden={!sent} tabIndex={-1} ref={done}>Your email is ready to send. If it did not open, call +350 200 47974.</p>
+      <p className="done" id="formDone" hidden={!sent} tabIndex={-1} ref={done}>Your email app should now open with the request ready to send. If it does not, please call +350 200 47974.</p>
     </form>
   );
 }

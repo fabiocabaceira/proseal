@@ -1,73 +1,137 @@
 import type { JSX } from 'react';
-import Ring from '../components/works/Ring';
-import { KINDS, pad2 } from '../components/works/kinds';
+import Gallery, { PhotosToFollow } from '../components/works/Gallery';
+import { pad2 } from '../components/home/ring';
+import { ALSO_BUILT, BEACON_RENDERS, GUN_WHARF, PROJECTS, SITE_PHOTOS } from '../data/projects';
+
+const CONTENTS = [
+  ...PROJECTS.map((p) => ({ id: p.slug, name: p.name, note: p.kind })),
+  { id: 'beacon-point', name: 'The Villas Beacon Point', note: 'In development' },
+  { id: 'gun-wharf', name: 'Gun Wharf', note: 'Restoration' },
+  { id: 'site-photography', name: 'From our sites', note: 'Site photography' },
+];
 
 export default function WorksPage(): JSX.Element {
   return (
     <main id="main">
-      {/* works: by kind of work; each kind turns as a ring of photographs */}
-      <header className="wk-head">
+      <header className="wk-head pj-head">
         <h1 className="h">
-          On{" "}
-          <em>site.</em>
+          Project by{" "}
+          <em>project.</em>
         </h1>
         <div className="wk-side">
           <p className="page-lead">
-            Photographs taken on our own sites in Gibraltar, by kind of work. Drag or swipe each ring to turn it, tap a photograph to see it full screen.
+            A selection of the projects ProSeal is delivering in Gibraltar today, from luxury private residences to a private bank and a specialist clinic. Each project is listed with its essential facts and, where released, its photographs.
           </p>
           <ol className="wk-toc">
-            {KINDS.map((k, i) => (
-              <li key={k.id}>
-                <a href={`#${k.id}`}>
+            {CONTENTS.map((c, i) => (
+              <li key={c.id}>
+                <a href={`#${c.id}`}>
                   <span>{pad2(i + 1)}</span>
-                  <b>{k.title}</b>
-                  <i>{k.photos.length}</i>
+                  <b>{c.name}</b>
+                  <i>{c.note}</i>
                 </a>
               </li>
             ))}
           </ol>
         </div>
       </header>
-      {KINDS.map((k, i) => (
-        <section className="kind" id={k.id} key={k.id}>
-          <div className="kind-head">
-            <p className="kind-n">
-              {pad2(i + 1)}
-              <span>{`${k.photos.length} photographs`}</span>
+
+      <section className="pj-group" aria-labelledby="current">
+        <h2 className="pj-k" id="current">Current projects</h2>
+        {PROJECTS.map((p, i) => (
+          <article className="pj" id={p.slug} key={p.slug}>
+            <div className="pj-copy">
+              <p className="pj-n">
+                <span>{pad2(i + 1)}</span>
+                {p.status}
+              </p>
+              <h3 className="pj-name">{p.name}</h3>
+              <p className="pj-kind">
+                {p.kind}
+                <span>{p.place}</span>
+              </p>
+              {p.text.map((t) => <p className="pj-p" key={t}>{t}</p>)}
+              {p.features.length > 0 && (
+                <ul className="pj-f" aria-label={`${p.name}: key features`}>
+                  {p.features.map((f) => <li key={f}>{f}</li>)}
+                </ul>
+              )}
+            </div>
+            <div className="pj-media">
+              {p.photos.length > 0 ? <Gallery photos={p.photos} label={`Photographs of ${p.name}`} /> : <PhotosToFollow name={p.name} />}
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <section className="pj-group" aria-labelledby="also-by">
+        <h2 className="pj-k" id="also-by">Further projects</h2>
+        <article className="pj" id="beacon-point">
+          <div className="pj-copy">
+            <p className="pj-n">
+              <span>{pad2(PROJECTS.length + 1)}</span>
+              In development
             </p>
-            <h2 className="h">{k.title}</h2>
-            <p className="kind-p">{k.text}</p>
+            <h3 className="pj-name">The Villas Beacon Point</h3>
+            <p className="pj-kind">
+              Residential development
+              <span>Europa Point, Gibraltar</span>
+            </p>
+            <p className="pj-p">The Villas Beacon Point is an exclusive collection of townhouses, villas and luxury apartments at the southern tip of Gibraltar, with the Rock behind and Morocco across the Strait.</p>
+            <p className="pj-p">The development is under construction by ProSeal. The images shown here are the developer’s renders, not photographs.</p>
+            <p className="pj-go">
+              <a className="line" href="https://thevillasbeaconpoint.gi/" target="_blank" rel="noopener" data-cta="works-beacon">Visit the development’s website</a>
+            </p>
           </div>
-          <Ring kind={k} />
-        </section>
-      ))}
+          <div className="pj-media">
+            <Gallery photos={BEACON_RENDERS} label="Developer’s renders of The Villas Beacon Point" />
+            <p className="pj-credit">Renders courtesy of the developer.</p>
+          </div>
+        </article>
+        <article className="pj" id="gun-wharf">
+          <div className="pj-copy">
+            <p className="pj-n">
+              <span>{pad2(PROJECTS.length + 2)}</span>
+              Restoration
+            </p>
+            <h3 className="pj-name">Gun Wharf</h3>
+            <p className="pj-kind">
+              Restoration and light-gauge steel framing
+              <span>Gibraltar</span>
+            </p>
+            <p className="pj-p">ProSeal’s work on this historic building has included repainting the iron roof trusses, opening up the roof lights and installing new light-gauge steel framing inside.</p>
+          </div>
+          <div className="pj-media">
+            <Gallery photos={GUN_WHARF} label="Photographs of Gun Wharf" />
+          </div>
+        </article>
+      </section>
+
+      <section className="pj-group" id="site-photography" aria-labelledby="from-sites">
+        <h2 className="pj-k" id="from-sites">From our sites</h2>
+        {SITE_PHOTOS.map((set) => (
+          <article className="pj" id={set.id} key={set.id}>
+            <div className="pj-copy">
+              <p className="pj-n">Site photography</p>
+              <h3 className="pj-name">{set.title}</h3>
+              <p className="pj-p">{set.text}</p>
+            </div>
+            <div className="pj-media">
+              <Gallery photos={set.photos} label={`Site photography: ${set.title.toLowerCase()}`} />
+            </div>
+          </article>
+        ))}
+      </section>
+
       <section className="also">
         <h2 className="also-k">Also built or renovated by ProSeal</h2>
         <ol>
-          <li>
-            <span>01</span>
-            Buena Vista Villas
-          </li>
-          <li>
-            <span>02</span>
-            The Island
-          </li>
-          <li>
-            <span>03</span>
-            The Sails
-          </li>
-          <li>
-            <span>04</span>
-            Beaulieu House
-          </li>
-          <li>
-            <span>05</span>
-            1 Rosia Parade
-          </li>
-          <li>
-            <span>06</span>
-            Rock Cottage
-          </li>
+          {ALSO_BUILT.map((name, i) => (
+            <li key={name}>
+              <span>{pad2(i + 1)}</span>
+              {name}
+            </li>
+          ))}
         </ol>
       </section>
       <section className="cta">

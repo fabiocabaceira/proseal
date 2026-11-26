@@ -10,7 +10,7 @@ export default function QuotePage() {
             Tell us what{" "}
             <em>you are building.</em>
           </h1>
-          <p className="ask-lead">Three short steps. We visit, measure and send a written quote.</p>
+          <p className="ask-lead">It takes three short steps. We then visit the site, take measurements and send you a written quote.</p>
           <p className="ask-call">
             <a href="tel:+35020047974" data-cta="ask-call">
               Prefer to talk?{" "}
@@ -22,7 +22,7 @@ export default function QuotePage() {
       </section>
       <section className="contact" id="contact">
         <figure className="contact-img">
-          <img src="img/site-view-900.webp" srcSet="img/site-view-900.webp 900w, img/site-view-1600.webp 1600w" sizes="100vw" alt="A ProSeal site seen from above, with the bay of Gibraltar behind" loading="lazy" decoding="async" />
+          <img src="img/site-view-900.webp" srcSet="img/site-view-900.webp 900w, img/site-view-1600.webp 1600w" sizes="100vw" alt="A ProSeal site seen from above, with the Bay of Gibraltar behind" loading="lazy" decoding="async" />
         </figure>
         <h2 className="h contact-h">
           Where to{" "}
@@ -30,7 +30,7 @@ export default function QuotePage() {
         </h2>
         <div className="contact-copy">
           <p className="contact-k">
-            ProSeal Construction Ltd
+            Proseal Construction Ltd
             <span>Gibraltar</span>
           </p>
           <ul className="rows">
@@ -59,7 +59,7 @@ export default function QuotePage() {
                 <svg className="ico" aria-hidden="true"><use href="#i-pin" /></svg>
                 <span>
                   <b>3/1 City Mill Lane</b>
-                  GX11 1AA Gibraltar
+                  Gibraltar GX11 1AA
                 </span>
                 <svg className="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6 6 6-6 6" /></svg>
               </a>

@@ -14,13 +14,18 @@ import HomePage from './pages/Home';
 import WorksPage from './pages/Works';
 import HowPage from './pages/How';
 import QuotePage from './pages/Quote';
+import CareersPage from './pages/Careers';
 
 const PAGES: Record<PageKey, () => React.JSX.Element> = {
   index: HomePage,
   works: WorksPage,
   how: HowPage,
   quote: QuotePage,
+  careers: CareersPage,
 };
+
+/* the pages that show the developer's renders of The Villas Beacon Point credit them in the footer */
+const SHOWS_RENDERS: ReadonlySet<PageKey> = new Set(['index', 'works']);
 
 export default function App({ page }: { page: PageKey }) {
   const Page = PAGES[page];
@@ -47,7 +52,7 @@ export default function App({ page }: { page: PageKey }) {
       <Menu open={menuOpen} current={current} onClose={closeMenu} />
       {home && <Seal />}
       <Page />
-      <Footer />
+      <Footer renders={SHOWS_RENDERS.has(page)} />
       <Dock />
       <Lightbox />
     </>

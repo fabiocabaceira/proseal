@@ -197,10 +197,10 @@ export default function Reels() {
       <div className="reels-copy">
         <h2 className="h">
           Short films,{" "}
-          <em>from the site.</em>
+          <em>shot on site.</em>
         </h2>
         <p className="reels-p">
-          Under a minute each. What we build, where water gets in, and what to ask before you hire a builder in Gibraltar.
+          Each runs under a minute: what we build, how water finds its way into a building, and what to ask before you hire a builder in Gibraltar.
         </p>
         <ol className="reels-list">
           {REELS.map((r, i) => (

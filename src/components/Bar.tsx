@@ -67,6 +67,7 @@ export default function Bar({ home, current, menuOpen, onMenu }: Props) {
         <a href="index.html#what">What we do</a>{' '}
         <a href="works.html" aria-current={here('works.html')}>Works</a>{' '}
         <a href="how.html" aria-current={here('how.html')}>How we work</a>{' '}
+        <a href="careers.html" aria-current={here('careers.html')}>Careers</a>{' '}
         <a href="index.html#contact">Contact</a>
       </nav>
       <a className="pill nav-cta" href="quote.html" data-cta="nav-quote">Request a quote</a>{' '}

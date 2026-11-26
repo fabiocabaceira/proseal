@@ -22,7 +22,7 @@ const SITE = process.env.SITE_URL;
 const moveSite = (s) => (SITE && HOME ? s.split(HOME).join(SITE) : s);
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const attrs = (o) => Object.entries(o).map(([k, v]) => (v === '' ? k : `${k}="${esc(v)}"`)).join(' ');
-const keep = (t) => !(t.tag === 'meta' && (t.attrs.charset !== undefined || t.attrs.name === 'viewport')) && !(t.tag === 'link' && t.attrs.rel === 'stylesheet');
+const keep = (t) => !(t.tag === 'meta' && (t.attrs.charset !== undefined || t.attrs.name === 'viewport'));
 
 for (const [page, file] of Object.entries(PAGE_FILES)) {
   const head = PAGE_HEAD[page];

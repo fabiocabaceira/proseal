@@ -1,6 +1,6 @@
 import head from './head.json';
 
-export type PageKey = 'index' | 'works' | 'how' | 'quote';
+export type PageKey = 'index' | 'works' | 'how' | 'quote' | 'careers';
 
 export interface HeadTag {
   tag: string;
@@ -13,12 +13,13 @@ export interface PageHead {
   head: HeadTag[];
 }
 
-/* the four pages keep the file names of the first site, so every link already shared still works */
+/* the first four pages keep the file names of the first site, so every link already shared still works */
 export const PAGE_FILES: Record<PageKey, string> = {
   index: 'index.html',
   works: 'works.html',
   how: 'how.html',
   quote: 'quote.html',
+  careers: 'careers.html',
 };
 
 export const PAGE_HEAD = head as unknown as Record<PageKey, PageHead>;
