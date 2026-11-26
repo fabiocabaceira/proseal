@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { useInView } from '../../hooks/home/useInView';
-import { useTapeGlide } from '../../hooks/home/useTapeGlide';
-import { ringOffset, wrapIndex } from './ring';
+import { useEffect, useRef, useState } from 'react';
+import { isCalm } from '../../lib/site';
+import { pad2 } from './ring';
 
 interface Print {
   readonly slug: string;
@@ -22,122 +21,85 @@ const PRINTS = [
 const COUNT = PRINTS.length;
 const ARROW = <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>;
 
-type CardVars = CSSProperties & Record<`--${string}`, string>;
-
-/* one print in front, the rest fanned behind it: read by the .fan-card rule in site.css */
-function fanned(rel: number, spread: number): CardVars {
-  const a = Math.abs(rel);
-  return {
-    '--x': `${(rel * spread * (1 - a * 0.07)).toFixed(1)}px`,
-    '--y': `${a * 12}px`,
-    '--r': `${rel * 4.5}deg`,
-    '--s': (1 - a * 0.1).toFixed(3),
-    '--z': String(20 - a * 2 - (rel < 0 ? 1 : 0)),
-    '--o': a > 2.5 ? '0' : '1',
-    '--dim': String(Math.min(1, a * 0.5)),
-    pointerEvents: a > 2.5 ? 'none' : undefined,
-  };
-}
-
-/* Pointing at a print behind lifts it; pressing it, the arrows, the keys or a swipe bring another to the front. */
+/* A row of prints that scrolls sideways under the finger, the trackpad or the two arrows; it snaps to each print. */
 export default function OnSite() {
   const section = useRef<HTMLElement>(null);
-  const tapes = useRef<HTMLDivElement>(null);
-  const firstCard = useRef<HTMLLIElement>(null);
-  const touchX = useRef<number | null>(null);
+  const track = useRef<HTMLUListElement>(null);
   const [cur, setCur] = useState(0);
-  const [lifted, setLifted] = useState<number | null>(null);
-  /* how far apart the prints stand, from the width of a print; unknown until it can be measured */
-  const [spread, setSpread] = useState<number | null>(null);
-  const seen = useInView(section, 0);
-  useTapeGlide(section, tapes, seen);
+  const [ends, setEnds] = useState({ start: true, end: false });
 
   useEffect(() => {
-    const measure = () => {
-      const w = firstCard.current?.offsetWidth ?? 0;
-      setSpread(w * (matchMedia('(min-width:900px)').matches ? 0.5 : 0.3));
+    const el = track.current;
+    if (!el) return;
+    let queued = 0;
+    const read = () => {
+      queued = 0;
+      const items = [...el.children] as HTMLElement[];
+      const origin = items[0]?.offsetLeft ?? 0;
+      const x = el.scrollLeft;
+      let best = 0;
+      items.forEach((it, k) => {
+        if (Math.abs(it.offsetLeft - origin - x) < Math.abs(items[best].offsetLeft - origin - x)) best = k;
+      });
+      const max = el.scrollWidth - el.clientWidth;
+      setCur(x >= max - 2 ? COUNT - 1 : best);
+      setEnds({ start: x <= 2, end: x >= max - 2 });
+      section.current?.style.setProperty('--prog', max > 0 ? (x / max).toFixed(4) : '1');
     };
-    measure();
-    addEventListener('resize', measure);
-    return () => removeEventListener('resize', measure);
+    const onScroll = () => { if (!queued) queued = requestAnimationFrame(read); };
+    read();
+    el.addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll);
+    return () => {
+      el.removeEventListener('scroll', onScroll);
+      removeEventListener('resize', onScroll);
+      cancelAnimationFrame(queued);
+    };
   }, []);
 
-  const go = (i: number) => {
-    setCur(wrapIndex(i, COUNT));
-    setLifted(null);
+  const go = (step: number) => {
+    const el = track.current;
+    if (!el) return;
+    const items = [...el.children] as HTMLElement[];
+    const next = items[Math.min(COUNT - 1, Math.max(0, cur + step))];
+    el.scrollTo({ left: next.offsetLeft - items[0].offsetLeft, behavior: isCalm() ? 'auto' : 'smooth' });
   };
 
   return (
-    <section className={seen ? 'works seen' : 'works'} id="works" ref={section}>
-      <div className="tapes" aria-hidden="true" ref={tapes}>
-        <i />
-        <i />
-        <i />
-      </div>
-      <div className="works-copy">
+    <section className="works" id="works" ref={section}>
+      <div className="works-head">
         <h2 className="h">
           On{" "}
           <em>site.</em>
         </h2>
-        <p className="works-p">Every photograph here was taken on one of our own sites in Gibraltar.</p>
-        <p className="fan-nav">
-          <button type="button" className="fan-prev" aria-label="Previous photograph" onClick={() => go(cur - 1)}>{ARROW}</button>
-          <span className="fan-count" aria-live="polite">{`${cur + 1} / ${COUNT}`}</span>
-          <button type="button" className="fan-next" aria-label="Next photograph" onClick={() => go(cur + 1)}>{ARROW}</button>
-        </p>
-        <p><a className="line" href="works.html" data-cta="home-works">See all our projects</a></p>
+        <div className="works-copy">
+          <p className="works-p">Every photograph here was taken on one of our own sites in Gibraltar.</p>
+          <p><a className="line" href="works.html" data-cta="home-works">See all our projects</a></p>
+        </div>
       </div>
-      <div
-        className="fan"
-        id="fan"
-        tabIndex={0}
-        aria-label="Photographs from our sites"
-        onKeyDown={(e) => {
-          if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); }
-          if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); }
-        }}
-      >
-        <ul
-          className="fan-stage"
-          onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
-          onTouchEnd={(e) => {
-            const x0 = touchX.current;
-            if (x0 === null) return;
-            touchX.current = null;
-            const dx = e.changedTouches[0].clientX - x0;
-            if (Math.abs(dx) > 36) go(cur + (dx < 0 ? 1 : -1));
-          }}
-        >
-          {PRINTS.map((p, k) => {
-            const rel = ringOffset(k, cur, COUNT);
-            const front = spread !== null && rel === 0;
-            return (
-              <li
-                key={p.slug}
-                ref={k === 0 ? firstCard : undefined}
-                className={`fan-card${front ? ' front' : ''}${lifted === k ? ' up' : ''}`}
-                style={spread === null ? undefined : fanned(rel, spread)}
-                onPointerEnter={(e) => { if (e.pointerType === 'mouse' && k !== cur) setLifted(k); }}
-                onPointerLeave={() => setLifted((l) => (l === k ? null : l))}
-                onClickCapture={(e) => {
-                  /* a print behind comes to the front; only the front one goes on to open large (Lightbox) */
-                  if (k === cur) return;
-                  e.preventDefault();
-                  e.stopPropagation();
-                  go(k);
-                }}
-              >
-                <a href={`img/${p.slug}-1600.webp`} className="card">
-                  <img src={`img/${p.slug}-480.webp`} srcSet={`img/${p.slug}-480.webp 480w, img/${p.slug}-900.webp 900w`} sizes="(min-width:900px) 300px, 60vw" alt={p.alt} loading="lazy" decoding="async" />
-                  <span className="fan-t">
-                    <b>{p.place}</b>
-                    <span className="card-l">{p.caption}</span>
-                  </span>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
+      <ul className="strip" ref={track} tabIndex={0} aria-label="Photographs from our sites">
+        {PRINTS.map((p, k) => (
+          <li key={p.slug} className="strip-i">
+            <a href={`img/${p.slug}-1600.webp`} className="card">
+              <span className="strip-img">
+                <img src={`img/${p.slug}-480.webp`} srcSet={`img/${p.slug}-480.webp 480w, img/${p.slug}-900.webp 900w`} sizes="(min-width:900px) 420px, 76vw" alt={p.alt} loading="lazy" decoding="async" />
+              </span>
+              <span className="strip-t">
+                <span className="strip-n">{pad2(k + 1)}</span>
+                <span>
+                  <b>{p.place}</b>
+                  <span className="card-l">{p.caption}</span>
+                </span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div className="strip-nav">
+        <span className="strip-bar" aria-hidden="true" />
+        <span className="strip-count" aria-live="polite">{`${pad2(cur + 1)} / ${pad2(COUNT)}`}</span>
+        <button type="button" className="strip-prev" aria-label="Previous photograph" disabled={ends.start} onClick={() => go(-1)}>{ARROW}</button>
+        <button type="button" className="strip-next" aria-label="Next photograph" disabled={ends.end} onClick={() => go(1)}>{ARROW}</button>
       </div>
     </section>
   );

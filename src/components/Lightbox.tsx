@@ -8,8 +8,7 @@ interface Photo {
   readonly cap: string;
 }
 
-/* The photograph, large, without leaving the page: the cards of the home page stack open here. A card still behind the
-   stack is not opened, the stack brings it to the front first; while the stack has no front card yet, every card opens.
+/* The photograph, large, without leaving the page: the prints of the home page open here.
    Every page also gets the full screen viewer for its own photographs (works). */
 export default function Lightbox(): JSX.Element {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -18,13 +17,10 @@ export default function Lightbox(): JSX.Element {
   useEffect(() => {
     const lb = dialog.current;
     if (!lb || typeof lb.showModal !== 'function') return;
-    /* capturing, to read which card is at the front before the stack moves another one there */
     const onClick = (e: MouseEvent) => {
       const a = e.target instanceof Element ? e.target.closest<HTMLAnchorElement>('a.card') : null;
       if (!a) return;
       e.preventDefault();
-      const card = a.closest('.fan-card');
-      if (card && !card.classList.contains('front') && card.parentElement?.querySelector(':scope > .fan-card.front')) return;
       setPhoto({
         src: a.href,
         alt: a.querySelector('img')?.alt ?? '',

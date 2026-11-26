@@ -39,11 +39,11 @@ export default function HomePage() {
         {/* reels: the carousel on the left, a short text and the list of the four films on the right */}
         <Reels />
       </section>
-      {/* 3. what we do: the services, each with its own way into the quote form */}
+      {/* 3. what we do: a ruled index of the services; each name opens the quote form with that service, one quote request below */}
       <WhatWeDo />
       {/* in development: The Villas Beacon Point, Europa Point. Renders and clip are the developer's. */}
       <Development />
-      {/* 4. on site: the title on one side, the photographs stacked like a hand of prints on the other, three site tapes straight across behind */}
+      {/* 4. on site: a row of prints from our own sites, scrolled sideways, each with its caption */}
       <OnSite />
       <section className="ask" id="quote">
         <div className="ask-band">

@@ -31,12 +31,11 @@ const SOUND_ICON = (
   </svg>
 );
 
-/* the front reel straight, the neighbours leaning behind it like photographs on a table, the rest hidden */
+/* the front reel in front, the neighbours smaller behind it, all upright; the rest hidden */
 function cardStyle(d: number, wide: boolean): CSSProperties {
   const a = Math.abs(d);
-  const rot = a === 0 ? 1.5 : (d < 0 ? -2 : 2.5) * (a === 1 ? 1 : 0.6);
   return {
-    transform: `translate3d(${d * (wide ? 74 : 60)}%,0,0) scale(${Math.max(0.7, 1 - a * 0.13)}) rotate(${rot}deg)`,
+    transform: `translate3d(${d * (wide ? 74 : 60)}%,0,0) scale(${Math.max(0.7, 1 - a * 0.13)})`,
     zIndex: 50 - a,
     opacity: a > 1 ? 0 : 1,
     pointerEvents: a > 1 ? 'none' : 'auto',
