@@ -65,7 +65,7 @@ const SERVICES = [
     },
   },
   {
-    id: 'commercial', title: 'Commercial and healthcare', text: 'Banking premises and specialist clinical facilities, with major works carried out while a building stays open.', job: 'Commercial or healthcare',
+    id: 'commercial', title: 'Commercial and healthcare', text: 'Banking premises and specialist clinical facilities, with major works carried out while the building remains open.', job: 'Commercial or healthcare',
     panel: {
       k: 'Current projects',
       display: [
@@ -84,7 +84,7 @@ const SERVICES = [
     },
   },
   {
-    id: 'pools', title: 'Swimming pools', text: 'Built as an integral part of the home, such as the private infinity pool at Healy House.', job: 'Swimming pool',
+    id: 'pools', title: 'Swimming pools', text: 'Built as an integral part of the home, as with the private infinity pool at Healy House.', job: 'Swimming pool',
     panel: {
       k: 'Current project',
       display: [{ big: 'The private infinity pool at Healy House', small: 'South District, Gibraltar' }],

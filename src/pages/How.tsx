@@ -4,7 +4,7 @@ import { pad2 } from '../components/home/ring';
 
 const APPROACH = [
   { title: 'Quality', text: 'We deliver workmanship and finishes to a consistently high standard.' },
-  { title: 'Reliability', text: 'We act as a professional, dependable partner from the first survey to handover.' },
+  { title: 'Reliability', text: 'We are a professional, dependable partner from the first survey to handover.' },
   { title: 'Project control', text: 'We keep close control of programme, cost, resources and quality.' },
   { title: 'Communication', text: 'We keep clients, consultants and everyone involved informed at every stage.' },
   { title: 'Health and safety', text: 'We put safe working practices and the wellbeing of everyone on our sites first.' },

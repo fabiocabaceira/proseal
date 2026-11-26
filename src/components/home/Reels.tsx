@@ -277,7 +277,7 @@ export default function Reels() {
                   type="button"
                   className="reels-som"
                   aria-pressed={audible[i]}
-                  aria-label={audible[i] ? 'Mute' : 'Turn sound on'}
+                  aria-label={audible[i] ? 'Mute' : 'Turn the sound on'}
                   tabIndex={d === 0 ? 0 : -1}
                   onClick={() => toggleSound(i)}
                 >

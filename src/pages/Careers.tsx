@@ -6,7 +6,7 @@ const ROLES = [
     title: 'Civil Engineers',
     text: [
       'Our civil engineers work on structural and general building works across new-build, refurbishment, commercial and healthcare projects, alongside our project and construction managers from early planning through to completion and handover.',
-      'We look for engineers who plan carefully, identify issues early and keep the highest standards of safety and workmanship on site.',
+      'We look for engineers who plan carefully, identify issues early and maintain the highest standards of safety and workmanship on site.',
     ],
   },
   {
@@ -29,7 +29,7 @@ export default function CareersPage() {
         </h1>
         <div className="wk-side">
           <p className="page-lead">
-            ProSeal Construction has built in Gibraltar since 2002 and employs around 100 people. We would like to hear from civil engineers and quantity surveyors who want to work on demanding residential, commercial and healthcare projects.
+            ProSeal Construction has been building in Gibraltar since 2002 and employs around 100 people. We would like to hear from civil engineers and quantity surveyors who want to work on demanding residential, commercial and healthcare projects.
           </p>
           <p className="cr-jump">
             <a className="pill dark" href="#apply" data-cta="careers-apply">Apply now</a>

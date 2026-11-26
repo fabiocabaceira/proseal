@@ -20,7 +20,7 @@ export default function WorksPage(): JSX.Element {
         </h1>
         <div className="wk-side">
           <p className="page-lead">
-            A selection of the projects ProSeal is delivering in Gibraltar today, from luxury private residences to a private bank and a specialist clinic. Each project is listed with its essential facts and, where released, its photographs.
+            A selection of the projects ProSeal is delivering in Gibraltar today, from luxury private residences to a private bank and a specialist clinic. Each project is listed with its essential facts and, where available, its photographs.
           </p>
           <ol className="wk-toc">
             {CONTENTS.map((c, i) => (
@@ -78,7 +78,7 @@ export default function WorksPage(): JSX.Element {
               <span>Europa Point, Gibraltar</span>
             </p>
             <p className="pj-p">The Villas Beacon Point is an exclusive collection of townhouses, villas and luxury apartments at the southern tip of Gibraltar, with the Rock behind and Morocco across the Strait.</p>
-            <p className="pj-p">The development is under construction by ProSeal. The images shown here are the developer’s renders, not photographs.</p>
+            <p className="pj-p">ProSeal is building the development. The images shown here are the developer’s renders, not photographs.</p>
             <p className="pj-go">
               <a className="line" href="https://thevillasbeaconpoint.gi/" target="_blank" rel="noopener" data-cta="works-beacon">Visit the development’s website</a>
             </p>
