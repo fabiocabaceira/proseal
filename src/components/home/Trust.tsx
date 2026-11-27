@@ -38,14 +38,16 @@ export default function Trust() {
     <section className="trust" aria-labelledby="trust-k">
       <div className="trust-head">
         <p className="trust-k" id="trust-k">Selected commissions &amp; institutional clients</p>
+        <p className="trust-p">
+          Our clients include <em>private individuals</em>, <em>corporations</em> and <em>Government departments</em>.
+        </p>
         <p className="trust-sig">
           <span className="logo-box trust-mark"><svg viewBox="0 0 8808 1700" role="img" aria-label="ProSeal"><use href="#wm" /></svg></span>
-          <span>
+          <span className="trust-sig-t">
             Proseal Construction Ltd
             <small>Gibraltar, since 2002</small>
           </span>
         </p>
-        <p className="trust-p">Our clients include private individuals, corporations and Government departments.</p>
       </div>
       <ul className="trust-list">
         {CLIENTS.map((c: Client) => (

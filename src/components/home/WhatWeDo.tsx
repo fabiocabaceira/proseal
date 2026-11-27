@@ -133,6 +133,7 @@ function Card({ s, n, on }: { readonly s: Service; readonly n: number; readonly 
         <span>{`${pad2(n)} / ${pad2(COUNT)}`}</span>
         <span>{p.k}</span>
       </p>
+      <p className="wwp-lead">{s.text}</p>
       <div className="wwp-m">
         {p.shot ? (
           <img
@@ -178,15 +179,15 @@ export default function WhatWeDo() {
   const [open, setOpen] = useState(-1);
   return (
     <section className="what" id="what">
-      <div className="what-head">
-        <h2 className="h">
-          What{" "}
-          <em>we do.</em>
-        </h2>
-        <p className="what-p">Our own team on site, and specialists where the work requires them.</p>
-      </div>
       <div className="wwd-grid">
         <div className="wwd-col">
+        <div className="what-head">
+          <h2 className="h">
+            What{" "}
+            <em>we do.</em>
+          </h2>
+          <p className="what-p">Our own team on site, and specialists where the work requires them.</p>
+        </div>
           <p className="wwd-k">
             <span>Our services</span>
             <span>{`01 — ${pad2(COUNT)}`}</span>

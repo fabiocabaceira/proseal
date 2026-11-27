@@ -265,7 +265,7 @@ export default function QuoteForm() {
                   <legend>Tell us about the project</legend>
                   <div className="qf-campos">
                     <TextField {...field('place')} label="Location in Gibraltar" autoComplete="street-address" placeholder="Street or area" />
-                    <TextField {...field('details')} label="What does the work involve?" placeholder="A few lines are plenty" rows={3} />
+                    <TextField {...field('details')} label="What does the work involve?" placeholder="A few lines are enough" rows={3} />
                   </div>
                 </fieldset>
               )}
@@ -275,7 +275,7 @@ export default function QuoteForm() {
                   <div className="qf-campos">
                     <TextField {...field('name')} label="Name" autoComplete="name" placeholder="Your name" />
                     <TextField {...field('phone')} label="Phone" type="tel" autoComplete="tel" placeholder="Your phone number" />
-                    <TextField {...field('email')} label="Email" hint="(optional)" type="email" autoComplete="email" placeholder="If you would rather we emailed you" />
+                    <TextField {...field('email')} label="Email" hint="(optional)" type="email" autoComplete="email" placeholder="Only if you prefer a reply by email" />
                   </div>
                 </fieldset>
               )}

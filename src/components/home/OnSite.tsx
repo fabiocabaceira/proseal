@@ -132,8 +132,7 @@ export default function OnSite() {
           <em>site.</em>
         </h2>
         <div className="works-copy">
-          <p className="works-p">Every photograph here was taken on one of our own sites in Gibraltar.</p>
-          <p><a className="line" href="works.html" data-cta="home-works">See all our projects</a></p>
+          <p className="works-p">Photographed on our own sites across Gibraltar. <span>Real work, never stock imagery.</span></p>
         </div>
       </div>
       <div className="os" role="region" aria-roledescription="carousel" aria-label="Photographs from our sites">
@@ -163,6 +162,10 @@ export default function OnSite() {
           <span className="os-bar" aria-hidden="true"><i style={{ transform: `scaleX(${(active + 1) / COUNT})` }} /></span>
           <button type="button" className="os-prev" aria-label="Previous photograph" disabled={active === 0} onClick={() => go(active - 1)}>{ARROW}</button>
           <button type="button" className="os-next" aria-label="Next photograph" disabled={active === COUNT - 1} onClick={() => go(active + 1)}>{ARROW}</button>
+          <a className="pill dark os-all" href="works.html" data-cta="home-works">
+            See all our projects
+            {ARROW}
+          </a>
         </div>
       </div>
     </section>
