@@ -21,8 +21,8 @@ const STEPS: readonly (readonly Field[])[] = [['job'], ['place', 'details'], ['n
 const LAST = STEPS.length - 1;
 const REQUIRED: Errors = {
   job: 'Please choose the kind of project.',
-  name: 'Please add your name.',
-  phone: 'Please add a phone number so that we can reach you.',
+  name: 'Please enter your name.',
+  phone: 'Please enter a phone number so that we can reach you.',
 };
 const EMPTY: Values = { job: '', place: '', details: '', name: '', phone: '', email: '' };
 
@@ -307,7 +307,7 @@ export default function QuoteForm() {
               <svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.5 3.5 7.5-8" /></svg>
             </span>
           </div>
-          <p className="qf-ok-t" tabIndex={-1} ref={okTitle}>Thank you. Your enquiry is ready.</p>
+          <p className="qf-ok-t" tabIndex={-1} ref={okTitle}>Thank you. Your enquiry is ready to send.</p>
           <p className="qf-ok-p">Your email app should now open with the message below, addressed to info@prosealconstruction.com. If it does not, open it again or copy the message. You can also call us on +350 200 47974.</p>
           <pre className="qf-ok-msg">{sent}</pre>
           <div className="qf-ok-acts">

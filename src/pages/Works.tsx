@@ -111,7 +111,7 @@ export default function WorksPage(): JSX.Element {
       </section>
 
       <section className="also">
-        <h2 className="also-k">Also built or renovated by ProSeal</h2>
+        <h2 className="also-k">Also built or refurbished by ProSeal</h2>
         <ol>
           {ALSO_BUILT.map((name, i) => (
             <li key={name}>
@@ -124,8 +124,8 @@ export default function WorksPage(): JSX.Element {
       <section className="cta">
         <div className="cta-in">
           <h2 className="h">
-            Tell us what{" "}
-            <em>you are building.</em>
+            Tell us about{" "}
+            <em>your project.</em>
           </h2>
           <p className="cta-go">
             <a className="pill" href="quote.html" data-cta="works-quote">Request a quote</a>

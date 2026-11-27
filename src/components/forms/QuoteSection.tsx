@@ -11,8 +11,8 @@ export default function QuoteSection({ heading: H }: { readonly heading: 'h1' | 
           <ProSealMark />
           <p className="aq-k">Request a quote</p>
           <H className="aq-h">
-            Tell us what{" "}
-            <em>you are building.</em>
+            Tell us about{" "}
+            <em>your project.</em>
           </H>
           <p className="aq-lead">Leave your details and we will be in touch.</p>
         </div>

@@ -37,8 +37,8 @@ export default function HowPage() {
       <section className="cta">
         <div className="cta-in">
           <h2 className="h">
-            Tell us what{" "}
-            <em>you are building.</em>
+            Tell us about{" "}
+            <em>your project.</em>
           </h2>
           <p className="cta-go">
             <a className="pill" href="quote.html" data-cta="how-quote">Request a quote</a>

@@ -4,7 +4,7 @@ import { track } from '../../lib/site';
 const STEPS = [
   { title: 'Survey and quote', body: 'We visit the site, take measurements and send you a written quote.' },
   { title: 'Build', body: 'Our own staff run the site, with trusted specialist subcontractors where the work calls for them. Our buying department purchases materials directly, and we keep you informed on programme and cost throughout.' },
-  { title: 'Handover', body: 'We hand over the keys, and our aftercare continues once you have moved in.' },
+  { title: 'Handover', body: 'We hand over the completed works, and our aftercare continues after completion.' },
 ] as const;
 
 const FIGS = [

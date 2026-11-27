@@ -31,11 +31,11 @@ export default function HomePage() {
           </div>
           <div>
             <dt><span className="sr-only">around </span><span aria-hidden="true">~</span>100</dt>
-            <dd>People on staff</dd>
+            <dd>Staff</dd>
           </div>
           <div>
             <dt>2027</dt>
-            <dd>Property maintenance</dd>
+            <dd>Property maintenance, launching in 2027</dd>
           </div>
         </dl>
       </section>

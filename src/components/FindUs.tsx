@@ -11,7 +11,7 @@ interface Way {
 }
 
 const WAYS = [
-  { id: 'contact-map', label: 'Office', lines: ['3/1 City Mill Lane', 'Gibraltar GX11 1AA'], href: DIRECTIONS, action: 'Directions', icon: 'i-pin', external: true },
+  { id: 'contact-map', label: 'Office', lines: ['3/1 City Mill Lane', 'Gibraltar, GX11 1AA'], href: DIRECTIONS, action: 'Directions', icon: 'i-pin', external: true },
   { id: 'contact-call', label: 'Telephone', lines: ['+350 200 47974'], href: 'tel:+35020047974', action: 'Call', icon: 'i-call' },
   { id: 'contact-mail', label: 'Email', lines: ['info@prosealconstruction.com'], href: 'mailto:info@prosealconstruction.com', action: 'Write', icon: 'i-mail' },
 ] as const satisfies readonly Way[];
@@ -21,7 +21,7 @@ export default function FindUs() {
   return (
     <section className="find" id="contact" aria-labelledby="find-h">
       <p className="find-k">
-        <span>Proseal Construction Ltd</span>
+        <span>ProSeal Construction Ltd</span>
         <span>Gibraltar</span>
       </p>
       <div className="find-copy">

@@ -48,7 +48,7 @@ export const PROJECTS: readonly Project[] = [
     place: 'Gibraltar',
     status: 'Current project',
     text: [
-      'ProSeal is building this substantial luxury villa, one of the company’s major high-value residential projects.',
+      'ProSeal is building this luxury villa in the South District, one of the company’s principal residential projects.',
       'It is being built to a high specification, with a strong emphasis on quality, craftsmanship and attention to detail at every stage.',
     ],
     facts: [
@@ -100,7 +100,7 @@ export const PROJECTS: readonly Project[] = [
     place: 'Gibraltar',
     status: 'Current project',
     text: [
-      'Europa Walks is a residential development of apartments and villas, bringing several property types together in a single scheme.',
+      'Europa Walks is a residential development of villas, townhouses and apartments, bringing several property types together in a single scheme.',
       'A development of this kind calls for careful planning, coordination and management across every stage of construction.',
     ],
     facts: [
@@ -114,7 +114,7 @@ export const PROJECTS: readonly Project[] = [
       { icon: 'townhouse', text: 'Townhouses' },
       { icon: 'apartments', text: 'Apartments' },
       { icon: 'pool', text: 'Communal pool' },
-      { icon: 'parking', text: 'Underground parking' },
+      { icon: 'parking', text: 'Underground car park' },
       { icon: 'sun', text: 'Solar PV panels' },
     ],
     photos: [],

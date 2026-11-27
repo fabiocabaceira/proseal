@@ -11,7 +11,7 @@ export default function Footer({ renders }: { readonly renders: boolean }) {
           <a href={"https://www.google.com/maps/search/?api=1&query=3%2F1+City+Mill+Lane+Gibraltar"} target="_blank" rel="noopener" aria-label="Show our office on the map"><svg aria-hidden="true"><use href="#i-pin" /></svg></a>
         </p>
         <p className="legal">
-          © 2026 Proseal Construction Ltd, 3/1 City Mill Lane, Gibraltar GX11 1AA.{" "}
+          © 2026 ProSeal Construction Ltd, 3/1 City Mill Lane, Gibraltar, GX11 1AA.{" "}
           {renders
             ? 'Photographs are from our own sites; renders of The Villas Beacon Point are courtesy of the developer.'
             : 'Photographs are from our own sites.'}

@@ -24,8 +24,8 @@ function check(v: Values, step: number): Errors {
   const errors: Errors = {};
   for (const f of STEPS[step]) {
     if (f === 'role' && !v.role) errors.role = 'Please choose a role.';
-    if (f === 'name' && v.name.trim().length < 2) errors.name = 'Please add your name.';
-    if (f === 'email' && !/^\S+@\S+\.\S+$/.test(v.email.trim())) errors.email = 'Please add an email address so that we can reply.';
+    if (f === 'name' && v.name.trim().length < 2) errors.name = 'Please enter your name.';
+    if (f === 'email' && !/^\S+@\S+\.\S+$/.test(v.email.trim())) errors.email = 'Please enter an email address so that we can reply.';
   }
   return errors;
 }
@@ -259,7 +259,7 @@ export default function ApplyForm() {
                   <legend>A few words, then your CV</legend>
                   <div className="qf-campos">
                     <TextField {...field('phone')} label="Phone" hint="(optional)" type="tel" autoComplete="tel" placeholder="Your phone number" />
-                    <TextField {...field('message')} label="A brief covering note" placeholder="Your experience, qualifications and when you could start" rows={3} />
+                    <TextField {...field('message')} label="A brief covering note" placeholder="Tell us about your experience, qualifications and when you could start" rows={3} />
                   </div>
                   <p className="af-cv">Your email app will open with your application. Attach your CV before you send it.</p>
                 </fieldset>
@@ -292,7 +292,7 @@ export default function ApplyForm() {
               <svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.5 3.5 7.5-8" /></svg>
             </span>
           </div>
-          <p className="qf-ok-t" tabIndex={-1} ref={okTitle}>Thank you. Your application is ready.</p>
+          <p className="qf-ok-t" tabIndex={-1} ref={okTitle}>Thank you. Your application is ready to send.</p>
           <p className="qf-ok-p">Your email app should now open with the message below, addressed to info@prosealconstruction.com. Please attach your CV before you send it.</p>
           <pre className="qf-ok-msg">{sent}</pre>
           <div className="qf-ok-acts">

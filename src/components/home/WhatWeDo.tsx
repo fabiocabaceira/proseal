@@ -85,7 +85,7 @@ const SERVICES = [
     },
   },
   {
-    id: 'pools', title: 'Swimming pools', text: 'Built as an integral part of the home, as with the private infinity pool at Healy House.', job: 'Swimming pool',
+    id: 'pools', title: 'Swimming pools', text: 'Built as an integral part of the home, such as the private infinity pool at Healy House.', job: 'Swimming pool',
     panel: {
       k: 'Current project',
       display: [{ big: 'The private infinity pool at Healy House', small: 'South District, Gibraltar' }],
