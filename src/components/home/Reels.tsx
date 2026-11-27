@@ -12,10 +12,10 @@ interface Reel {
 }
 
 const REELS = [
+  { id: 'r4-europa-point', title: 'Site news: Europa Point.', label: 'Site news: Europa Point' },
   { id: 'r1-we-do-both', title: 'We do both.', label: 'We do both' },
   { id: 'r2-water', title: 'Water always finds the gap.', label: 'Water always finds the gap' },
   { id: 'r3-three-questions', title: 'Hiring a builder in Gibraltar? Ask three questions.', label: 'Ask three questions' },
-  { id: 'r4-europa-point', title: 'Site news: Europa Point.', label: 'Site news: Europa Point' },
 ] as const satisfies readonly Reel[];
 
 const R = REELS.length;

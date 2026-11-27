@@ -614,9 +614,9 @@ html.lite .tile.rise{opacity:1;transform:none;transition:none}
    clip-path with 66vw plus the opening scale() painted the window off-centre on iOS Safari. */
 @media (max-width:899px){
   main > .xh{
-    --win-top:calc(var(--bar) + 12px);
+    --win-top:calc(var(--bar) + 12px + 10svh);
     --win-side:40px;
-    --win-bot:calc(76px + env(safe-area-inset-bottom, 0px));
+    --win-bot:calc(76px + 10svh + env(safe-area-inset-bottom, 0px));
   }
   .xh-win{
     -webkit-clip-path:inset(calc(var(--win-top) * (1 - var(--e))) calc(var(--win-side) * (1 - var(--e))) calc(var(--win-bot) * (1 - var(--e))) calc(var(--win-side) * (1 - var(--e))) round calc(var(--r0) * (1 - var(--e))));
