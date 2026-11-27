@@ -1574,3 +1574,9 @@ html.calm .ox-block{animation:none}
   .ox .os-all{margin-left:auto}
 }
 @media (max-width:899px){ .ox-stage .cm.bl,.ox-stage .cm.br{display:none} }
+/* 27/11 · hero closing line on wide screens: lower, nearer the dark band at the foot of the film (still over the film), and larger */
+@media (min-width:900px){
+  .xh-end{bottom:calc(var(--melt) * .5 + 8px);align-items:flex-end;gap:18px 40px}
+  .xh-end span{font-size:clamp(40px,3.9vw,60px);line-height:1.04;letter-spacing:-.045em;max-width:12.5em}
+  .xh-end .pill{margin-bottom:8px}
+}
