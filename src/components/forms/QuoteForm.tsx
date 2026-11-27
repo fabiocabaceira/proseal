@@ -226,14 +226,14 @@ export default function QuoteForm() {
     <form className="qf" id="quoteForm" noValidate ref={form} onKeyDown={onKeyDown} onSubmit={onSubmit}>
       {sent === null ? (
         <>
+          <div className="qf-barra" aria-hidden="true">
+            {STEPS.map((_, i) => <span key={i} className="qf-barra-s" data-feito={i <= step || undefined} />)}
+          </div>
           <p className="qf-conta" id="stepCount" role="status">
             {"Step "}
             <b key={step}>{step + 1}</b>
             {` of ${STEPS.length}`}
           </p>
-          <div className="qf-barra" aria-hidden="true">
-            {STEPS.map((_, i) => <span key={i} className="qf-barra-s" data-feito={i <= step || undefined} />)}
-          </div>
           <div className="qf-palco" data-dir={dir}>
             <div className="qf-passo" key={step}>
               {step === 0 && (

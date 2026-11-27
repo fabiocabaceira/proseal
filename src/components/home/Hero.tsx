@@ -44,9 +44,9 @@ export default function Hero() {
       <div className="xh-pin">
         <img
           className="xh-bg"
-          src="img/hero-site-view-900.webp"
-          srcSet="img/hero-site-view-900.webp 900w, img/hero-site-view-1600.webp 1600w, img/hero-site-view-2400.webp 2400w"
-          sizes="(max-width:899px) 200vw, 100vw"
+          src="img/gunwharf-arch-900.webp"
+          srcSet="img/gunwharf-arch-480.webp 480w, img/gunwharf-arch-900.webp 900w, img/gunwharf-arch-1600.webp 1600w"
+          sizes="100vw"
           alt=""
           fetchPriority="high"
           decoding="async"

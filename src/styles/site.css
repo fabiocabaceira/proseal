@@ -1165,16 +1165,16 @@ html.calm .os-row,html.calm .os-bar i{transition:none}
 }
 html.calm .wwd-x,html.calm .wwd-xi,html.calm .wwd-pm::before,html.calm .wwd-pm::after{transition:none}
 
-/* 26/11 v5 · the quote, Home and the quote page alike (QuoteSection.tsx): no card. One narrow column centred on the navy;
-   the wordmark draws itself in cream straight on it, then the words, then the form on the same ground with hairline fields,
-   one calm list of projects and a cream button. A sent enquiry ends on the seal, a drawn tick and the whole message. */
-main > .ask.aq{display:block;padding:clamp(84px,18vw,128px) var(--pad) clamp(72px,15vw,128px) !important;background:var(--deep) linear-gradient(180deg,var(--navy),var(--deep) 62%);color:var(--cream)}
-.sub main > .ask.aq{padding-top:calc(var(--bar) + clamp(44px,11vw,96px)) !important}
+/* 27/11 v6 · the quote, Home and the quote page alike (QuoteSection.tsx): one narrow card on the navy, and the card is the form.
+   A small drawn mark and a short title, a thin three-part bar, the step, compact choices and the button; the contacts are one
+   quiet line at its foot. Each step fits a 390×844 phone with its button. A sent enquiry ends on the seal, a drawn tick and the message. */
+main > .ask.aq{display:block;padding:32px var(--pad) 40px !important;background:var(--deep) linear-gradient(180deg,var(--navy),var(--deep) 62%);color:var(--cream)}
+.sub main > .ask.aq{padding-top:calc(var(--bar) + 12px) !important}
 .aq{--c-line:rgba(243,239,231,.16);--c-soft:rgba(243,239,231,.64)}
-.aq-col{max-width:572px;margin:0 auto}
-.aq-head{display:grid;justify-items:center;text-align:center}
+.aq-col{max-width:520px;margin:0 auto;padding:16px;border:1px solid rgba(243,239,231,.14);border-radius:24px;background:rgba(243,239,231,.035);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 40px 90px -50px rgba(0,0,0,.75)}
+.aq-head{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:12px}
 
-.pm{width:clamp(168px,48vw,224px)}
+.pm{width:84px}
 .pm svg{width:100%;height:auto;overflow:visible}
 .pm-traco{fill:none;stroke:var(--cream);stroke-width:40;stroke-linejoin:round;stroke-dasharray:var(--len,100000);stroke-dashoffset:var(--len,100000)}
 .pm.is-in .pm-traco{animation:pm-draw 1.5s cubic-bezier(.22,1,.36,1) forwards}
@@ -1183,20 +1183,20 @@ main > .ask.aq{display:block;padding:clamp(84px,18vw,128px) var(--pad) clamp(72p
 @keyframes pm-draw{to{stroke-dashoffset:0}}
 @keyframes pm-letras{from{opacity:0}}
 
-.aq-k{margin-top:34px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--c-soft)}
-.aq-h{margin-top:14px;font-size:clamp(28px,7.4vw,44px);line-height:1.1;letter-spacing:-.035em;font-weight:300;font-stretch:108%;text-wrap:balance;color:var(--cream)}
+.aq-k{justify-self:end;font-size:10px;line-height:1.2;letter-spacing:.22em;text-transform:uppercase;text-align:right;color:var(--c-soft)}
+.aq-h{grid-column:1 / -1;margin-top:14px;font-size:20px;line-height:1.2;letter-spacing:-.025em;font-weight:300;font-stretch:108%;text-wrap:balance;color:var(--cream)}
 .aq-h em{font-style:normal;font-weight:300;color:rgba(243,239,231,.58)}
-.aq-lead{margin-top:14px;font-size:15.5px;line-height:1.5;color:var(--c-soft)}
-.aq-links{display:flex;flex-wrap:wrap;justify-content:center;gap:0 24px;margin-top:14px}
-.aq-links a{display:inline-flex;align-items:center;min-height:44px;font-size:14.5px;font-variant-numeric:tabular-nums;color:var(--cream);text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:rgba(243,239,231,.34);text-underline-offset:6px;transition:text-decoration-color .35s var(--ease)}
-.aq-links a:hover{text-decoration-color:var(--cream)}
+.aq-lead{grid-column:1 / -1;margin-top:3px;font-size:13.5px;line-height:1.45;color:var(--c-soft)}
+.aq-links{display:flex;flex-wrap:wrap;justify-content:center;gap:0 18px;margin-top:12px;padding-top:4px;border-top:1px solid rgba(243,239,231,.1)}
+.aq-links a{display:inline-flex;align-items:center;min-height:36px;font-size:12.5px;font-variant-numeric:tabular-nums;color:var(--c-soft);text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:rgba(243,239,231,.26);text-underline-offset:4px;overflow-wrap:anywhere;transition:color .3s var(--ease),text-decoration-color .35s var(--ease)}
+.aq-links a:hover{color:var(--cream);text-decoration-color:var(--cream)}
 
-.qf{margin-top:clamp(36px,8vw,52px);padding-top:clamp(28px,6vw,40px);border-top:1px solid var(--c-line)}
-.qf-conta{font-size:11px;line-height:1;letter-spacing:.26em;text-transform:uppercase;font-variant-numeric:tabular-nums;color:var(--c-soft)}
-.qf-conta b{display:inline-block;font-weight:500;color:var(--cream);animation:qf-up .5s var(--ease)}
-.qf-barra{display:flex;gap:6px;margin-top:14px}
-.qf-barra-s{flex:1;height:1px;background:var(--cream);opacity:.2;transition:opacity 420ms cubic-bezier(.22,1,.36,1)}
+.qf{margin-top:14px}
+.qf-barra{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.qf-barra-s{height:3px;border-radius:3px;background:var(--cream);opacity:.16;transition:opacity 420ms cubic-bezier(.22,1,.36,1)}
 .qf-barra-s[data-feito="true"]{opacity:1}
+.qf-conta{margin-top:8px;font-size:12px;line-height:1.2;letter-spacing:.16em;text-transform:uppercase;font-variant-numeric:tabular-nums;color:var(--c-soft)}
+.qf-conta b{display:inline-block;font-weight:500;color:var(--cream);animation:qf-up .5s var(--ease)}
 
 .qf-palco{margin:0 -10px;padding:0 10px;overflow-x:clip}
 .qf-passo{animation:qf-frente 420ms cubic-bezier(.22,1,.36,1) backwards}
@@ -1211,33 +1211,32 @@ main > .ask.aq{display:block;padding:clamp(84px,18vw,128px) var(--pad) clamp(72p
 @keyframes qf-campo{from{opacity:0;transform:translate3d(0,.75rem,0)}}
 @keyframes qf-up{from{opacity:0;transform:translateY(6px)}}
 
-.qf legend{padding:30px 0 18px;font-size:clamp(20px,5.4vw,24px);font-weight:300;line-height:1.2;letter-spacing:-.025em;color:var(--cream)}
-.qf .opts{display:block;background:rgba(243,239,231,.025);border:1px solid var(--c-line);border-radius:4px;overflow:hidden;transition:border-color .35s var(--ease)}
-.qf .opts label + label{border-top:1px solid rgba(243,239,231,.1)}
-.qf .opts span{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:54px;padding:12px 18px;border:0;border-radius:0;background:transparent;font-size:15.5px;font-weight:300;line-height:1.3;color:rgba(243,239,231,.76);transition:background-color .45s var(--ease),color .45s var(--ease)}
-.qf .opts label:hover span{background:rgba(243,239,231,.04);color:var(--cream)}
-.qf .opts input:checked + span{background:rgba(243,239,231,.08);color:var(--cream)}
-.qf .opts input:focus-visible + span{outline:1px solid var(--cream);outline-offset:-5px}
-.qf .opts[aria-invalid="true"]{border-color:rgba(243,167,150,.6)}
-.opt-dot{flex:0 0 auto;position:relative;width:16px;height:16px;border-radius:50%;border:1px solid rgba(243,239,231,.34);transition:border-color .35s var(--ease)}
+.qf legend{padding:14px 0 10px;font-size:17px;font-weight:400;line-height:1.25;letter-spacing:-.015em;color:var(--cream)}
+.qf .opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.qf .opts span{display:flex;align-items:center;justify-content:space-between;gap:8px;height:100%;min-height:46px;padding:6px 10px 6px 12px;border:1px solid var(--c-line);border-radius:12px;background:rgba(243,239,231,.03);font-size:13.5px;font-weight:400;line-height:1.2;color:rgba(243,239,231,.8);transition:background-color .45s var(--ease),border-color .45s var(--ease),color .45s var(--ease)}
+.qf .opts label:hover span{border-color:rgba(243,239,231,.4);color:var(--cream)}
+.qf .opts input:checked + span{border-color:var(--cream);background:rgba(243,239,231,.1);color:var(--cream)}
+.qf .opts input:focus-visible + span{outline:2px solid var(--cream);outline-offset:2px}
+.qf .opts[aria-invalid="true"] span{border-color:rgba(243,167,150,.6)}
+.opt-dot{flex:0 0 auto;position:relative;width:14px;height:14px;border-radius:50%;border:1px solid rgba(243,239,231,.34);transition:border-color .35s var(--ease)}
 .opt-dot::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--cream);transform:scale(0);transition:transform .45s cubic-bezier(.22,1,.36,1)}
 .qf .opts input:checked + span .opt-dot{border-color:var(--cream)}
 .qf .opts input:checked + span .opt-dot::after{transform:scale(1)}
 
-.qf .field{margin-bottom:18px}
-.qf .field span{display:block;margin-bottom:8px;font-size:11px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--c-soft);transition:color .3s var(--ease)}
+.qf .field{margin-bottom:10px}
+.qf .field span{display:block;margin-bottom:5px;font-size:10.5px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--c-soft);transition:color .3s var(--ease)}
 .qf .field small{color:rgba(243,239,231,.4)}
 .qf .field:focus-within span{color:var(--cream)}
-.qf .field input,.qf .field textarea{padding:14px 16px;font-size:16px;font-weight:300;color:var(--cream);background:rgba(243,239,231,.04);border:1px solid var(--c-line);border-radius:4px;transition:border-color .35s var(--ease),background-color .35s var(--ease)}
+.qf .field input,.qf .field textarea{padding:11px 14px;font-size:16px;font-weight:300;color:var(--cream);background:rgba(243,239,231,.04);border:1px solid var(--c-line);border-radius:12px;transition:border-color .35s var(--ease),background-color .35s var(--ease)}
 .qf .field input::placeholder,.qf .field textarea::placeholder{color:rgba(243,239,231,.34)}
 .qf .field input:focus,.qf .field textarea:focus{outline:none;border-color:rgba(243,239,231,.6);background-color:rgba(243,239,231,.06)}
 .qf .field input.bad{border-color:rgba(243,167,150,.8)}
 .qf .field input:-webkit-autofill{-webkit-text-fill-color:var(--cream);caret-color:var(--cream);box-shadow:0 0 0 100px #132b4d inset}
 .qf-err{font-size:13px;line-height:1.4;color:#f3a796}
-.qf-err:not(:empty){margin-top:8px;animation:qf-up .35s var(--ease)}
+.qf-err:not(:empty){margin-top:6px;animation:qf-up .35s var(--ease)}
 
-.qf-nav{display:flex;align-items:center;gap:16px;margin-top:28px}
-.qf .pill{min-height:3.5rem;padding:0 28px}
+.qf-nav{display:flex;align-items:center;gap:12px;margin-top:14px}
+.qf .pill{min-height:3.5rem;padding:0 24px}
 .qf .qf-go{background:var(--cream);color:var(--deep);border-color:var(--cream)}
 .qf .qf-go:hover{background:#fff;border-color:#fff}
 .qf-nav .qf-go{flex:1 1 auto}
@@ -1285,6 +1284,10 @@ main > .ask.aq{display:block;padding:clamp(84px,18vw,128px) var(--pad) clamp(72p
   .pm-traco,.qf-ok-visto path{stroke-dashoffset:0}
   .pm-letras{opacity:1}
 }
+html.calm .qf .opts span,html.calm .opt-dot::after,html.calm .qf-barra-s{transition:none}
+html.calm .qf *,html.calm .pm *{animation:none !important}
+html.calm .pm-traco,html.calm .qf-ok-visto path{stroke-dashoffset:0}
+html.calm .pm-letras{opacity:1}
 
 /* 27/11 · what we do fits one screen on desktop: the heading sits in the list column, the rows are one line each,
    and the service's description moves into the dark panel beside it, which already follows the row pointed at */
@@ -1339,27 +1342,18 @@ html.calm .wwp-lead{transform:none !important;transition:none !important}
   .os-all{flex:0 0 auto;margin:0 0 0 14px}
 }
 
-/* 27/11 · the quote side by side on desktop: introduction and contacts on the left, the form in a panel on the right,
-   project types in two columns so the first step fits one screen */
-.aq-links small{display:inline-block;margin-right:8px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--c-soft)}
+/* 27/11 v6 · the quote card on wide screens: the same narrow card, centred, a little more air inside */
 @media (min-width:900px){
-  main > .ask.aq{padding:96px max(var(--pad),calc((100vw - var(--max)) / 2)) !important}
-  .sub main > .ask.aq{padding-top:calc(var(--bar) + 72px) !important}
-  .aq-col{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:clamp(56px,7vw,120px);align-items:center;max-width:none}
-  .aq-head{justify-items:start;text-align:left}
-  .aq-head .pm{width:180px}
-  .aq-k{margin-top:40px}
-  .aq-h{font-size:clamp(40px,3.8vw,56px)}
-  .aq-lead{margin-top:18px;font-size:16.5px}
-  .aq-links{display:grid;justify-content:stretch;gap:0;width:100%;max-width:26em;margin-top:34px;border-top:1px solid var(--c-line)}
-  .aq-links a{justify-content:space-between;min-height:58px;border-bottom:1px solid var(--c-line);text-decoration:none;font-size:15.5px;transition:color .3s var(--ease),padding .4s var(--ease)}
-  .aq-links a:hover{padding-left:6px}
-  .aq-links small{margin:0}
-  .qf{margin-top:0;padding:30px 34px 34px;border:1px solid var(--c-line);border-radius:6px;background:rgba(243,239,231,.035);box-shadow:0 60px 120px -70px rgba(0,0,0,.6)}
-  .qf legend{padding:24px 0 16px}
-  .qf .opts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--c-line)}
-  .qf .opts label{background:#0f2747}
-  .qf .opts label:nth-last-child(-n+2){border-bottom:0}
+  main > .ask.aq{padding:72px var(--pad) 80px !important}
+  .sub main > .ask.aq{padding-top:calc(var(--bar) + 48px) !important}
+  .aq-col{padding:26px 26px 18px}
+  .pm{width:96px}
+  .aq-h{margin-top:18px;font-size:24px}
+  .aq-lead{font-size:14.5px}
+  .qf{margin-top:18px}
+  .qf legend{padding:18px 0 12px;font-size:19px}
+  .qf .opts{gap:8px}
+  .qf .opts span{min-height:50px;font-size:14px}
 }
 
 /* 27/11 · works page: a short header straight into the first project, photographs one at a time with arrows and swipe,
@@ -1574,12 +1568,6 @@ html.calm .ox-block{animation:none}
   .ox .os-all{margin-left:auto}
 }
 @media (max-width:899px){ .ox-stage .cm.bl,.ox-stage .cm.br{display:none} }
-/* 27/11 · hero closing line on wide screens: lower, nearer the dark band at the foot of the film (still over the film), and larger */
-@media (min-width:900px){
-  .xh-end{bottom:calc(var(--melt) * .5 + 8px);align-items:flex-end;gap:18px 40px}
-  .xh-end span{font-size:clamp(40px,3.9vw,60px);line-height:1.04;letter-spacing:-.045em;max-width:12.5em}
-  .xh-end .pill{margin-bottom:8px}
-}
 
 /* 27/11 · Careers on phones: the ethos note sits under the form, not above it */
 .ask-ethos-m{display:none}
@@ -1613,24 +1601,6 @@ html.calm .ox-block{animation:none}
   .ox-block{grid-column:1 / -1;grid-row:2}
   .ox-nav{grid-column:1 / -1;grid-row:3}
 }
-/* 27/11 · Request a quote on phones: one tight left-aligned block, the mark and the label on one line, the contacts side by side */
-@media (max-width:899px){
-  main > .ask.aq{padding-top:56px !important;padding-bottom:56px !important}
-  .sub main > .ask.aq{padding-top:calc(var(--bar) + 28px) !important}
-  .aq-head{grid-template-columns:auto minmax(0,1fr);align-items:center;justify-items:start;column-gap:14px;text-align:left}
-  .aq-head .pm{width:92px;margin:0}
-  .aq-k{grid-column:2;justify-self:end;margin:0;font-size:10px;letter-spacing:.22em}
-  .aq-h,.aq-lead,.aq-links{grid-column:1 / -1}
-  .aq-h{margin-top:22px;font-size:clamp(30px,8.4vw,38px);line-height:1.05;text-wrap:wrap}
-  .aq-lead{margin-top:8px;font-size:14.5px}
-  .aq-links{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px;width:100%;margin-top:16px;padding-top:12px;border-top:1px solid var(--c-line)}
-  .aq-links a{display:grid;align-content:start;gap:3px;min-height:44px;font-size:13px;text-decoration:none;overflow-wrap:anywhere}
-  .aq-links small{margin:0;font-size:9.5px}
-}
-/* 27/11 · hero background, the site from above: framed on the bay and the houses, not the roof edge */
-.xh-bg{object-position:50% 22%}
-/* 27/11 · hero on phones: the film starts as a landscape window, same width, much lower */
-@media (max-width:899px){ main > .xh{--win-h:calc((100vw - 80px) * .72);--win-top:calc((100svh - var(--win-h)) / 2);--win-bot:calc((100svh - var(--win-h)) / 2)} }
 
 /* 27/11 · On site on phones: the lead line sits under the photograph, beside the column of thumbnails */
 .ox-note{display:none}
@@ -1651,8 +1621,6 @@ html.calm .ox-block{animation:none}
   .ox-th img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto}
 }
 @media (max-width:899px){ .ox{width:100%;min-width:0;max-width:100%;grid-template-columns:58px minmax(0,1fr)} .ox-stage,.ox-note{min-width:0;max-width:100%} }
-/* 27/11 · hero on phones: the background photo taller than the screen and pinned to the top, so the roof and the hose at its foot stay out of view */
-@media (max-width:899px){ .xh-bg{top:-8%;bottom:auto;height:192%;object-position:50% 0} }
 @media (max-width:899px){ .ox-note,.ox-block,.ox-index{position:relative;z-index:1} }
 
 /* 27/11 · Where to find us without the photograph: on wide screens the title on the left, the contact lines on the right */
