@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useEffectEvent, useMemo, useRef, useState, type CSSProperties, type RefObject } from 'react';
-import { useInView } from '../../hooks/home/useInView';
 import { isCalm } from '../../lib/site';
 import { pad2, ringOffset, wrapIndex } from './ring';
 
@@ -72,6 +71,34 @@ function syncFilms(films: readonly (HTMLVideoElement | null)[], cur: number, inV
 
 const audibleNow = (films: readonly (HTMLVideoElement | null)[]) => films.map((v) => !!v && !v.muted && !v.paused);
 
+/* The carousel counts as on screen once 30 % of it has stayed in view for a moment, and as gone only when it has left the
+   screen completely. Scrolling past it, or back up through it, then does not start and stop the films on every frame,
+   which on an iPhone stalls the scroll. */
+function useOnScreen(target: RefObject<Element | null>): boolean {
+  const [on, setOn] = useState(false);
+  useEffect(() => {
+    const el = target.current;
+    if (!el) return;
+    let wait = 0;
+    const io = new IntersectionObserver(
+      (entries) => {
+        const last = entries.at(-1);
+        if (!last) return;
+        clearTimeout(wait);
+        if (last.intersectionRatio >= 0.3) wait = window.setTimeout(() => setOn(true), 150);
+        else if (!last.isIntersecting) setOn(false);
+      },
+      { threshold: [0, 0.3] },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      clearTimeout(wait);
+    };
+  }, [target]);
+  return on;
+}
+
 /* Reels: the carousel (the Pantiera component) with a short text and the list of the films beside it. One tap on the
    speaker turns the sound on inside the tap, the only place iOS allows it. Arrows, keys, a mouse drag, a swipe and the
    trackpad's sideways gesture move one reel at a time. */
@@ -85,7 +112,7 @@ export default function Reels() {
   const [cur, setCur] = useState(0);
   const [wide, setWide] = useState(false);
   const [audible, setAudible] = useState<readonly boolean[]>(() => CARDS.map(() => false));
-  const inView = useInView(box, 0.3);
+  const inView = useOnScreen(box);
 
   const filmRefs = useMemo(() => CARDS.map((_, i) => (el: HTMLVideoElement | null) => { films.current[i] = el; }), []);
   const go = (i: number) => setCur(wrapIndex(i, N));
@@ -149,10 +176,11 @@ export default function Reels() {
     return () => removeEventListener('pointerup', release);
   }, [move]);
 
-  /* the trackpad's sideways gesture: one reel per gesture, however long it is */
+  /* the trackpad's sideways gesture: one reel per gesture, however long it is. The listener cannot be passive (it stops the
+     browser's back-swipe), so it is only attached where there is a trackpad or a mouse, never on a touch screen. */
   useEffect(() => {
     const el = box.current;
-    if (!el) return;
+    if (!el || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     let locked = false;
     let acc = 0;
     let idle = 0;

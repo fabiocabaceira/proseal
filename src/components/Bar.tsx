@@ -18,7 +18,13 @@ export default function Bar({ home, current, menuOpen, onMenu }: Props) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > LIMIT);
+    let last: boolean | null = null;
+    const onScroll = () => {
+      const past = window.scrollY > LIMIT;
+      if (past === last) return;
+      last = past;
+      setScrolled(past);
+    };
     addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => removeEventListener('scroll', onScroll);

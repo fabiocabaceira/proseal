@@ -12,8 +12,9 @@
   --pad:20px; --bar:64px; --gap:72px; --max:1240px;
 }
 *,*::before,*::after{box-sizing:border-box}
-html{overscroll-behavior-y:none;-webkit-text-size-adjust:100%}
-html.smooth{scroll-behavior:smooth}
+/* no scroll-behavior and no overscroll-behavior on the document: on iOS both fight the native scroll, and the page sticks
+   at the top and hiccups when it is scrolled back up */
+html{-webkit-text-size-adjust:100%}
 body{margin:0;overflow-x:clip;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
 img,svg{display:block;max-width:100%}
 a{color:inherit}
@@ -90,21 +91,25 @@ html.calm .bar-bg,html.calm .menu-painel,html.calm .menu-item,html.calm .nav-u{t
    The section is taller than the screen and the stage is sticky, so the page scrolls normally (no wheel capture as in the original). */
 main > .xh{--p:0;--e:0;--w0:66vw;--h0:50svh;--run:90svh;--r0:18px;--melt:clamp(56px,9svh,110px);height:calc(100svh + var(--run));padding:0;background:var(--deep)}
 .xh-pin{position:sticky;top:0;height:100svh;overflow:hidden;color:#fff}
-.xh-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;opacity:calc(1 - var(--e));transform:scale(calc(1 + var(--e) * .08))}
+/* every layer that --p/--e change on each scroll frame is its own compositing layer and changes only opacity or transform,
+   so scrolling through the hero (both ways) repaints nothing: on an iPhone a full-screen repaint per frame is the stutter */
+.xh-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;opacity:calc(1 - var(--e));transform:scale(calc(1 + var(--e) * .08));will-change:opacity,transform}
 /* the background film arrives over its own first frame (the poster image underneath), so the swap does not show */
 /* a light shade only: the film keeps its colour; darker at the top for the bar and behind the title and buttons */
-.xh-pin::before{content:"";position:absolute;inset:0;z-index:1;opacity:calc(1 - var(--e));
+.xh-pin::before{content:"";position:absolute;inset:0;z-index:1;opacity:calc(1 - var(--e));will-change:opacity;
   background:radial-gradient(58% 40% at 50% 50%,rgba(7,20,40,.42),rgba(7,20,40,0) 72%),linear-gradient(180deg,rgba(7,20,40,.55) 0,rgba(7,20,40,.14) 24%,rgba(7,20,40,.12) 58%,rgba(7,20,40,.62) 100%)}
 .xh-win{position:absolute;inset:0;z-index:2;
   clip-path:inset(calc((100% - var(--h0)) / 2 * (1 - var(--e))) calc((100% - var(--w0)) / 2 * (1 - var(--e))) round calc(var(--r0) * (1 - var(--e))));
-  transition:opacity 1.1s var(--ease),transform 1.4s var(--ease)}
+  transition:opacity 1.1s var(--ease),transform 1.4s var(--ease);will-change:opacity,transform}
 .xh-film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--deep);transform:scale(calc(1.14 - var(--e) * .14))}
-.xh-win::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,20,40,calc(.34 - var(--e) * .08)) 0,rgba(7,20,40,calc(.26 - var(--e) * .2)) 50%,rgba(7,20,40,.55) 100%)}
+/* the shade over the film: a fixed gradient (the open window) plus the extra shade of the framed window, faded out with --e */
+.xh-win::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,20,40,.26) 0,rgba(7,20,40,.06) 50%,rgba(7,20,40,.55) 100%)}
+.xh-win::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(7,20,40,.11) 0,rgba(7,20,40,.21) 50%,rgba(7,20,40,0) 100%);opacity:calc(1 - var(--e));will-change:opacity}
 /* the end of the hero melts into the paper of the next section */
-.xh-pin::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:var(--melt);z-index:3;background:linear-gradient(0deg,var(--paper),rgba(246,243,238,0));opacity:var(--e);pointer-events:none}
+.xh-pin::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:var(--melt);z-index:3;background:linear-gradient(0deg,var(--paper),rgba(246,243,238,0));opacity:var(--e);will-change:opacity;pointer-events:none}
 .xh-copy{position:absolute;inset:0;z-index:3;display:grid;place-content:center;text-align:center;padding:0 var(--pad);pointer-events:none;transition:opacity 1s var(--ease) .35s,transform 1.3s var(--ease) .35s}
 .xh-title{font-size:clamp(33px,9vw,60px);line-height:1.04;letter-spacing:-.045em;font-weight:400;text-shadow:0 2px 30px rgba(7,20,40,.4)}
-.xh-title > *{display:block;white-space:nowrap}
+.xh-title > *{display:block;white-space:nowrap;will-change:translate,opacity}
 .xh-a{translate:calc(var(--p) * -62vw) 0}
 .xh-b{translate:calc(var(--p) * 62vw) 0}
 .xh-title > *,.xh-meta > *{opacity:calc(1 - var(--p) * 1.7)}

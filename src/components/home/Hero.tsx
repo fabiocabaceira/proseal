@@ -5,16 +5,31 @@ import { armFilm, isCalm, onTitled } from '../../lib/site';
 /* Scroll Expansion Hero (21st.dev, @arunachalam), rebuilt for this site. The section is taller than the screen and its
    stage is sticky; the scroll progress through it drives --p (linear) and --e (eased) in CSS, which open the window from
    its frame to the full screen, fade the background photo and part the two halves of the title (site.css, "1. hero"). */
+type Stage = '' | 'run' | 'done';
+
+/* a stage is left a little below where it was entered, so a finger resting on a threshold does not flip the classes and
+   restart their transitions on every frame */
+function stageAt(prev: Stage, v: number): Stage {
+  if (v > (prev === 'done' ? 0.9 : 0.94)) return 'done';
+  return v > (prev === '' ? 0.12 : 0.08) ? 'run' : '';
+}
+
 export default function Hero() {
   const section = useRef<HTMLElement>(null);
   const film = useRef<HTMLVideoElement>(null);
-  const [stage, setStage] = useState<'' | 'run' | 'done'>('');
+  const shown = useRef<Stage>('');
+  const [stage, setStage] = useState<Stage>('');
 
   const { scrollYProgress } = useScroll({ target: section, offset: ['start start', 'end end'] });
   const p = useTransform(scrollYProgress, (v) => (isCalm() ? 0 : v));
   const e = useTransform(p, (v) => v * v * (3 - 2 * v));
 
-  useMotionValueEvent(p, 'change', (v) => setStage(v > 0.94 ? 'done' : v > 0.12 ? 'run' : ''));
+  useMotionValueEvent(p, 'change', (v) => {
+    const next = stageAt(shown.current, v);
+    if (next === shown.current) return;
+    shown.current = next;
+    setStage(next);
+  });
 
   /* the film in the window starts when the title appears; with reduced motion its poster stays */
   useEffect(() => {
