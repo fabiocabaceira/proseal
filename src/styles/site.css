@@ -1596,3 +1596,5 @@ html.calm .ox-block{animation:none}
   .approach .svc.three .svc-t{margin:6px 0 0;padding:0;font-size:17px;line-height:1.15;letter-spacing:-.02em}
   .approach .svc.three .svc-p{margin:6px 0 0;padding:0;font-size:13px;line-height:1.42}
 }
+/* 27/11 · contact details laid straight on the page, ruled like the fact sheets, not in a card */
+.find-card,.find-card[class]{padding:0 !important;background:none;border-radius:0;box-shadow:none;border-top:1px solid var(--ink);border-bottom:1px solid rgba(16,28,46,.12)}
