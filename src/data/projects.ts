@@ -206,7 +206,7 @@ export const BEACON_FEATURES: readonly Feature[] = [
 export const GUN_WHARF_FACTS: readonly Fact[] = [
   { icon: 'heritage', label: 'Type', value: 'Historic building' },
   { icon: 'pin', label: 'Location', value: 'Gibraltar' },
-  { icon: 'crane', label: 'Status', value: 'Restoration' },
+  { icon: 'crane', label: 'Status', value: 'Works carried out' },
   { icon: 'tools', label: 'Our work', value: 'Restoration and steel framing' },
 ];
 export const GUN_WHARF_FEATURES: readonly Feature[] = [
