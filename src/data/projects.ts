@@ -115,6 +115,7 @@ export const PROJECTS: readonly Project[] = [
       { icon: 'apartments', text: 'Apartments' },
       { icon: 'pool', text: 'Communal pool' },
       { icon: 'parking', text: 'Underground parking' },
+      { icon: 'sun', text: 'Solar PV panels' },
     ],
     photos: [],
   },
@@ -201,11 +202,14 @@ export const BEACON_FEATURES: readonly Feature[] = [
   { icon: 'townhouse', text: 'Townhouses' },
   { icon: 'villa', text: 'Villas' },
   { icon: 'apartments', text: 'Luxury apartments' },
+  { icon: 'pool', text: 'Communal pool' },
+  { icon: 'parking', text: 'Underground car park' },
+  { icon: 'sun', text: 'Solar PV panels' },
   { icon: 'sea', text: 'Views across the Strait to Morocco' },
 ];
 export const GUN_WHARF_FACTS: readonly Fact[] = [
   { icon: 'heritage', label: 'Type', value: 'Historic building' },
-  { icon: 'pin', label: 'Location', value: 'Gibraltar' },
+  { icon: 'pin', label: 'Location', value: 'HM Naval Base' },
   { icon: 'crane', label: 'Status', value: 'Works carried out' },
   { icon: 'tools', label: 'Our work', value: 'Restoration and steel framing' },
 ];
