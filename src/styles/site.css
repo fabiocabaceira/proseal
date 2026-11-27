@@ -1429,3 +1429,6 @@ html.calm .wwp-lead{transform:none !important;transition:none !important}
   .cr-head .cr-jump{margin-top:28px}
   .cr-head .wk-side{padding-bottom:12px}
 }
+
+/* 27/11 · desktop footer: room under the legal line for the floating quote and call buttons, so they never sit on top of it */
+@media (min-width:769px){ .foot{padding-bottom:calc(24px + 52px + 24px)} }
