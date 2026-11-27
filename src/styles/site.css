@@ -1420,3 +1420,12 @@ html.calm .wwp-lead{transform:none !important;transition:none !important}
   .wwd-foot.has-shot .wwd-ref::before{content:"";flex:0 0 18px;height:1px;background:var(--ink)}
   .wwd-xi > .wwd-foot:last-child{margin-bottom:18px}
 }
+
+/* 27/11 · careers: the introduction set like the works page, larger and in ink, its button level with the title's last line */
+.cr-head .page-lead{font-size:clamp(16.5px,4.4vw,18px);line-height:1.45;letter-spacing:-.012em;color:var(--ink)}
+@media (min-width:900px){
+  .cr-head{align-items:end}
+  .cr-head .page-lead{max-width:28em;font-size:clamp(17px,1.35vw,20px);font-weight:300;font-stretch:108%;text-wrap:pretty}
+  .cr-head .cr-jump{margin-top:28px}
+  .cr-head .wk-side{padding-bottom:12px}
+}
