@@ -47,10 +47,6 @@ export default function FindUs() {
           </ul>
         </address>
       </div>
-      <figure className="find-view">
-        <img src="img/site-view-900.webp" srcSet="img/site-view-900.webp 900w, img/site-view-1600.webp 1600w" sizes="(min-width:900px) 54vw, 100vw" alt="A ProSeal site seen from above, with the Bay of Gibraltar behind" loading="lazy" decoding="async" />
-        <figcaption>Gibraltar, from one of our sites</figcaption>
-      </figure>
     </section>
   );
 }

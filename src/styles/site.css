@@ -1627,3 +1627,39 @@ html.calm .ox-block{animation:none}
   .aq-links a{display:grid;align-content:start;gap:3px;min-height:44px;font-size:13px;text-decoration:none;overflow-wrap:anywhere}
   .aq-links small{margin:0;font-size:9.5px}
 }
+/* 27/11 · hero background, the site from above: framed on the bay and the houses, not the roof edge */
+.xh-bg{object-position:50% 22%}
+/* 27/11 · hero on phones: the film starts as a landscape window, same width, much lower */
+@media (max-width:899px){ main > .xh{--win-h:calc((100vw - 80px) * .72);--win-top:calc((100svh - var(--win-h)) / 2);--win-bot:calc((100svh - var(--win-h)) / 2)} }
+
+/* 27/11 · On site on phones: the lead line sits under the photograph, beside the column of thumbnails */
+.ox-note{display:none}
+@media (max-width:899px){
+  .works .works-copy{display:none}
+  .ox-index{grid-row:1 / span 2;align-self:start;grid-template-rows:none}
+  .ox-th{height:auto}
+  .ox-th img{height:auto;aspect-ratio:58 / 66}
+  .ox-note{display:block;grid-column:2;grid-row:2;align-self:start;margin-top:-2px;font-size:14px;line-height:1.4;color:var(--ink)}
+  .ox-note span{display:block;color:var(--mute)}
+  .ox-block{grid-row:3}
+  .ox-nav{grid-row:4}
+}
+@media (max-width:899px){
+  .ox-index{align-self:stretch;grid-template-rows:repeat(6,minmax(0,1fr))}
+  .ox-index li{position:relative;min-height:0}
+  .ox-th{position:absolute;inset:0;height:auto}
+  .ox-th img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto}
+}
+@media (max-width:899px){ .ox{width:100%;min-width:0;max-width:100%;grid-template-columns:58px minmax(0,1fr)} .ox-stage,.ox-note{min-width:0;max-width:100%} }
+/* 27/11 · hero on phones: the background photo taller than the screen and pinned to the top, so the roof and the hose at its foot stay out of view */
+@media (max-width:899px){ .xh-bg{top:-8%;bottom:auto;height:192%;object-position:50% 0} }
+@media (max-width:899px){ .ox-note,.ox-block,.ox-index{position:relative;z-index:1} }
+
+/* 27/11 · Where to find us without the photograph: on wide screens the title on the left, the contact lines on the right */
+@media (min-width:900px){
+  main > .find{grid-template-columns:minmax(0,1fr)}
+  .find-copy{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:clamp(48px,6vw,104px);align-items:end}
+  .find-copy > .find-h,.find-copy > .find-p{grid-column:1}
+  .find-copy > .find-card{grid-column:2;grid-row:1 / span 2;margin-top:0}
+}
+@media (min-width:900px){ .find-copy{grid-template-rows:auto auto 1fr;align-items:start} .find-copy > .find-h{margin-top:-8px} .find-copy > .find-card{grid-row:1 / span 3} }

@@ -96,6 +96,8 @@ export default function OnSite() {
           <i className="cm bl" aria-hidden="true" />
           <i className="cm br" aria-hidden="true" />
         </div>
+        {/* on phones the section's lead line moves here, into the room beside the thumbnails (the one above is hidden there) */}
+        <p className="ox-note">Photographed on our own sites across Gibraltar, <span>while the work is under way.</span></p>
         <div className="ox-side">
           <div className="ox-block" key={active} aria-live="polite">
             <p className="ox-k">
