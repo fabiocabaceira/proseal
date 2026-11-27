@@ -3,6 +3,21 @@
    <stem>-1600.webp, then list it in that project's photos as { img: 'projects/<slug>/<stem>', caption, alt }.
    A project with no photographs shows a titled panel in their place, so nothing else on the page has to change. */
 
+import type { IconName } from '../components/works/Icon';
+
+/** one line of a project's fact sheet: the type, the location, the status and our part in it */
+export interface Fact {
+  readonly icon: IconName;
+  readonly label: string;
+  readonly value: string;
+}
+
+/** a key feature, shown as a chip with its icon */
+export interface Feature {
+  readonly icon: IconName;
+  readonly text: string;
+}
+
 export interface Photo {
   /** file stem under img/: the grid shows -900, full screen shows -1600 */
   readonly img: string;
@@ -17,7 +32,8 @@ export interface Project {
   readonly place: string;
   readonly status: string;
   readonly text: readonly string[];
-  readonly features: readonly string[];
+  readonly facts: readonly Fact[];
+  readonly features: readonly Feature[];
   readonly photos: readonly Photo[];
   /** a line under the photographs, where they are not photographs of the finished work */
   readonly credit?: string;
@@ -34,6 +50,12 @@ export const PROJECTS: readonly Project[] = [
     text: [
       'ProSeal is building this substantial luxury villa, one of the company’s major high-value residential projects.',
       'It is being built to a high specification, with a strong emphasis on quality, craftsmanship and attention to detail at every stage.',
+    ],
+    facts: [
+      { icon: 'villa', label: 'Type', value: 'Luxury residential villa' },
+      { icon: 'pin', label: 'Location', value: 'South District' },
+      { icon: 'crane', label: 'Status', value: 'Under construction' },
+      { icon: 'tools', label: 'Our work', value: 'New build' },
     ],
     features: [],
     photos: [
@@ -54,7 +76,21 @@ export const PROJECTS: readonly Project[] = [
       'Healy House is a substantial property in the South District that once operated as a nursing home.',
       'ProSeal is carrying out an extensive refurbishment and modernisation to transform it into a high-end private residence.',
     ],
-    features: ['Six bedrooms and six bathrooms', 'Private infinity pool', 'Dedicated cinema room', 'Sauna and gymnasium'],
+    facts: [
+      { icon: 'house', label: 'Type', value: 'Luxury private residence' },
+      { icon: 'pin', label: 'Location', value: 'South District' },
+      { icon: 'crane', label: 'Status', value: 'Works in progress' },
+      { icon: 'tools', label: 'Our work', value: 'Refurbishment and modernisation' },
+    ],
+    features: [
+      { icon: 'history', text: 'Formerly a nursing home' },
+      { icon: 'bed', text: 'Six bedrooms' },
+      { icon: 'bath', text: 'Six bathrooms' },
+      { icon: 'pool', text: 'Private infinity pool' },
+      { icon: 'cinema', text: 'Dedicated cinema room' },
+      { icon: 'sauna', text: 'Sauna' },
+      { icon: 'gym', text: 'Gymnasium' },
+    ],
     photos: [],
   },
   {
@@ -67,7 +103,19 @@ export const PROJECTS: readonly Project[] = [
       'Europa Walks is a residential development of apartments and villas, bringing several property types together in a single scheme.',
       'A development of this kind calls for careful planning, coordination and management across every stage of construction.',
     ],
-    features: ['Apartments', 'Villas', 'Several property types in one scheme'],
+    facts: [
+      { icon: 'estate', label: 'Type', value: 'Residential development' },
+      { icon: 'pin', label: 'Location', value: 'Europa Point' },
+      { icon: 'crane', label: 'Status', value: 'Works in progress' },
+      { icon: 'tools', label: 'Our work', value: 'Construction' },
+    ],
+    features: [
+      { icon: 'villa', text: 'Villas' },
+      { icon: 'townhouse', text: 'Townhouses' },
+      { icon: 'apartments', text: 'Apartments' },
+      { icon: 'pool', text: 'Communal pool' },
+      { icon: 'parking', text: 'Underground parking' },
+    ],
     photos: [],
   },
   {
@@ -80,7 +128,18 @@ export const PROJECTS: readonly Project[] = [
       'ProSeal has completed a full refurbishment and major alterations to the building, and is now constructing a complete new floor.',
       'The bank has remained fully operational throughout, so every stage is planned, coordinated and communicated to keep the work safe and efficient.',
     ],
-    features: ['Full refurbishment', 'Major alterations', 'New floor under construction', 'Bank open throughout the works'],
+    facts: [
+      { icon: 'bank', label: 'Type', value: 'Private bank premises' },
+      { icon: 'pin', label: 'Location', value: 'Main Street' },
+      { icon: 'crane', label: 'Status', value: 'New floor under construction' },
+      { icon: 'tools', label: 'Our work', value: 'Refurbishment, alterations and a new floor' },
+    ],
+    features: [
+      { icon: 'roller', text: 'Full refurbishment' },
+      { icon: 'bricks', text: 'Major alterations' },
+      { icon: 'layers', text: 'A complete new floor' },
+      { icon: 'open', text: 'Bank open throughout the works' },
+    ],
     photos: [],
   },
   {
@@ -93,7 +152,16 @@ export const PROJECTS: readonly Project[] = [
       'ProSeal has carried out major alterations to the existing house and, as the development continues, is now building a new luxury residence within its grounds.',
       'The project combines extensive work on an established high-end home with new-build construction on the same site.',
     ],
-    features: ['Major alterations to the existing house', 'New luxury residence within the grounds'],
+    facts: [
+      { icon: 'house', label: 'Type', value: 'Luxury residence' },
+      { icon: 'pin', label: 'Location', value: 'South District' },
+      { icon: 'crane', label: 'Status', value: 'New residence under construction' },
+      { icon: 'tools', label: 'Our work', value: 'Alterations and new build' },
+    ],
+    features: [
+      { icon: 'bricks', text: 'Major alterations to the existing house' },
+      { icon: 'newhouse', text: 'New luxury residence within the grounds' },
+    ],
     photos: [],
   },
   {
@@ -106,9 +174,45 @@ export const PROJECTS: readonly Project[] = [
       'ProSeal is transforming GibMed Clinic into a specialist clinical facility, constructing and fitting out highly technical clinical spaces and the infrastructure that supports them.',
       'The work calls for detailed planning, close coordination with the client and specialist contractors, and careful management of the technical requirements of medical equipment.',
     ],
-    features: ['Operating theatre', 'X-ray and MRI rooms', 'Recovery facilities and patient bed spaces', 'Clinical rooms and supporting areas'],
+    facts: [
+      { icon: 'clinic', label: 'Type', value: 'Specialist clinical facility' },
+      { icon: 'pin', label: 'Location', value: 'ICC, Casemates Square' },
+      { icon: 'crane', label: 'Status', value: 'Works in progress' },
+      { icon: 'tools', label: 'Our work', value: 'Construction and fit-out' },
+    ],
+    features: [
+      { icon: 'cross', text: 'Operating theatre' },
+      { icon: 'scan', text: 'X-ray and MRI rooms' },
+      { icon: 'bed', text: 'Recovery facilities and patient bed spaces' },
+      { icon: 'rooms', text: 'Clinical rooms and supporting areas' },
+    ],
     photos: [],
   },
+];
+
+/* the fact sheets of the further projects, shown beside their photographs */
+export const BEACON_FACTS: readonly Fact[] = [
+  { icon: 'estate', label: 'Type', value: 'Residential development' },
+  { icon: 'pin', label: 'Location', value: 'Europa Point' },
+  { icon: 'crane', label: 'Status', value: 'In development' },
+  { icon: 'tools', label: 'Our work', value: 'Building the development' },
+];
+export const BEACON_FEATURES: readonly Feature[] = [
+  { icon: 'townhouse', text: 'Townhouses' },
+  { icon: 'villa', text: 'Villas' },
+  { icon: 'apartments', text: 'Luxury apartments' },
+  { icon: 'sea', text: 'Views across the Strait to Morocco' },
+];
+export const GUN_WHARF_FACTS: readonly Fact[] = [
+  { icon: 'heritage', label: 'Type', value: 'Historic building' },
+  { icon: 'pin', label: 'Location', value: 'Gibraltar' },
+  { icon: 'crane', label: 'Status', value: 'Restoration' },
+  { icon: 'tools', label: 'Our work', value: 'Restoration and steel framing' },
+];
+export const GUN_WHARF_FEATURES: readonly Feature[] = [
+  { icon: 'truss', text: 'Iron roof trusses repainted' },
+  { icon: 'sun', text: 'Roof lights opened up' },
+  { icon: 'studs', text: 'New light-gauge steel framing' },
 ];
 
 /* the developer's renders of The Villas Beacon Point, Europa Point: not ours, credited wherever they are shown */
@@ -130,6 +234,7 @@ export interface PhotoSet {
   readonly id: string;
   readonly title: string;
   readonly text: string;
+  readonly features?: readonly Feature[];
   readonly photos: readonly Photo[];
 }
 
@@ -138,6 +243,10 @@ export const SITE_PHOTOS: readonly PhotoSet[] = [
     id: 'new-build-housing',
     title: 'New-build housing',
     text: 'These timber-frame houses rise from the slab inside scaffolding, with every stage of construction visible along one street.',
+    features: [
+      { icon: 'frame', text: 'Timber-frame construction' },
+      { icon: 'layers', text: 'Every stage on one street' },
+    ],
     photos: [
       { img: 'site-view', caption: 'The site from above', alt: 'A ProSeal housing site seen from above, with the Bay of Gibraltar behind' },
       { img: 'rock', caption: 'Beneath the Rock', alt: 'A timber-frame house under scaffolding, with the Rock of Gibraltar behind' },
@@ -151,6 +260,10 @@ export const SITE_PHOTOS: readonly PhotoSet[] = [
     id: 'roofing',
     title: 'Roofing and waterproofing',
     text: 'We lay natural slate by hand and install waterproofing systems from our partner manufacturers in Germany and the UK.',
+    features: [
+      { icon: 'tiles', text: 'Natural slate laid by hand' },
+      { icon: 'drop', text: 'Waterproofing systems from Germany and the UK' },
+    ],
     photos: [
       { img: 'slates', caption: 'Slate laid by hand', alt: 'A roofer laying slate around roof windows already in place, with the bay behind' },
       { img: 'membrane', caption: 'Liquid membrane on a roof edge', alt: 'A grey liquid waterproofing membrane covering a roof edge, with scaffolding beside it' },

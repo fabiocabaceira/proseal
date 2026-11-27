@@ -1,7 +1,8 @@
 import type { JSX } from 'react';
 import Gallery, { PhotosToFollow } from '../components/works/Gallery';
 import { pad2 } from '../components/home/ring';
-import { ALSO_BUILT, BEACON_RENDERS, GUN_WHARF, PROJECTS, SITE_PHOTOS } from '../data/projects';
+import { FactSheet, FeatureChips } from '../components/works/Facts';
+import { ALSO_BUILT, BEACON_FACTS, BEACON_FEATURES, BEACON_RENDERS, GUN_WHARF, GUN_WHARF_FACTS, GUN_WHARF_FEATURES, PROJECTS, SITE_PHOTOS } from '../data/projects';
 
 export default function WorksPage(): JSX.Element {
   return (
@@ -28,16 +29,9 @@ export default function WorksPage(): JSX.Element {
                 {p.status}
               </p>
               <h3 className="pj-name">{p.name}</h3>
-              <p className="pj-kind">
-                {p.kind}
-                <span>{p.place}</span>
-              </p>
+              <FactSheet facts={p.facts} name={p.name} />
               {p.text.map((t) => <p className="pj-p" key={t}>{t}</p>)}
-              {p.features.length > 0 && (
-                <ul className="pj-f" aria-label={`${p.name}: key features`}>
-                  {p.features.map((f) => <li key={f}>{f}</li>)}
-                </ul>
-              )}
+              {p.features.length > 0 && <FeatureChips features={p.features} name={p.name} />}
             </div>
             <div className="pj-media">
               {p.photos.length > 0 ? <Gallery photos={p.photos} label={`Images of ${p.name}`} tall={p.slug === 'buena-vista-villa'} /> : <PhotosToFollow name={p.name} />}
@@ -56,12 +50,10 @@ export default function WorksPage(): JSX.Element {
               In development
             </p>
             <h3 className="pj-name">The Villas Beacon Point</h3>
-            <p className="pj-kind">
-              Residential development
-              <span>Europa Point, Gibraltar</span>
-            </p>
+            <FactSheet facts={BEACON_FACTS} name="The Villas Beacon Point" />
             <p className="pj-p">The Villas Beacon Point is an exclusive collection of townhouses, villas and luxury apartments at the southern tip of Gibraltar, with the Rock behind and Morocco across the Strait.</p>
             <p className="pj-p">ProSeal is building the development. The images shown here are the developer’s renders, not photographs.</p>
+            <FeatureChips features={BEACON_FEATURES} name="The Villas Beacon Point" />
             <p className="pj-go">
               <a className="line" href="https://thevillasbeaconpoint.gi/" target="_blank" rel="noopener" data-cta="works-beacon">Visit the development’s website</a>
             </p>
@@ -78,11 +70,9 @@ export default function WorksPage(): JSX.Element {
               Restoration
             </p>
             <h3 className="pj-name">Gun Wharf</h3>
-            <p className="pj-kind">
-              Restoration and light-gauge steel framing
-              <span>Gibraltar</span>
-            </p>
+            <FactSheet facts={GUN_WHARF_FACTS} name="Gun Wharf" />
             <p className="pj-p">ProSeal’s work on this historic building has included repainting the iron roof trusses, opening up the roof lights and installing new light-gauge steel framing inside.</p>
+            <FeatureChips features={GUN_WHARF_FEATURES} name="Gun Wharf" />
           </div>
           <div className="pj-media">
             <Gallery photos={GUN_WHARF} label="Photographs of Gun Wharf" />
@@ -98,6 +88,7 @@ export default function WorksPage(): JSX.Element {
               <p className="pj-n">Site photography</p>
               <h3 className="pj-name">{set.title}</h3>
               <p className="pj-p">{set.text}</p>
+              {set.features && <FeatureChips features={set.features} name={set.title} />}
             </div>
             <div className="pj-media">
               <Gallery photos={set.photos} label={`Site photography: ${set.title.toLowerCase()}`} />
