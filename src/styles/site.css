@@ -1613,3 +1613,17 @@ html.calm .ox-block{animation:none}
   .ox-block{grid-column:1 / -1;grid-row:2}
   .ox-nav{grid-column:1 / -1;grid-row:3}
 }
+/* 27/11 · Request a quote on phones: one tight left-aligned block, the mark and the label on one line, the contacts side by side */
+@media (max-width:899px){
+  main > .ask.aq{padding-top:56px !important;padding-bottom:56px !important}
+  .sub main > .ask.aq{padding-top:calc(var(--bar) + 28px) !important}
+  .aq-head{grid-template-columns:auto minmax(0,1fr);align-items:center;justify-items:start;column-gap:14px;text-align:left}
+  .aq-head .pm{width:92px;margin:0}
+  .aq-k{grid-column:2;justify-self:end;margin:0;font-size:10px;letter-spacing:.22em}
+  .aq-h,.aq-lead,.aq-links{grid-column:1 / -1}
+  .aq-h{margin-top:22px;font-size:clamp(30px,8.4vw,38px);line-height:1.05;text-wrap:wrap}
+  .aq-lead{margin-top:8px;font-size:14.5px}
+  .aq-links{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px;width:100%;margin-top:16px;padding-top:12px;border-top:1px solid var(--c-line)}
+  .aq-links a{display:grid;align-content:start;gap:3px;min-height:44px;font-size:13px;text-decoration:none;overflow-wrap:anywhere}
+  .aq-links small{margin:0;font-size:9.5px}
+}
