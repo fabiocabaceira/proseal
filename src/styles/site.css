@@ -1511,3 +1511,13 @@ html.calm .ld-bar{transform:none;animation:none !important}
   .sl-cover-k{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72);font-variant-numeric:tabular-nums}
   .sl-cover-n{font-size:clamp(28px,8.4vw,38px);line-height:1.02;letter-spacing:-.04em;font-weight:300;font-stretch:112%;text-wrap:balance;text-shadow:0 2px 18px rgba(0,0,0,.35)}
 }
+
+/* 27/11 · Works on phones: after the facts and the first sentence, the rest folds behind "Read more" */
+.pj-more-b{display:none}
+@media (max-width:899px){
+  .pj-more:not([data-open="true"]){display:none}
+  .pj-more-b{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:0 0 3px;border:0;border-bottom:1px solid var(--ink);background:none;color:var(--ink);font:inherit;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+  .pj-more-b svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease)}
+  .pj-more-b[aria-expanded="true"] svg{transform:rotate(180deg)}
+  .pj-more-b + .pj-go{margin-top:18px}
+}

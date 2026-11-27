@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import { useId, useState, type JSX, type ReactNode } from 'react';
 import type { Fact, Feature } from '../../data/projects';
 import Icon from './Icon';
 
@@ -28,5 +28,20 @@ export function FeatureChips({ features, name }: { readonly features: readonly F
         </li>
       ))}
     </ul>
+  );
+}
+
+/* the rest of a project's text: folded behind "Read more" on phones, always open on wide screens */
+export function ReadMore({ children }: { readonly children: ReactNode }): JSX.Element {
+  const [open, setOpen] = useState(false);
+  const id = useId();
+  return (
+    <>
+      <div className="pj-more" id={id} data-open={open}>{children}</div>
+      <button type="button" className="pj-more-b" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}>
+        {open ? 'Read less' : 'Read more'}
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+      </button>
+    </>
   );
 }
