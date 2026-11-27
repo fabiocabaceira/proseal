@@ -1521,3 +1521,56 @@ html.calm .ld-bar{transform:none;animation:none !important}
   .pj-more-b[aria-expanded="true"] svg{transform:rotate(180deg)}
   .pj-more-b + .pj-go{margin-top:18px}
 }
+
+/* 27/11 · On site as a monograph spread: one photograph large, its title block beside it, the whole set as an index */
+.ox{display:grid;gap:18px}
+.ox-stage{position:relative;z-index:1;min-width:0;align-self:start}
+.ox-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;outline:none;border-radius:6px;box-shadow:0 34px 60px -42px rgba(11,22,38,.55)}
+.ox-row::-webkit-scrollbar{display:none}
+.ox-row:focus-visible{outline:2px solid var(--navy);outline-offset:6px}
+.ox-i{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always}
+.ox-img{position:relative;display:block;aspect-ratio:1/1;overflow:hidden;background:#e6e2da;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.ox-img img{width:100%;height:100%;object-fit:cover}
+.ox-stage .cm{z-index:2;pointer-events:none;border-color:rgba(255,255,255,.75)}
+.ox-cover{position:absolute;inset:auto 0 0;display:grid;gap:6px;padding:72px 18px 16px;background:linear-gradient(to top,rgba(8,17,31,.84) 0%,rgba(8,17,31,.5) 45%,rgba(8,17,31,0) 100%);color:#fff;pointer-events:none}
+.ox-cover-k{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.75);font-variant-numeric:tabular-nums}
+.ox-cover-n{font-size:clamp(28px,8vw,36px);line-height:1.02;letter-spacing:-.04em;font-weight:300;font-stretch:112%;text-shadow:0 2px 18px rgba(0,0,0,.35)}
+.ox-side{position:relative;z-index:1;display:grid;gap:16px;min-width:0}
+.ox-block{animation:ox-in .5s var(--ease)}
+@keyframes ox-in{from{opacity:0}}
+.ox-k,.ox-name,.ox-block .pj-sheet{display:none}
+.ox-block{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px}
+.ox-cap{font-size:16px;line-height:1.35;color:var(--ink)}
+.ox-go{font-size:14px;white-space:nowrap}
+.ox-foot{display:grid;gap:14px}
+.ox-index{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.ox-th{display:grid;gap:6px;width:100%;padding:0;border:0;background:none;color:var(--mute);cursor:pointer;text-align:left}
+.ox-th img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:3px;opacity:.5;transition:opacity .35s var(--ease),outline-color .35s var(--ease);outline:1px solid transparent;outline-offset:3px}
+.ox-th span{display:none;font-size:10.5px;letter-spacing:.14em;font-variant-numeric:tabular-nums}
+.ox-th:hover img{opacity:.85}
+.ox-th[aria-current="true"] img{opacity:1;outline-color:var(--ink)}
+.ox-th[aria-current="true"] span{color:var(--ink)}
+.ox-th:focus-visible{outline:none}
+.ox-th:focus-visible img{outline:2px solid var(--navy)}
+.ox .os-nav{margin-top:0;flex-wrap:nowrap}
+.ox .os-all{flex:0 0 auto;margin:0 0 0 auto}
+@media (prefers-reduced-motion:reduce){ .ox-block{animation:none} }
+html.calm .ox-block{animation:none}
+@media (min-width:900px){
+  .ox{grid-template-columns:minmax(0,clamp(360px,36vw,520px)) minmax(0,1fr);column-gap:clamp(48px,6vw,96px);align-items:stretch}
+  .ox-img{aspect-ratio:4/5}
+  .ox-cover{display:none}
+  .ox-side{display:flex;flex-direction:column;justify-content:space-between;gap:32px}
+  .ox-block{display:block}
+  .ox-k{display:flex;justify-content:space-between;gap:16px;padding-top:14px;border-top:1px solid var(--ink);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);font-variant-numeric:tabular-nums}
+  .ox-k b{font-weight:500;color:var(--ink)}
+  .ox-name{display:block;margin-top:26px;font-size:clamp(44px,4.4vw,72px);line-height:1;letter-spacing:-.045em;font-weight:300;font-stretch:112%;text-wrap:balance}
+  .ox-cap{margin-top:14px;font-size:clamp(17px,1.35vw,20px);font-weight:300;color:var(--mute)}
+  .ox-block .pj-sheet{display:grid;margin-top:26px}
+  .ox-go{display:inline-block;margin-top:24px;font-size:15px}
+  .ox-foot{gap:22px}
+  .ox-index{gap:12px}
+  .ox-th span{display:block}
+  .ox .os-all{margin-left:auto}
+}
+@media (max-width:899px){ .ox-stage .cm.bl,.ox-stage .cm.br{display:none} }
