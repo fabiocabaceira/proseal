@@ -67,19 +67,6 @@ export default function Gallery({ photos, label, tall = false }: { readonly phot
   );
 }
 
-/* the photographs side by side in a grid: used where a project has only a few, as for The Villas Beacon Point */
-export function GalleryGrid({ photos, label }: { readonly photos: readonly Photo[]; readonly label: string }): JSX.Element {
-  return (
-    <ul className="gal" aria-label={label}>
-      {photos.map((p, i) => (
-        <li key={p.img}>
-          <Shot p={p} sizes={i === 0 ? '(min-width:900px) 680px, 100vw' : '(min-width:900px) 340px, 50vw'} />
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 /* where a project's photographs will go once they are released */
 export function PhotosToFollow({ name }: { readonly name: string }): JSX.Element {
   return (

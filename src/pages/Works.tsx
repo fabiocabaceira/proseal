@@ -1,5 +1,5 @@
 import type { JSX } from 'react';
-import Gallery, { GalleryGrid, PhotosToFollow } from '../components/works/Gallery';
+import Gallery, { PhotosToFollow } from '../components/works/Gallery';
 import { pad2 } from '../components/home/ring';
 import { ALSO_BUILT, BEACON_RENDERS, GUN_WHARF, PROJECTS, SITE_PHOTOS } from '../data/projects';
 
@@ -67,7 +67,7 @@ export default function WorksPage(): JSX.Element {
             </p>
           </div>
           <div className="pj-media">
-            <GalleryGrid photos={BEACON_RENDERS} label="Developer’s renders of The Villas Beacon Point" />
+            <Gallery photos={BEACON_RENDERS} label="Developer’s renders of The Villas Beacon Point" />
             <p className="pj-credit">Renders courtesy of the developer.</p>
           </div>
         </article>
