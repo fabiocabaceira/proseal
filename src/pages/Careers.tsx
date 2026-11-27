@@ -46,9 +46,6 @@ export default function CareersPage() {
             </article>
           ))}
         </div>
-        <p className="cr-note">
-          Every project at ProSeal is planned and run with a strong focus on health and safety, quality and clear communication. We take responsibility for the work we undertake, and we expect the same of everyone on our team.
-        </p>
       </section>
       <section className="ask" id="apply">
         <div className="ask-band">
@@ -63,6 +60,9 @@ export default function CareersPage() {
               Prefer to write directly?{" "}
               <b>info@prosealconstruction.com</b>
             </a>
+          </p>
+          <p className="cr-note ask-ethos">
+            Every project at ProSeal is planned and run with a strong focus on health and safety, quality and clear communication. We take responsibility for the work we undertake, and we expect the same of everyone on our team.
           </p>
         </div>
         <ApplyForm />

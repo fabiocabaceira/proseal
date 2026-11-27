@@ -1463,3 +1463,7 @@ html.calm .ld-cable{transform:scaleY(2);animation:none !important}
 html.calm .ld-box{opacity:1;transform:translateY(20px);animation:none !important}
 html.calm .ld-bar{transform:none;animation:none !important}
 @media (prefers-reduced-motion:reduce){ .ld-cable{transform:scaleY(2);animation:none !important} .ld-box{opacity:1;transform:translateY(20px);animation:none !important} .ld-bar{transform:none;animation:none !important} }
+
+/* 27/11 · careers: the line on how we work closes the left column of the application, beside the form */
+.ask-band .ask-ethos{max-width:30em;margin:30px 0 0;padding:22px 0 0;border-top:1px solid rgba(255,255,255,.16);font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.62);text-align:left}
+@media (max-width:768px){ .ask-band .ask-ethos{margin-top:18px;padding-top:16px;font-size:13.5px} }
