@@ -2,9 +2,11 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { pageFromPath } from '../data/pages';
 
 /* on phones the dock is a bar along the bottom edge; it steps aside while the hero, a form, a closing band that already
-   carries the same buttons, or the footer is on screen */
+   carries the same buttons, or the footer is on screen. On desktop the capsule steps aside for the closing band and the
+   footer, where the same two buttons are already on the page */
 const PHONE = '(max-width: 768px)';
 const AWAY_FROM = '.xh, .ask, #quoteForm, .cta, .foot';
+const AWAY_FROM_DESKTOP = '.cta, .foot';
 
 export default function Dock() {
   const dock = useRef<HTMLDivElement>(null);
@@ -25,7 +27,6 @@ export default function Dock() {
       io = null;
       seen.clear();
       el.classList.remove('is-away');
-      if (!phone.matches) return;
       io = new IntersectionObserver((entries) => {
         for (const e of entries) {
           if (e.isIntersecting) seen.add(e.target);
@@ -33,7 +34,7 @@ export default function Dock() {
         }
         el.classList.toggle('is-away', seen.size > 0);
       });
-      document.querySelectorAll(AWAY_FROM).forEach((t) => io?.observe(t));
+      document.querySelectorAll(phone.matches ? AWAY_FROM : AWAY_FROM_DESKTOP).forEach((t) => io?.observe(t));
     };
 
     arm();

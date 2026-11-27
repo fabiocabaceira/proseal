@@ -14,9 +14,13 @@ const FIGS = [
     <path className="s d2" pathLength="1" d="M44 118h112M44 114v8M156 114v8" />
   </>,
   <>
-    <path className="s" pathLength="1" d="M30 120h140M46 120V64l54-34 54 34v56" />
-    <path className="s d2" pathLength="1" d="M46 92h108M78 120V92M122 120V92M100 30v62" />
-    <path className="s d3" pathLength="1" d="M150 20v34M136 34h28" />
+    {/* build: the frame going up inside its scaffolding, the crane lifting a pallet of materials bought direct,
+        and the programme sheet that keeps the client informed */}
+    <path className="s" pathLength="1" d="M14 128h172M62 128V74h62v54M62 101h62M83 128V74M103 128V74" />
+    <path className="s" pathLength="1" d="M124 128V66M140 128V66M124 112h16M124 96h16M124 80h16M124 66h16M124 112l16-16M124 80l16-14" />
+    <path className="s d2" pathLength="1" d="M40 128V22M40 22V12M28 22h104M28 22v7h9v-7M40 12L28 22M40 12l92 10M112 22v20" />
+    <path className="s d2" pathLength="1" d="M104 42h16v10h-16zM104 47h16" />
+    <path className="s d3" pathLength="1" d="M146 26h38v32h-38zM152 35h20M152 42h26M152 49h12" />
   </>,
   <>
     <circle className="s" pathLength="1" cx="66" cy="75" r="26" />

@@ -1435,3 +1435,9 @@ html.calm .wwp-lead{transform:none !important;transition:none !important}
 @media (min-width:900px){
   .legal{grid-column:3 / -1;justify-self:start;max-width:min(52em,calc(100% - 260px));padding-left:clamp(12px,1.6vw,28px);text-align:left}
 }
+
+/* 27/11 · desktop: the floating capsule steps aside where the closing band and the footer already carry its two buttons */
+@media (min-width:769px){
+  .dock:not(.is-away){transition:opacity .3s var(--ease),transform .45s var(--ease),visibility 0s}
+  .dock.is-away{opacity:0;transform:translateY(20px);pointer-events:none;visibility:hidden;transition:opacity .3s var(--ease),transform .45s var(--ease),visibility 0s linear .45s}
+}
