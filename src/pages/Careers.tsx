@@ -1,4 +1,5 @@
 import ApplyForm from '../components/forms/ApplyForm';
+import ProSealMark from '../components/forms/ProSealMark';
 
 const ROLES = [
   {
@@ -47,27 +48,24 @@ export default function CareersPage() {
           ))}
         </div>
       </section>
-      <section className="ask" id="apply">
-        <div className="ask-band">
-          <p className="ask-k">Apply</p>
-          <h2 className="h">
-            Send us{" "}
-            <em>your details.</em>
-          </h2>
-          <p className="ask-lead">Complete the short form and your email app will open with your application ready to send. Please attach your CV before you send it.</p>
-          <p className="ask-call">
-            <a href="mailto:info@prosealconstruction.com?subject=Application" data-cta="careers-mail">
-              Prefer to write directly?{" "}
-              <b>info@prosealconstruction.com</b>
-            </a>
-          </p>
-          <p className="cr-note ask-ethos">
-            Every project at ProSeal is planned and run with a strong focus on health and safety, quality and clear communication. We take responsibility for the work we undertake, and we expect the same of everyone on our team.
+      {/* the same card as the quote: three short steps, the address a quiet line at its foot, the ethos note under it */}
+      <section className="ask aq" id="apply">
+        <div className="aq-col">
+          <div className="aq-head">
+            <ProSealMark />
+            <p className="aq-k">Apply</p>
+            <h2 className="aq-h">
+              Send us{" "}
+              <em>your details.</em>
+            </h2>
+            <p className="aq-lead">Three short steps, then your email app opens with your application.</p>
+          </div>
+          <ApplyForm />
+          <p className="aq-links">
+            <a href="mailto:info@prosealconstruction.com?subject=Application" data-cta="careers-mail">info@prosealconstruction.com</a>
           </p>
         </div>
-        <ApplyForm />
-        {/* on phones the same note closes the section, under the form (the one in the band is hidden there) */}
-        <p className="cr-note ask-ethos ask-ethos-m">
+        <p className="aq-note">
           Every project at ProSeal is planned and run with a strong focus on health and safety, quality and clear communication. We take responsibility for the work we undertake, and we expect the same of everyone on our team.
         </p>
       </section>

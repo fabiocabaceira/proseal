@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { isCalm } from '../lib/site';
+import { useEffect } from 'react';
 
 interface Props {
   open: boolean;
@@ -7,7 +6,7 @@ interface Props {
   onClose: () => void;
 }
 
-const LINKS = [
+export const NAV = [
   ['index.html', 'Home'],
   ['works.html', 'Works'],
   ['how.html', 'How we work'],
@@ -15,24 +14,11 @@ const LINKS = [
   ['quote.html', 'Request a quote'],
 ] as const;
 
-/* matches the close transition of .menu in site.css */
-const CLOSE_MS = 480;
-
-/* full-screen menu for phones: unhidden, then drawn open on the next frame; drawn shut, then hidden once the curtain is up */
+/* the panel below 1024px, as on detalhesdosal.com: always in the DOM. Shut is visibility hidden, opacity 0 and inert; open is
+   data-aberto, so the transition always has a state to start from. The navy is a sibling behind the links. */
 export default function Menu({ open, current, onClose }: Props) {
-  const [shown, setShown] = useState(open);
-  const [drawn, setDrawn] = useState(false);
-
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
-    if (open) {
-      setShown(true);
-      let r = requestAnimationFrame(() => { r = requestAnimationFrame(() => setDrawn(true)); });
-      return () => cancelAnimationFrame(r);
-    }
-    setDrawn(false);
-    const t = setTimeout(() => setShown(false), isCalm() ? 0 : CLOSE_MS);
-    return () => clearTimeout(t);
   }, [open]);
 
   useEffect(() => {
@@ -42,19 +28,23 @@ export default function Menu({ open, current, onClose }: Props) {
       onClose();
       document.getElementById('menuBtn')?.focus();
     };
-    document.addEventListener('keydown', key);
-    return () => document.removeEventListener('keydown', key);
+    window.addEventListener('keydown', key);
+    return () => window.removeEventListener('keydown', key);
   }, [open, onClose]);
 
   return (
-    <div className={`menu${drawn ? ' open' : ''}`} id="menu" hidden={!shown}>
+    <div id="menu-navegacao" className="menu-painel" data-aberto={open ? '' : undefined} aria-hidden={!open} inert={!open}>
+      <div className="menu-fundo" aria-hidden="true" />
       <nav aria-label="Menu">
-        {LINKS.map(([href, label]) => (
+        {NAV.map(([href, label], i) => (
           <a
             key={href}
             href={href}
+            className="menu-item"
             aria-current={href === current ? 'page' : undefined}
             data-cta={href === 'quote.html' ? 'menu-quote' : undefined}
+            onClick={onClose}
+            style={{ transitionDelay: open ? `${0.12 + i * 0.06}s` : '0s' }}
           >
             {label}
           </a>

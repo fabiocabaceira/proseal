@@ -46,45 +46,44 @@ h1 em,.h em,.h2 em{font-style:normal;font-weight:300;font-stretch:112%;letter-sp
 .line:hover{opacity:.6}
 
 /* bar */
-.bar{position:fixed;inset:0 0 auto 0;height:var(--bar);z-index:60;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 max(var(--pad),calc((100vw - var(--max)) / 2));color:#fff;
-  transition:background .4s var(--ease),color .4s var(--ease),box-shadow .4s var(--ease)}
-.bar.solid,.sub .bar{background:rgba(246,243,238,.6);-webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+.bar{position:fixed;inset:0 0 auto 0;height:var(--bar);z-index:60;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 max(var(--pad),calc((100vw - var(--max)) / 2));color:var(--cream)}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;min-height:44px}
-.logo-box{display:block;background:linear-gradient(#143a69,#0b2140);padding:5px 8px;width:88px;border-radius:3px}
+.logo-box{display:block;background:linear-gradient(#143a69,#0b2140);padding:5px 8px;width:88px;border-radius:3px;box-shadow:0 0 0 1px rgba(255,255,255,.3)}
 .logo-box svg{width:100%;height:auto;fill:#fff}
 .logo-sub{font-size:13.5px;font-weight:500;letter-spacing:-.01em}
 html.opening #logoBox{visibility:hidden}
-.nav,.nav-cta{display:none}
-.menu-btn{font:inherit;font-size:11.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:inherit;background:none;border:0;min-height:44px;padding:0 0 0 16px;cursor:pointer}
 .foot-icons a{width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--line-n);border-radius:50%;transition:background .35s var(--ease),color .35s var(--ease)}
 .foot-icons a:hover{background:#fff;color:var(--deep)}
 .foot-icons svg,.dock svg,.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
 
-/* 26/11 v5 · the phone menu: a navy curtain that drops from the bar, which turns to navy with a hairline and a lettered
-   name. Five destinations in light type, a hairline between them, each sliding in after the one above. Closing lifts the
-   curtain a little faster. */
-.logo-txt{display:none}
-.bar.over-menu{background:var(--deep) !important;color:var(--cream) !important;box-shadow:0 1px 0 rgba(243,239,231,.14) !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important}
-.bar.over-menu .logo-box,.bar.over-menu .logo-sub{display:none}
-.bar.over-menu .logo-txt{display:block;font-size:11.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;animation:menu-fade .6s cubic-bezier(.22,1,.36,1) backwards}
-.menu{position:fixed;inset:0;z-index:55;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;padding:calc(var(--bar) + 24px) var(--pad) calc(48px + env(safe-area-inset-bottom));background:var(--deep);color:var(--cream);
-  opacity:0;clip-path:inset(0 0 100% 0);pointer-events:none;transition:opacity .4s cubic-bezier(.22,1,.36,1),clip-path .48s cubic-bezier(.22,1,.36,1)}
-.menu.open{opacity:1;clip-path:inset(0);pointer-events:auto;transition:opacity .52s cubic-bezier(.22,1,.36,1),clip-path .68s cubic-bezier(.22,1,.36,1)}
-.menu[hidden]{display:none}
-.menu nav a{display:block;padding:22px 0;font-size:clamp(28px,8vw,36px);font-weight:300;line-height:1.1;letter-spacing:-.03em;text-decoration:none;color:rgba(243,239,231,.72);
-  opacity:0;transform:translate3d(0,14px,0);transition:opacity .26s cubic-bezier(.22,1,.36,1),transform .3s cubic-bezier(.22,1,.36,1),color .35s var(--ease)}
-.menu nav a + a{border-top:1px solid rgba(243,239,231,.12)}
-.menu nav a[data-cta="menu-quote"]{color:rgba(243,239,231,.9)}
-.menu nav a:hover,.menu nav a[aria-current]{color:var(--cream)}
-.menu.open nav a{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1),color .35s var(--ease)}
-.menu.open nav a:nth-child(1){transition-delay:.16s,.16s,0s}
-.menu.open nav a:nth-child(2){transition-delay:.23s,.23s,0s}
-.menu.open nav a:nth-child(3){transition-delay:.3s,.3s,0s}
-.menu.open nav a:nth-child(4){transition-delay:.37s,.37s,0s}
-.menu.open nav a:nth-child(5){transition-delay:.44s,.44s,0s}
-@keyframes menu-fade{from{opacity:0}}
-html.calm .menu,html.calm .menu nav a,html.calm .bar.over-menu .logo-txt{transition:none !important;animation:none !important}
-@media (prefers-reduced-motion:reduce){ .menu,.menu nav a,.bar.over-menu .logo-txt{transition:none !important;animation:none !important} }
+/* 27/11 v7 · the bar and the menu as on detalhesdosal.com (Navbar.tsx; .menu-painel and .menu-item in globals.css).
+   The navy of the bar is a sibling behind the text, moved by transform, with a hairline on its inner edge. Below 1024px a text
+   button reads OPEN MENU / CLOSE MENU and opens a full-screen navy panel that never leaves the DOM: shut is visibility hidden,
+   opacity 0 and inert; open is data-aberto. The links rise 10px into place, 0.12s + 0.06s each; shutting has no delay.
+   From 1024px the same links sit in a line on the right, small capitals, an underline that grows from the centre. */
+.bar-bg{position:absolute;inset:0;z-index:-1;background:var(--deep);box-shadow:inset 0 -1px 0 rgba(243,239,231,.14);transform:translateY(-101%);transition:transform .65s cubic-bezier(.22,1,.36,1)}
+.bar-bg.on{transform:none}
+.nav{display:none}
+.menu-btn{display:inline-flex;align-items:center;min-height:44px;margin-right:-8px;padding:0 8px;font:inherit;font-size:.7rem;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:inherit;background:none;border:0;cursor:pointer}
+.menu-painel{--ease-casa:cubic-bezier(.4,0,.2,1);position:fixed;inset:0;z-index:55;opacity:0;visibility:hidden;transform:translateZ(0);transition:opacity .4s var(--ease-casa),visibility 0s linear .4s}
+.menu-painel[data-aberto]{opacity:1;visibility:visible;transition-delay:0s}
+.menu-fundo{position:absolute;inset:0;background:var(--deep);box-shadow:inset 0 -1px 0 rgba(243,239,231,.14)}
+.menu-painel nav{position:relative;display:flex;flex-direction:column;justify-content:center;gap:4px;height:100%;padding:0 var(--pad);color:var(--cream)}
+.menu-item{display:flex;align-items:center;min-height:56px;border-bottom:1px solid rgba(243,239,231,.12);font-size:30px;line-height:36px;font-weight:300;letter-spacing:-.02em;text-decoration:none;color:inherit;
+  opacity:0;transform:translateY(10px);transition:opacity .55s var(--ease-casa),transform .55s var(--ease-casa)}
+.menu-painel[data-aberto] .menu-item{opacity:.8;transform:none}
+.menu-painel[data-aberto] .menu-item[aria-current]{opacity:1}
+@media (max-width:1023px){ .bar-bg{transform:none} }
+@media (min-width:1024px){
+  .menu-painel,.menu-btn{display:none}
+  .nav{display:flex;align-items:center;gap:32px;margin-left:auto}
+  .nav a{position:relative;white-space:nowrap;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;opacity:.7;transition:opacity .3s}
+  .nav a:hover,.nav a[aria-current]{opacity:1}
+  .nav-u{position:absolute;left:0;bottom:-6px;width:100%;height:1px;background:currentColor;transform:scaleX(0);transform-origin:center;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+  .nav a:hover .nav-u,.nav a[aria-current] .nav-u{transform:scaleX(1)}
+}
+html.calm .bar-bg,html.calm .menu-painel,html.calm .menu-item,html.calm .nav-u{transition-duration:.001ms !important}
+@media (prefers-reduced-motion:reduce){ .bar-bg,.menu-painel,.menu-item,.nav-u{transition-duration:.001ms !important} }
 
 /* 1. hero: the Scroll Expansion Hero from 21st.dev (@arunachalam), rebuilt in CSS. site.js writes the scroll progress through
    the section to --p (linear) and --e (eased); the window, the background and the two halves of the title are drawn from them.
@@ -173,9 +172,6 @@ html:not(.opening) .seal{display:none}
 .card-l{display:block;font-size:13.5px;line-height:1.35;color:var(--mute)}
 /* the form: navy band, white card over it */
 .ask{padding-left:0 !important;padding-right:0 !important;padding-bottom:var(--gap)}
-.ask-band{background:var(--navy);color:#fff;text-align:center;padding:60px var(--pad) 130px}
-.sub .ask-band{padding-top:calc(var(--bar) + 56px)}
-.steps{position:relative;width:calc(100% - var(--pad) * 2);max-width:560px;margin:-92px auto 0;padding:22px 20px 20px;background:var(--card);border-radius:18px;box-shadow:0 24px 60px rgba(11,33,64,.14),0 0 0 1px rgba(16,28,46,.05)}
 legend{font-size:21px;letter-spacing:-.03em;padding:6px 0 16px}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .opts label{position:relative;display:block}
@@ -191,19 +187,8 @@ legend{font-size:21px;letter-spacing:-.03em;padding:6px 0 16px}
 .field input::placeholder,.field textarea::placeholder{color:#a3a9b3}
 .field input:focus,.field textarea:focus{outline:none;border-color:var(--navy)}
 .field input.bad{border-color:#c8442f}
-.steps-nav{display:flex;align-items:center;justify-content:flex-end;gap:16px;margin-top:20px}
 .back{font:inherit;font-size:14.5px;color:var(--mute);background:none;border:0;min-height:44px;margin-right:auto;cursor:pointer}
 .back[hidden]{display:none}
-.done{margin-top:14px;font-size:14.5px}
-.ask-k{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:18px}
-.ask-lead{max-width:30em;margin:16px auto 0;font-size:16px;line-height:1.5;color:rgba(255,255,255,.74)}
-.ask-call{margin-top:22px}
-.ask-call a{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 4px;font-size:14.5px;color:rgba(255,255,255,.74);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28);transition:color .3s var(--ease),border-color .3s var(--ease)}
-.ask-call a:hover{color:#fff;border-color:#fff}
-.ask-call b{font-weight:500;color:#fff;font-variant-numeric:tabular-nums}
-#stepSend .arw{display:inline-block;transition:transform .35s var(--ease)}
-#stepSend:hover .arw{transform:translateX(4px)}
-.ask-note{margin-top:18px;text-align:center;font-size:13.5px;color:var(--mute);padding:0 var(--pad)}
 
 /* the closing band of the sub pages */
 .cta{background:var(--navy);color:#fff;padding-top:60px;padding-bottom:60px}
@@ -295,13 +280,6 @@ html.calm .pt circle{transform:scale(1);transition:none}
 
 @media (min-width:900px){
   :root{--pad:40px;--bar:72px;--gap:120px}
-  .menu-btn{display:none}
-  .nav{display:flex;gap:32px;align-items:center;margin:0 auto}
-  .nav a{text-decoration:none;font-size:14.5px;font-weight:500;padding:12px 0;opacity:.88;transition:opacity .3s}
-  .nav a:hover,.nav a[aria-current]{opacity:1}
-  .nav a[aria-current]{box-shadow:0 1px 0 currentColor}
-  .nav-cta{display:inline-flex;min-height:42px}
-  .bar.solid .nav-cta,.sub .bar .nav-cta{background:var(--deep);color:#fff;border-color:var(--deep)}
   .logo-box{width:104px;padding:6px 9px}
   .logo-sub{font-size:14.5px}
 
@@ -318,9 +296,6 @@ html.calm .pt circle{transform:scale(1);transition:none}
   .grid{grid-template-columns:repeat(4,1fr);gap:34px 18px;margin-top:34px}
   .card b{font-size:17px}
 
-  .ask-band{padding:96px var(--pad) 150px}
-  .sub .ask-band{padding-top:calc(var(--bar) + 80px)}
-  .steps{padding:30px 32px 26px;margin-top:-100px}
   legend{font-size:24px}
 
   .cta{padding-top:88px;padding-bottom:88px}
@@ -364,9 +339,6 @@ html.calm .pt circle{transform:scale(1);transition:none}
 /* 19/11 · quote: the form on the left, the words on the right, nothing centred */
 main > .ask{display:grid;gap:36px;padding:64px var(--pad) 72px !important;background:var(--navy)}
 .sub main > .ask{padding-top:calc(var(--bar) + 44px) !important}
-.ask-band{background:none;text-align:left;padding:0 !important;color:#fff}
-.ask-lead{margin:16px 0 0}
-.steps{width:100%;max-width:none;margin:0 !important}
 
 /* what we do: a tall print with square corners and a caption that follows the row */
 .what-img{border-radius:3px}
@@ -378,9 +350,6 @@ main > .ask{display:grid;gap:36px;padding:64px var(--pad) 72px !important;backgr
 @media (min-width:900px){
   main > .ask{grid-template-columns:minmax(0,540px) minmax(0,1fr);column-gap:clamp(56px,7vw,120px);align-items:center;padding:112px max(var(--pad),calc((100vw - var(--max)) / 2)) !important}
   .sub main > .ask{padding-top:calc(var(--bar) + 88px) !important}
-  .ask-band{order:2}
-  .steps{order:1}
-  .ask .h{font-size:clamp(40px,4.4vw,60px)}
   .what{grid-template-columns:7fr 5fr}
   .what-img img{aspect-ratio:4/5}
 }
@@ -612,8 +581,7 @@ html.lite .tile.rise{opacity:1;transform:none;transition:none}
 @media (min-width:1500px){
   :root{--max:min(1600px,84vw)}
   .logo-box{width:118px;padding:7px 10px}
-  .logo-sub,.nav a{font-size:15.5px}
-  .nav-cta{min-height:46px;font-size:15.5px}
+  .logo-sub{font-size:15.5px}
   .pill{font-size:15.5px}
   .h{font-size:clamp(46px,3.2vw,60px)}
   .lead{font-size:clamp(28px,1.75vw,34px)}
@@ -641,8 +609,6 @@ html.lite .tile.rise{opacity:1;transform:none;transition:none}
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 /* the reels cards run past the screen edges: clip them at the section, or a phone widens the whole page */
 .intro{overflow-x:clip}
-.bar.solid.dark,.sub .bar.dark{background:rgba(11,33,64,.58);color:#fff;box-shadow:0 1px 0 var(--line-n)}
-.bar.dark .logo-box{box-shadow:0 0 0 1px rgba(255,255,255,.3)}
 
 /* 20/11 · mobile: the video window sits under the bar and above the dock, with equal side gaps.
    clip-path with 66vw plus the opening scale() painted the window off-centre on iOS Safari. */
@@ -672,7 +638,6 @@ html.lite .tile.rise{opacity:1;transform:none;transition:none}
 }
 
 /* 26/11 · bar and menu with six destinations: tighter spacing where the bar is narrow, a menu that scrolls on short phones */
-@media (min-width:900px) and (max-width:1099px){ .nav{gap:20px} }
 .legal{max-width:52em;line-height:1.5}
 @media (min-width:900px){ .legal{text-align:right} }
 
@@ -725,15 +690,10 @@ html.lite .tile.rise{opacity:1;transform:none;transition:none}
 .cr-roles{padding-bottom:var(--gap)}
 .cr-role{padding:28px 0 32px;border-bottom:1px solid var(--line)}
 .cr-role .pj-name{margin-top:0;font-size:clamp(30px,8vw,48px)}
-.cr-note{margin-top:32px;max-width:36em;font-size:clamp(19px,4.8vw,26px);line-height:1.38;letter-spacing:-.02em}
-.sub main > .cr-roles + .ask{padding-top:64px !important}
-.apply fieldset + fieldset{margin-top:20px}
 .opts.bad span{border-color:#c8442f}
 @media (min-width:900px){
   .cr-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:72px}
   .cr-role{padding:48px 0 56px}
-  .cr-note{margin-top:56px}
-  .sub main > .cr-roles + .ask{padding-top:112px !important}
 }
 @media (max-width:899px){ .wk-toc a{grid-template-columns:34px minmax(0,1fr)} .wk-toc i{grid-column:2;margin-top:-6px} }
 
@@ -1096,11 +1056,6 @@ html.calm .os-row,html.calm .os-bar i{transition:none}
 
   main > .ask{gap:16px;padding:30px var(--pad) 36px !important}
   .sub main > .ask{padding-top:calc(var(--bar) + 22px) !important}
-  .sub main > .cr-roles + .ask{padding-top:34px !important}
-  .ask-k{margin-bottom:8px;font-size:11px}
-  .ask-lead{margin-top:8px;font-size:14.5px;line-height:1.45}
-  .ask-call{margin-top:4px}
-  .steps{padding:18px 16px 16px}
   legend{font-size:19px;padding:2px 0 12px}
   .opts{gap:6px}
   .field{margin-bottom:12px}
@@ -1150,7 +1105,6 @@ html.calm .os-row,html.calm .os-bar i{transition:none}
   .gal{gap:10px 8px}
   .cr-role{padding:20px 0 22px}
   .cr-role .pj-name{font-size:clamp(26px,7.4vw,34px)}
-  .cr-note{margin-top:20px;font-size:18px}
   .also{padding-top:34px}
   .also li{gap:14px;padding:12px 0;font-size:clamp(20px,5.6vw,26px)}
   .cta{padding-top:40px;padding-bottom:44px}
@@ -1244,7 +1198,7 @@ main > .ask.aq{display:block;padding:32px var(--pad) 40px !important;background:
 .qf .back[hidden]{display:none}
 .qf .back:hover{color:var(--cream)}
 .qf .arw{display:inline-block;transition:transform .35s var(--ease)}
-.qf #stepNext:hover .arw,.qf #stepSend:hover .arw{transform:translateX(4px)}
+.qf .qf-go:hover .arw{transform:translateX(4px)}
 .qf .back:hover .arw{transform:translateX(-4px)}
 
 .qf-ok{display:grid;justify-items:center;text-align:center}
@@ -1356,6 +1310,15 @@ html.calm .wwp-lead{transform:none !important;transition:none !important}
   .qf .opts span{min-height:50px;font-size:14px}
 }
 
+/* 27/11 v7 · the application on careers: the same card as the quote. It follows the roles, so it needs no room for the bar */
+.sub main > .cr-roles + .ask.aq{padding-top:32px !important}
+.aq-note{max-width:520px;margin:16px auto 0;font-size:13.5px;line-height:1.55;color:var(--c-soft)}
+.af-cv{font-size:12.5px;line-height:1.45;color:var(--c-soft)}
+@media (min-width:900px){
+  .sub main > .cr-roles + .ask.aq{padding-top:72px !important}
+  .aq-note{margin-top:20px;font-size:14px}
+}
+
 /* 27/11 · works page: a short header straight into the first project, photographs one at a time with arrows and swipe,
    shorter panels where photographs are still to come, and the closing buttons side by side on phones */
 .pj-head .h{font-size:clamp(44px,11vw,64px)}
@@ -1458,9 +1421,6 @@ html.calm .ld-box{opacity:1;transform:translateY(20px);animation:none !important
 html.calm .ld-bar{transform:none;animation:none !important}
 @media (prefers-reduced-motion:reduce){ .ld-cable{transform:scaleY(2);animation:none !important} .ld-box{opacity:1;transform:translateY(20px);animation:none !important} .ld-bar{transform:none;animation:none !important} }
 
-/* 27/11 · careers: the line on how we work closes the left column of the application, beside the form */
-.ask-band .ask-ethos{max-width:30em;margin:30px 0 0;padding:22px 0 0;border-top:1px solid rgba(255,255,255,.16);font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.62);text-align:left}
-@media (max-width:768px){ .ask-band .ask-ethos{margin-top:18px;padding-top:16px;font-size:13.5px} }
 
 /* 27/11 · works: each project opens with a fact sheet (type, location, status, our work), each fact with its line icon,
    and its key features as chips with icons, in place of the loose line of type and place and the plain list */
@@ -1569,12 +1529,6 @@ html.calm .ox-block{animation:none}
 }
 @media (max-width:899px){ .ox-stage .cm.bl,.ox-stage .cm.br{display:none} }
 
-/* 27/11 · Careers on phones: the ethos note sits under the form, not above it */
-.ask-ethos-m{display:none}
-@media (max-width:899px){
-  .ask-band .ask-ethos{display:none}
-  .ask > .ask-ethos-m{display:block;margin:4px 0 0;padding:16px 0 0;border-top:1px solid rgba(255,255,255,.16);font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.62)}
-}
 /* 27/11 · How we work on phones: the six principles as a two-column ruled grid, half the height of the list */
 @media (max-width:899px){
   .approach .svc.three{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;margin-top:18px;border-top:1px solid var(--ink)}
