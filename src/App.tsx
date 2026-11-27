@@ -39,7 +39,9 @@ export default function App({ page }: { page: PageKey }) {
     /* every page opens at the top: the browser's own scroll restoration, run after the smooth class is on, sent the page racing
        down to where it was left on reload. A link to a section (#...) still lands on that section. */
     history.scrollRestoration = 'manual';
-    if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    const reloaded = (performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined)?.type === 'reload';
+    if (reloaded && location.hash) history.replaceState(history.state, '', location.pathname + location.search);
+    if (reloaded || !location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     const smooth = () => document.documentElement.classList.add('smooth');
     if (document.readyState === 'complete') smooth();
     else window.addEventListener('load', smooth, { once: true });

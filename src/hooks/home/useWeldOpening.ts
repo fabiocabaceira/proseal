@@ -50,7 +50,10 @@ export function useWeldOpening(weld: RefObject<SVGSVGElement | null>): boolean {
     const ac = new AbortController();
     const { signal } = ac;
     const spawned = new Set<SVGElement>();
-    const target = location.hash;
+    /* a reload starts at the top: the #section left in the address by an earlier click must not fling the page there */
+    const reloaded = (performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined)?.type === 'reload';
+    if (reloaded && location.hash) history.replaceState(history.state, '', location.pathname + location.search);
+    const target = reloaded ? '' : location.hash;
     history.scrollRestoration = 'manual';
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
@@ -121,7 +124,7 @@ export function useWeldOpening(weld: RefObject<SVGSVGElement | null>): boolean {
       }
       if (signal.aborted) return;
       finishOpening();
-      if (target) document.getElementById(target.slice(1))?.scrollIntoView();
+      if (target) document.getElementById(target.slice(1))?.scrollIntoView({ behavior: 'instant' });
     };
     void run();
 
