@@ -1429,3 +1429,9 @@ html.calm .wwp-lead{transform:none !important;transition:none !important}
   .cr-head .cr-jump{margin-top:28px}
   .cr-head .wk-side{padding-bottom:12px}
 }
+
+/* 27/11 · desktop footer: the legal line sits on the left, next to the icons, and stops short of the floating quote and
+   call buttons on the right, so they never cover it; the footer keeps its height */
+@media (min-width:900px){
+  .legal{grid-column:3 / -1;justify-self:start;max-width:min(52em,calc(100% - 260px));padding-left:clamp(12px,1.6vw,28px);text-align:left}
+}
