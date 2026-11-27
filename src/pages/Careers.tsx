@@ -66,6 +66,10 @@ export default function CareersPage() {
           </p>
         </div>
         <ApplyForm />
+        {/* on phones the same note closes the section, under the form (the one in the band is hidden there) */}
+        <p className="cr-note ask-ethos ask-ethos-m">
+          Every project at ProSeal is planned and run with a strong focus on health and safety, quality and clear communication. We take responsibility for the work we undertake, and we expect the same of everyone on our team.
+        </p>
       </section>
     </main>
   );
