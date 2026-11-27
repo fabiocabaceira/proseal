@@ -22,7 +22,7 @@ export default function WorksPage(): JSX.Element {
       <section className="pj-group" aria-labelledby="current">
         <h2 className="pj-k" id="current">Current projects</h2>
         {PROJECTS.map((p, i) => (
-          <article className="pj" id={p.slug} key={p.slug}>
+          <article className={p.photos.length > 0 ? 'pj has-cover' : 'pj'} id={p.slug} key={p.slug}>
             <div className="pj-copy">
               <p className="pj-n">
                 <span>{pad2(i + 1)}</span>
@@ -34,7 +34,7 @@ export default function WorksPage(): JSX.Element {
               {p.features.length > 0 && <FeatureChips features={p.features} name={p.name} />}
             </div>
             <div className="pj-media">
-              {p.photos.length > 0 ? <Gallery photos={p.photos} label={`Images of ${p.name}`} tall={p.slug === 'buena-vista-villa'} /> : <PhotosToFollow name={p.name} />}
+              {p.photos.length > 0 ? <Gallery photos={p.photos} label={`Images of ${p.name}`} tall={p.slug === 'buena-vista-villa'} cover={{ kicker: `${pad2(i + 1)} · ${p.status}`, name: p.name }} /> : <PhotosToFollow name={p.name} />}
               {p.credit && <p className="pj-credit">{p.credit}</p>}
             </div>
           </article>
@@ -43,7 +43,7 @@ export default function WorksPage(): JSX.Element {
 
       <section className="pj-group" aria-labelledby="also-by">
         <h2 className="pj-k" id="also-by">Further projects</h2>
-        <article className="pj" id="beacon-point">
+        <article className="pj has-cover" id="beacon-point">
           <div className="pj-copy">
             <p className="pj-n">
               <span>{pad2(PROJECTS.length + 1)}</span>
@@ -59,15 +59,15 @@ export default function WorksPage(): JSX.Element {
             </p>
           </div>
           <div className="pj-media">
-            <Gallery photos={BEACON_RENDERS} label="Developer’s renders of The Villas Beacon Point" />
+            <Gallery photos={BEACON_RENDERS} label="Developer’s renders of The Villas Beacon Point" cover={{ kicker: `${pad2(PROJECTS.length + 1)} · In development`, name: 'The Villas Beacon Point' }} />
             <p className="pj-credit">Renders courtesy of the developer.</p>
           </div>
         </article>
-        <article className="pj" id="gun-wharf">
+        <article className="pj has-cover" id="gun-wharf">
           <div className="pj-copy">
             <p className="pj-n">
               <span>{pad2(PROJECTS.length + 2)}</span>
-              Restoration
+              Works carried out
             </p>
             <h3 className="pj-name">Gun Wharf</h3>
             <FactSheet facts={GUN_WHARF_FACTS} name="Gun Wharf" />
@@ -75,7 +75,7 @@ export default function WorksPage(): JSX.Element {
             <FeatureChips features={GUN_WHARF_FEATURES} name="Gun Wharf" />
           </div>
           <div className="pj-media">
-            <Gallery photos={GUN_WHARF} label="Photographs of Gun Wharf" />
+            <Gallery photos={GUN_WHARF} label="Photographs of Gun Wharf" cover={{ kicker: `${pad2(PROJECTS.length + 2)} · Works carried out`, name: 'Gun Wharf' }} />
           </div>
         </article>
       </section>
@@ -83,7 +83,7 @@ export default function WorksPage(): JSX.Element {
       <section className="pj-group" id="site-photography" aria-labelledby="from-sites">
         <h2 className="pj-k" id="from-sites">From our sites</h2>
         {SITE_PHOTOS.map((set) => (
-          <article className="pj" id={set.id} key={set.id}>
+          <article className="pj has-cover" id={set.id} key={set.id}>
             <div className="pj-copy">
               <p className="pj-n">Site photography</p>
               <h3 className="pj-name">{set.title}</h3>
@@ -91,7 +91,7 @@ export default function WorksPage(): JSX.Element {
               {set.features && <FeatureChips features={set.features} name={set.title} />}
             </div>
             <div className="pj-media">
-              <Gallery photos={set.photos} label={`Site photography: ${set.title.toLowerCase()}`} />
+              <Gallery photos={set.photos} label={`Site photography: ${set.title.toLowerCase()}`} cover={{ kicker: 'Site photography', name: set.title }} />
             </div>
           </article>
         ))}

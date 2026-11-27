@@ -1,10 +1,13 @@
 import { useRef, useState, type JSX } from 'react';
+
+/* the project's name laid over the first photograph (phones only, see .sl-cover) */
+export type Cover = { readonly kicker: string; readonly name: string };
 import type { Photo } from '../../data/projects';
 import { pad2 } from '../home/ring';
 
 const ARROW = <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>;
 
-function Shot({ p, sizes }: { readonly p: Photo; readonly sizes: string }): JSX.Element {
+function Shot({ p, sizes, cover }: { readonly p: Photo; readonly sizes: string; readonly cover?: Cover }): JSX.Element {
   return (
     <a className="shot" href={`img/${p.img}-1600.webp`} data-cap={p.caption} draggable={false}>
       <span className="shot-img">
@@ -17,6 +20,12 @@ function Shot({ p, sizes }: { readonly p: Photo; readonly sizes: string }): JSX.
           decoding="async"
           draggable={false}
         />
+        {cover && (
+          <span className="sl-cover" aria-hidden="true">
+            <span className="sl-cover-k">{cover.kicker}</span>
+            <span className="sl-cover-n">{cover.name}</span>
+          </span>
+        )}
       </span>
       <span className="shot-t">{p.caption}</span>
     </a>
@@ -25,7 +34,7 @@ function Shot({ p, sizes }: { readonly p: Photo; readonly sizes: string }): JSX.
 
 /* A project's photographs, one at a time: swipe or use the arrows; the back arrow appears from the second photograph on.
    `tall` sets portrait frames, two to a view on wide screens. Each photograph opens full screen (PhotoViewer). */
-export default function Gallery({ photos, label, tall = false }: { readonly photos: readonly Photo[]; readonly label: string; readonly tall?: boolean }): JSX.Element {
+export default function Gallery({ photos, label, tall = false, cover }: { readonly photos: readonly Photo[]; readonly label: string; readonly tall?: boolean; readonly cover?: Cover }): JSX.Element {
   const row = useRef<HTMLUListElement>(null);
   const [at, setAt] = useState(0);
   const [end, setEnd] = useState(photos.length < 2);
@@ -52,7 +61,7 @@ export default function Gallery({ photos, label, tall = false }: { readonly phot
       <ul className="sl-row" ref={row} onScroll={onScroll} tabIndex={0}>
         {photos.map((p, i) => (
           <li className="sl-i" key={p.img} aria-roledescription="slide" aria-label={`${i + 1} of ${photos.length}`}>
-            <Shot p={p} sizes={tall ? '(min-width:900px) 340px, 90vw' : '(min-width:900px) 680px, 100vw'} />
+            <Shot p={p} sizes={tall ? '(min-width:900px) 340px, 90vw' : '(min-width:900px) 680px, 100vw'} cover={i === 0 ? cover : undefined} />
           </li>
         ))}
       </ul>

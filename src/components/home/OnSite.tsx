@@ -132,7 +132,7 @@ export default function OnSite() {
           <em>site.</em>
         </h2>
         <div className="works-copy">
-          <p className="works-p">Photographed on our own sites across Gibraltar. <span>Real work, never stock imagery.</span></p>
+          <p className="works-p">Photographed on our own sites across Gibraltar, <span>while the work is under way.</span></p>
         </div>
       </div>
       <div className="os" role="region" aria-roledescription="carousel" aria-label="Photographs from our sites">

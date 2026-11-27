@@ -1498,3 +1498,16 @@ html.calm .ld-bar{transform:none;animation:none !important}
   .pj-chips{gap:6px;margin-top:14px}
   .pj-chips li{min-height:32px;padding:5px 12px 5px 9px;font-size:12.5px}
 }
+
+/* 27/11 · Works on phones: the first photograph opens each project, with its name laid over the bottom edge */
+.sl-cover{display:none}
+@media (max-width:899px){
+  .shot-img{position:relative}
+  .pj.has-cover .pj-media{order:-1}
+  .pj.has-cover .pj-copy > .pj-n,.pj.has-cover .pj-copy > .pj-name{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .pj.has-cover .pj-sheet{margin-top:0}
+  .pj.has-cover .pj-copy > .pj-p:first-of-type{margin-top:14px}
+  .sl-cover{position:absolute;inset:auto 0 0;display:grid;gap:7px;padding:64px 18px 16px;background:linear-gradient(to top,rgba(8,17,31,.86) 0%,rgba(8,17,31,.55) 42%,rgba(8,17,31,0) 100%);color:#fff;pointer-events:none}
+  .sl-cover-k{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72);font-variant-numeric:tabular-nums}
+  .sl-cover-n{font-size:clamp(28px,8.4vw,38px);line-height:1.02;letter-spacing:-.04em;font-weight:300;font-stretch:112%;text-wrap:balance;text-shadow:0 2px 18px rgba(0,0,0,.35)}
+}
