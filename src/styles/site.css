@@ -1386,7 +1386,7 @@ html.calm .wwp-lead{transform:none !important;transition:none !important}
 @media (min-width:900px){
   .wk-head.pj-head{grid-template-columns:auto minmax(0,1fr);column-gap:clamp(48px,6vw,96px);align-items:end;padding-top:calc(var(--bar) + 64px);padding-bottom:48px}
   .pj-head .h{font-size:clamp(56px,5.8vw,92px);white-space:nowrap}
-  .pj-head .page-lead{justify-self:end;max-width:30em;padding-bottom:10px}
+  .pj-head .page-lead{justify-self:end;max-width:31em;margin:0 0 -10px;padding:0;font-size:clamp(17px,1.35vw,20px);font-weight:300;font-stretch:108%;line-height:1.45;letter-spacing:-.012em;color:var(--ink);text-wrap:pretty}
   .sl-row{gap:16px}
   .sl-tall .sl-i{flex-basis:calc((100% - 16px) / 2)}
   .sl-b{width:52px;height:52px;margin-top:-26px}
