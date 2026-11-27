@@ -49,7 +49,8 @@ const SERVICES = [
         { name: 'Buena Vista Villa', text: 'A substantial luxury villa, currently under construction' },
         { name: 'Lancashire House', text: 'A new luxury residence within the grounds' },
       ],
-      ref: 'Buena Vista Villa, under construction',
+      ref: 'New-build housing, every stage',
+      refShot: true,
     },
   },
   {
@@ -225,20 +226,24 @@ export default function WhatWeDo() {
                 <div className="wwd-x" id={`wwd-x-${s.id}`}>
                   <div className="wwd-xi">
                     <p className="wwd-p">{s.text}</p>
-                    {s.panel.ref && (
-                      <p className="wwd-ref">
-                        {s.panel.refShot && s.panel.shot && <img src={`img/${s.panel.shot.slug}-480.webp`} alt="" loading="lazy" decoding="async" />}
-                        <span>{s.panel.ref}</span>
-                      </p>
-                    )}
-                    {s.job ? (
-                      <a className="wwd-q" href={`quote.html?job=${encodeURIComponent(s.job)}`} data-cta={`what-${s.id}`}>
-                        Request a quote
-                        {ARROW}
-                      </a>
-                    ) : (
-                      s.from && <p className="wwd-soon wwd-soon-m">{s.from}</p>
-                    )}
+                    <div className={`wwd-foot${s.panel.refShot && s.panel.shot ? ' has-shot' : ''}`}>
+                      {s.panel.ref && (
+                        <p className="wwd-ref">
+                          <span>{s.panel.ref}</span>
+                        </p>
+                      )}
+                      {s.job ? (
+                        <a className="wwd-q" href={`quote.html?job=${encodeURIComponent(s.job)}`} data-cta={`what-${s.id}`}>
+                          Request a quote
+                          {ARROW}
+                        </a>
+                      ) : (
+                        s.from && <p className="wwd-soon wwd-soon-m">{s.from}</p>
+                      )}
+                      {s.panel.refShot && s.panel.shot && (
+                        <img className="wwd-shot" src={`img/${s.panel.shot.slug}-480.webp`} alt={s.panel.shot.alt} loading="lazy" decoding="async" />
+                      )}
+                    </div>
                   </div>
                 </div>
                 {s.job && ARROW}

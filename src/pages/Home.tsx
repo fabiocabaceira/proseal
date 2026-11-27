@@ -15,9 +15,11 @@ export default function HomePage() {
       <Hero />
       {/* selected commissions and institutional clients, set in type on a dark band under the hero */}
       <Trust />
-      {/* 2. who we are: one sentence and three figures */}
+      {/* 2. who we are: the reels, then one sentence and three figures */}
       <section className="intro" id="about">
-        <div className="intro-copy">
+        {/* reels: the carousel on the left, a short text and the list of the four films on the right; the sentence and the figures close the section under them */}
+        <Reels />
+        <div className="intro-copy intro-after">
           <p className="lead">
             Luxury residences, restorations and commercial builds across Gibraltar since 2002.
           </p>
@@ -36,8 +38,6 @@ export default function HomePage() {
             <dd>Property maintenance</dd>
           </div>
         </dl>
-        {/* reels: the carousel on the left, a short text and the list of the four films on the right */}
-        <Reels />
       </section>
       {/* 3. what we do: a ruled index of the services beside a panel that shows the work behind the one pointed at; each name opens the quote form with that service, one quote request below */}
       <WhatWeDo />

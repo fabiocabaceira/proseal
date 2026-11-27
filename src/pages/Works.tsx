@@ -1,14 +1,7 @@
 import type { JSX } from 'react';
-import Gallery, { PhotosToFollow } from '../components/works/Gallery';
+import Gallery, { GalleryGrid, PhotosToFollow } from '../components/works/Gallery';
 import { pad2 } from '../components/home/ring';
 import { ALSO_BUILT, BEACON_RENDERS, GUN_WHARF, PROJECTS, SITE_PHOTOS } from '../data/projects';
-
-const CONTENTS = [
-  ...PROJECTS.map((p) => ({ id: p.slug, name: p.name, note: p.kind })),
-  { id: 'beacon-point', name: 'The Villas Beacon Point', note: 'In development' },
-  { id: 'gun-wharf', name: 'Gun Wharf', note: 'Restoration' },
-  { id: 'site-photography', name: 'From our sites', note: 'Site photography' },
-];
 
 export default function WorksPage(): JSX.Element {
   return (
@@ -22,17 +15,6 @@ export default function WorksPage(): JSX.Element {
           <p className="page-lead">
             A selection of the projects ProSeal is delivering in Gibraltar today, from luxury private residences to a private bank and a specialist clinic. Each project is listed with its essential facts and, where available, its photographs.
           </p>
-          <ol className="wk-toc">
-            {CONTENTS.map((c, i) => (
-              <li key={c.id}>
-                <a href={`#${c.id}`}>
-                  <span>{pad2(i + 1)}</span>
-                  <b>{c.name}</b>
-                  <i>{c.note}</i>
-                </a>
-              </li>
-            ))}
-          </ol>
         </div>
       </header>
 
@@ -58,7 +40,8 @@ export default function WorksPage(): JSX.Element {
               )}
             </div>
             <div className="pj-media">
-              {p.photos.length > 0 ? <Gallery photos={p.photos} label={`Photographs of ${p.name}`} /> : <PhotosToFollow name={p.name} />}
+              {p.photos.length > 0 ? <Gallery photos={p.photos} label={`Images of ${p.name}`} tall={p.slug === 'buena-vista-villa'} /> : <PhotosToFollow name={p.name} />}
+              {p.credit && <p className="pj-credit">{p.credit}</p>}
             </div>
           </article>
         ))}
@@ -84,7 +67,7 @@ export default function WorksPage(): JSX.Element {
             </p>
           </div>
           <div className="pj-media">
-            <Gallery photos={BEACON_RENDERS} label="Developer’s renders of The Villas Beacon Point" />
+            <GalleryGrid photos={BEACON_RENDERS} label="Developer’s renders of The Villas Beacon Point" />
             <p className="pj-credit">Renders courtesy of the developer.</p>
           </div>
         </article>

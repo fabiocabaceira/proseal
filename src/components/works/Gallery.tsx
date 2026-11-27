@@ -1,25 +1,79 @@
-import type { JSX } from 'react';
+import { useRef, useState, type JSX } from 'react';
 import type { Photo } from '../../data/projects';
+import { pad2 } from '../home/ring';
 
-/* A project's photographs: the first one wide, the rest in pairs. Each opens full screen (PhotoViewer). */
-export default function Gallery({ photos, label }: { readonly photos: readonly Photo[]; readonly label: string }): JSX.Element {
+const ARROW = <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>;
+
+function Shot({ p, sizes }: { readonly p: Photo; readonly sizes: string }): JSX.Element {
+  return (
+    <a className="shot" href={`img/${p.img}-1600.webp`} data-cap={p.caption} draggable={false}>
+      <span className="shot-img">
+        <img
+          src={`img/${p.img}-900.webp`}
+          srcSet={`img/${p.img}-900.webp 900w, img/${p.img}-1600.webp 1600w`}
+          sizes={sizes}
+          alt={p.alt}
+          loading="lazy"
+          decoding="async"
+          draggable={false}
+        />
+      </span>
+      <span className="shot-t">{p.caption}</span>
+    </a>
+  );
+}
+
+/* A project's photographs, one at a time: swipe or use the arrows; the back arrow appears from the second photograph on.
+   `tall` sets portrait frames, two to a view on wide screens. Each photograph opens full screen (PhotoViewer). */
+export default function Gallery({ photos, label, tall = false }: { readonly photos: readonly Photo[]; readonly label: string; readonly tall?: boolean }): JSX.Element {
+  const row = useRef<HTMLUListElement>(null);
+  const [at, setAt] = useState(0);
+  const [end, setEnd] = useState(photos.length < 2);
+
+  const onScroll = () => {
+    const el = row.current;
+    const first = el?.firstElementChild;
+    if (!el || !(first instanceof HTMLElement)) return;
+    const step = first.getBoundingClientRect().width + (parseFloat(getComputedStyle(el).columnGap) || 0);
+    setAt(Math.round(el.scrollLeft / step));
+    setEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 4);
+  };
+
+  const go = (dir: 1 | -1) => {
+    const el = row.current;
+    const first = el?.firstElementChild;
+    if (!el || !(first instanceof HTMLElement)) return;
+    const step = first.getBoundingClientRect().width + (parseFloat(getComputedStyle(el).columnGap) || 0);
+    el.scrollTo({ left: el.scrollLeft + dir * step, behavior: 'smooth' });
+  };
+
+  return (
+    <div className={`sl${tall ? ' sl-tall' : ''}`} role="region" aria-roledescription="carousel" aria-label={label}>
+      <ul className="sl-row" ref={row} onScroll={onScroll} tabIndex={0}>
+        {photos.map((p, i) => (
+          <li className="sl-i" key={p.img} aria-roledescription="slide" aria-label={`${i + 1} of ${photos.length}`}>
+            <Shot p={p} sizes={tall ? '(min-width:900px) 340px, 90vw' : '(min-width:900px) 680px, 100vw'} />
+          </li>
+        ))}
+      </ul>
+      {photos.length > 1 && (
+        <>
+          <button type="button" className="sl-b sl-prev" aria-label="Previous photograph" hidden={at === 0} onClick={() => go(-1)}>{ARROW}</button>
+          <button type="button" className="sl-b sl-next" aria-label="Next photograph" hidden={end} onClick={() => go(1)}>{ARROW}</button>
+          <p className="sl-count" aria-live="polite"><b>{pad2(Math.min(at + 1, photos.length))}</b>{` / ${pad2(photos.length)}`}</p>
+        </>
+      )}
+    </div>
+  );
+}
+
+/* the photographs side by side in a grid: used where a project has only a few, as for The Villas Beacon Point */
+export function GalleryGrid({ photos, label }: { readonly photos: readonly Photo[]; readonly label: string }): JSX.Element {
   return (
     <ul className="gal" aria-label={label}>
       {photos.map((p, i) => (
         <li key={p.img}>
-          <a className="shot" href={`img/${p.img}-1600.webp`} data-cap={p.caption}>
-            <span className="shot-img">
-              <img
-                src={`img/${p.img}-900.webp`}
-                srcSet={`img/${p.img}-900.webp 900w, img/${p.img}-1600.webp 1600w`}
-                sizes={i === 0 ? '(min-width:900px) 680px, 100vw' : '(min-width:900px) 340px, 50vw'}
-                alt={p.alt}
-                loading="lazy"
-                decoding="async"
-              />
-            </span>
-            <span className="shot-t">{p.caption}</span>
-          </a>
+          <Shot p={p} sizes={i === 0 ? '(min-width:900px) 680px, 100vw' : '(min-width:900px) 340px, 50vw'} />
         </li>
       ))}
     </ul>

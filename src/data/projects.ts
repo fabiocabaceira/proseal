@@ -19,6 +19,8 @@ export interface Project {
   readonly text: readonly string[];
   readonly features: readonly string[];
   readonly photos: readonly Photo[];
+  /** a line under the photographs, where they are not photographs of the finished work */
+  readonly credit?: string;
 }
 
 /* the current projects, as presented by the company */
@@ -34,7 +36,13 @@ export const PROJECTS: readonly Project[] = [
       'It is being built to a high specification, with a strong emphasis on quality, craftsmanship and attention to detail at every stage.',
     ],
     features: [],
-    photos: [],
+    photos: [
+      { img: 'projects/buena-vista-villa/villa', caption: 'The villa, with its infinity pool and green roof', alt: 'A white modern villa with a green roof, an infinity pool on its terrace and gardens below' },
+      { img: 'projects/buena-vista-villa/aerial', caption: 'Seen from above, with the Rock behind', alt: 'Aerial view of modern white villas with green roofs and pools along a road below the Rock of Gibraltar' },
+      { img: 'projects/buena-vista-villa/pool', caption: 'The pool and gardens', alt: 'A curved swimming pool seen from above, surrounded by gardens, parasols and stone walls' },
+      { img: 'projects/buena-vista-villa/terrace', caption: 'From the terrace, across the Strait to Africa', alt: 'A terrace with two sun loungers behind floor-to-ceiling glass, looking across the sea to the mountains of Africa' },
+    ],
+    credit: 'Computer-generated images based on the architect’s designs.',
   },
   {
     slug: 'healy-house',

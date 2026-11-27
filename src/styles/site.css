@@ -1361,3 +1361,62 @@ html.calm .wwp-lead{transform:none !important;transition:none !important}
   .qf .opts label{background:#0f2747}
   .qf .opts label:nth-last-child(-n+2){border-bottom:0}
 }
+
+/* 27/11 · works page: a short header straight into the first project, photographs one at a time with arrows and swipe,
+   shorter panels where photographs are still to come, and the closing buttons side by side on phones */
+.pj-head .h{font-size:clamp(44px,11vw,64px)}
+.sl{position:relative}
+.sl-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;outline:none}
+.sl-row::-webkit-scrollbar{display:none}
+.sl-row:focus-visible{outline:2px solid var(--navy);outline-offset:4px}
+.sl-i{flex:0 0 100%;min-width:0;scroll-snap-align:start}
+.sl .shot{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.sl-tall .shot-img{aspect-ratio:4/5}
+.sl-b{position:absolute;z-index:2;top:calc((100% - 30px) / 2);width:46px;height:46px;margin-top:-23px;display:grid;place-items:center;border:0;border-radius:50%;background:rgba(246,243,238,.92);color:var(--ink);box-shadow:0 10px 30px -12px rgba(11,22,38,.5);cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:background .3s var(--ease),color .3s var(--ease),transform .3s var(--ease)}
+.sl-b[hidden]{display:none}
+.sl-b:hover{background:var(--deep);color:#fff}
+.sl-b:active{transform:scale(.94)}
+.sl-b svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.sl-prev{left:12px}
+.sl-prev svg{transform:scaleX(-1)}
+.sl-next{right:12px}
+.sl-count{position:absolute;z-index:2;top:12px;left:12px;padding:6px 10px 5px;border-radius:999px;background:rgba(11,22,38,.62);color:rgba(255,255,255,.75);font-size:11px;letter-spacing:.14em;font-variant-numeric:tabular-nums;pointer-events:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.sl-count b{font-weight:500;color:#fff}
+.pj-wait{aspect-ratio:16/9;padding:28px 24px}
+@media (min-width:900px){
+  .wk-head.pj-head{grid-template-columns:auto minmax(0,1fr);column-gap:clamp(48px,6vw,96px);align-items:end;padding-top:calc(var(--bar) + 64px);padding-bottom:48px}
+  .pj-head .h{font-size:clamp(56px,5.8vw,92px);white-space:nowrap}
+  .pj-head .page-lead{justify-self:end;max-width:30em;padding-bottom:10px}
+  .sl-row{gap:16px}
+  .sl-tall .sl-i{flex-basis:calc((100% - 16px) / 2)}
+  .sl-b{width:52px;height:52px;margin-top:-26px}
+  .sl-prev{left:18px}
+  .sl-next{right:18px}
+  .sl-count{top:16px;left:16px}
+  .pj-wait{aspect-ratio:16/8}
+  .pj{padding:56px 0 64px}
+}
+@media (max-width:768px){
+  .cta-go{flex-wrap:nowrap;gap:8px}
+  .cta-go .pill{flex:1 1 0;min-width:0;padding:0 10px;font-size:13.5px}
+}
+
+/* 27/11 · the company sentence and its figures sit under the reels, as the close of the section, not as a loose line above it */
+.intro-after{margin-top:44px;padding-top:28px;border-top:1px solid var(--line)}
+@media (min-width:900px){ .intro-after{align-self:start;margin-top:88px;padding-top:40px;border-top-color:var(--ink)} .intro-after + .facts{align-self:start;margin-top:88px;padding:0;border-top:0} .intro-after + .facts > div{padding-top:40px} }
+@media (max-width:768px){ .intro-after{margin-top:30px;padding-top:20px} }
+
+/* 27/11 · what we do on phones: where a service has a photograph from our sites, it sits larger beside the reference and
+   the quote button, in the space the button row left empty, so the open row is no taller than before */
+.wwd-foot{display:contents}
+.wwd-shot{display:none}
+@media (max-width:768px){
+  .wwd-foot{display:flex;flex-direction:column;align-items:flex-start;gap:12px;align-self:stretch}
+  .wwd-foot.has-shot{display:grid;grid-template-columns:max-content minmax(0,1fr);grid-template-rows:auto auto;column-gap:12px;row-gap:10px;align-items:start}
+  .wwd-foot.has-shot .wwd-q{white-space:nowrap}
+  .wwd-foot.has-shot .wwd-ref{grid-column:1;grid-row:1;align-self:start;width:0;min-width:100%}
+  .wwd-foot.has-shot .wwd-q{grid-column:1;grid-row:2}
+  .wwd-foot.has-shot .wwd-shot{display:block;grid-column:2;grid-row:1 / 3;justify-self:stretch;width:100%;height:100%;min-height:92px;max-height:104px;object-fit:cover;border-radius:4px;box-shadow:0 18px 30px -20px rgba(11,22,38,.6)}
+  .wwd-foot.has-shot .wwd-ref::before{content:"";flex:0 0 18px;height:1px;background:var(--ink)}
+  .wwd-xi > .wwd-foot:last-child{margin-bottom:18px}
+}
