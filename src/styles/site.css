@@ -1587,3 +1587,12 @@ html.calm .ox-block{animation:none}
   .ask-band .ask-ethos{display:none}
   .ask > .ask-ethos-m{display:block;margin:4px 0 0;padding:16px 0 0;border-top:1px solid rgba(255,255,255,.16);font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.62)}
 }
+/* 27/11 · How we work on phones: the six principles as a two-column ruled grid, half the height of the list */
+@media (max-width:899px){
+  .approach .svc.three{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;margin-top:18px;border-top:1px solid var(--ink)}
+  .approach .svc.three .svc-i{display:block;padding:14px 12px 16px 0;border-bottom:1px solid var(--line);border-top:0}
+  .approach .svc.three .svc-i:nth-child(even){padding:14px 0 16px 14px;border-left:1px solid var(--line)}
+  .approach .svc.three .svc-n{margin:0;padding:0;font-size:10px;letter-spacing:.16em;color:var(--mute)}
+  .approach .svc.three .svc-t{margin:6px 0 0;padding:0;font-size:17px;line-height:1.15;letter-spacing:-.02em}
+  .approach .svc.three .svc-p{margin:6px 0 0;padding:0;font-size:13px;line-height:1.42}
+}
