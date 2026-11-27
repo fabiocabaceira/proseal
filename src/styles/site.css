@@ -1441,3 +1441,25 @@ html.calm .wwp-lead{transform:none !important;transition:none !important}
   .dock:not(.is-away){transition:opacity .3s var(--ease),transform .45s var(--ease),visibility 0s}
   .dock.is-away{opacity:0;transform:translateY(20px);pointer-events:none;visibility:hidden;transition:opacity .3s var(--ease),transform .45s var(--ease),visibility 0s linear .45s}
 }
+
+/* 27/11 · how we work, Build: after the frame and the crane are drawn, the cable pays out and sets the pallet of materials
+   on the frame, then the programme sheet fills bar by bar and is ticked. Plays each time the step opens. */
+.how.in .fig.is-on .s.d4{transition-delay:1.05s}
+.how.in .fig.is-on .s.d5{transition-delay:3.3s;transition-duration:.9s}
+.ld-cable,.ld-box,.ld-bar{fill:none;stroke:var(--navy);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;transform-box:fill-box}
+.ld-cable{transform-origin:50% 0;transform:scaleY(0)}
+.ld-box{opacity:0}
+.ld-bar{transform-origin:0 50%;transform:scaleX(0);stroke-width:2.2}
+.how.in .fig.is-on .ld-cable{animation:ld-cable 2s cubic-bezier(.45,0,.2,1) 1.5s forwards}
+.how.in .fig.is-on .ld-box{animation:ld-box 2s cubic-bezier(.45,0,.2,1) 1.5s forwards}
+.how.in .fig.is-on .ld-bar{animation:ld-bar .7s cubic-bezier(.22,.8,.2,1) forwards}
+.how.in .fig.is-on .ld-bar.b1{animation-delay:2.3s}
+.how.in .fig.is-on .ld-bar.b2{animation-delay:2.6s}
+.how.in .fig.is-on .ld-bar.b3{animation-delay:2.9s}
+@keyframes ld-cable{0%{transform:scaleY(0)}35%{transform:scaleY(1)}100%{transform:scaleY(2)}}
+@keyframes ld-box{0%,30%{opacity:0;transform:translateY(0)}35%{opacity:1;transform:translateY(0)}92%{transform:translateY(20.5px)}100%{opacity:1;transform:translateY(20px)}}
+@keyframes ld-bar{to{transform:scaleX(1)}}
+html.calm .ld-cable{transform:scaleY(2);animation:none !important}
+html.calm .ld-box{opacity:1;transform:translateY(20px);animation:none !important}
+html.calm .ld-bar{transform:none;animation:none !important}
+@media (prefers-reduced-motion:reduce){ .ld-cable{transform:scaleY(2);animation:none !important} .ld-box{opacity:1;transform:translateY(20px);animation:none !important} .ld-bar{transform:none;animation:none !important} }

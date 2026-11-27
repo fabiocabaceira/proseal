@@ -14,13 +14,20 @@ const FIGS = [
     <path className="s d2" pathLength="1" d="M44 118h112M44 114v8M156 114v8" />
   </>,
   <>
-    {/* build: the frame going up inside its scaffolding, the crane lifting a pallet of materials bought direct,
-        and the programme sheet that keeps the client informed */}
-    <path className="s" pathLength="1" d="M14 128h172M62 128V74h62v54M62 101h62M83 128V74M103 128V74" />
+    {/* build, told in order: the ground floor and the scaffolding go up, then the first floor and the crane; the crane
+        lowers a pallet of materials, bought direct, onto the frame; the programme sheet fills bar by bar and is ticked */}
+    <path className="s" pathLength="1" d="M14 128h172" />
+    <path className="s" pathLength="1" d="M62 128v-27h62v27M83 128v-27M103 128v-27" />
     <path className="s" pathLength="1" d="M124 128V66M140 128V66M124 112h16M124 96h16M124 80h16M124 66h16M124 112l16-16M124 80l16-14" />
-    <path className="s d2" pathLength="1" d="M40 128V22M40 22V12M28 22h104M28 22v7h9v-7M40 12L28 22M40 12l92 10M112 22v20" />
-    <path className="s d2" pathLength="1" d="M104 42h16v10h-16zM104 47h16" />
-    <path className="s d3" pathLength="1" d="M146 26h38v32h-38zM152 35h20M152 42h26M152 49h12" />
+    <path className="s d2" pathLength="1" d="M62 101V74h62v27M83 101V74M103 101V74" />
+    <path className="s d3" pathLength="1" d="M40 128V12M28 22h104M28 22v7h9v-7M40 12L28 22M40 12l92 10" />
+    <path className="ld-cable" d="M112 22v20" />
+    <path className="ld-box" d="M104 42h16v10h-16zM104 47h16" />
+    <path className="s d4" pathLength="1" d="M146 26h38v32h-38z" />
+    <path className="ld-bar b1" d="M152 35h20" />
+    <path className="ld-bar b2" d="M152 42h26" />
+    <path className="ld-bar b3" d="M152 49h12" />
+    <path className="s d5" pathLength="1" d="M170 52l4 4 8-9" />
   </>,
   <>
     <circle className="s" pathLength="1" cx="66" cy="75" r="26" />
