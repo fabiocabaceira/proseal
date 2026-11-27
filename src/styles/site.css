@@ -1598,3 +1598,18 @@ html.calm .ox-block{animation:none}
 }
 /* 27/11 · contact details laid straight on the page, ruled like the fact sheets, not in a card */
 .find-card,.find-card[class]{padding:0 !important;background:none;border-radius:0;box-shadow:none;border-top:1px solid var(--ink);border-bottom:1px solid rgba(16,28,46,.12)}
+/* 27/11 · On site on phones: the photograph narrower, the six thumbnails stacked down its left side */
+@media (max-width:899px){
+  .ox{grid-template-columns:58px minmax(0,1fr);column-gap:10px;row-gap:14px}
+  .ox-side,.ox-foot{display:contents}
+  .ox-index{grid-column:1;grid-row:1;grid-template-columns:1fr;grid-template-rows:repeat(6,minmax(0,1fr));gap:6px;align-self:stretch}
+  .ox-index li{min-height:0}
+  .ox-th{height:100%;gap:0}
+  .ox-th img{height:100%;aspect-ratio:auto;outline-offset:2px}
+  .ox-stage{grid-column:2;grid-row:1}
+  .ox-img{aspect-ratio:4/5}
+  .ox-cover{padding:56px 14px 12px}
+  .ox-cover-n{font-size:clamp(24px,7vw,30px)}
+  .ox-block{grid-column:1 / -1;grid-row:2}
+  .ox-nav{grid-column:1 / -1;grid-row:3}
+}
